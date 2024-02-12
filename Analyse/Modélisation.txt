@@ -20,6 +20,7 @@ Permission(id, permission, type_role_id),
 
 Utilisateur(id, nom, prenoms, date_naissance, sexe, nationnalite, email, telephone, password, hotel_id),
 
+HotelUtilisateur(hotel_id, utilisateur_id)
 
 RoleUtilisateur(role_id, utilisateur_id),
 
@@ -34,7 +35,9 @@ TypeService(id, type, prix),
 
 Service(id, description, utilisateur_id, type_service_id),
 
-Paiement(id, utilisateur_id, moyen_paiement, montant, date_paiement),
+MoyenPaiement(id, moyen),
+
+Paiement(id, utilisateur_id, moyen_paiement, montant, date_paiement, moyen_paiement_id),
 
 Facture(id, type, montant_total, paiement_id)
 
