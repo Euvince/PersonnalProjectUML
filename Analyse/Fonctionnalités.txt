@@ -1,0 +1,81 @@
+Fonctionnalités du Système pour le Client : 
+
+*Visiter la liste de toutes les chambres; 
+
+*Consulter une chambre spécifique;
+
+*Réserver une chambre;
+
+
+Fonctionnalités du Système pour l'Administrateur : 
+
+*Gestion des Départements
+-Ajouter un département
+-Éditer un département
+-Supprimer un département
+
+*Gestion des Communues
+-Ajouter un commune
+-Éditer un commune
+-Supprimer un commune
+
+*Gestion des Arrondissements
+-Ajouter un arrondissement
+-Éditer un arrondissement
+-Supprimer un arrondissement
+
+*Gestion des Quartiers
+-Ajouter un quartier
+-Éditer un quartier
+-Supprimer un quartier
+
+*Gestion des Hôtels
+-Ajouter un hôtel
+-Éditer un hôtel
+-Supprimer un hôtel
+
+*Gestion des Utilisateurs
+-Ajouter un utilisateur
+-Éditer un utilisateur
+-Supprimer un utilisateur
+
+*Gestion des Chambres
+-Ajouter une chambre
+-Éditer une chambre
+-Supprimer une chambre
+
+*Gestion des Fonctions
+-Ajouter une fonction
+-Éditer une fonction
+-Supprimer une fonction
+
+*Gestion des Rôles
+-Ajouter un rôle
+-Éditer un rôle
+-Supprimer un rôle
+
+*Gestion des Permissions
+-Ajouter une permission
+-Éditer une permission
+-Supprimer une permission
+
+Fonctionnalités du Système pour le Personnel de Réception : 
+
+*Gestion des Réservations de chambres
+
+-Confirmer une réservation
+-Annuler une réservation
+-Check-In
+-Check-Out
+
+
+Fonctionnalités du Système pour le Personnel de Restauration : 
+
+*Gestion de la restauration
+
+Fonctionnalités du Système pour le Personnel de l'Hébergement : 
+
+*Gestion des services de chambres
+
+-Néttoyage,
+-Lingerie,
