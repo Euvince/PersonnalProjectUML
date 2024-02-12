@@ -18,6 +18,9 @@ return new class extends Migration
             $table->float('lattitude');
             $table->unsignedBigInteger('commune_id');
             $table->foreign('commune_id')->references('id')->on('communes');
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

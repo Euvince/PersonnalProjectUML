@@ -30,6 +30,9 @@ return new class extends Migration
             $table->unsignedBigInteger('type_role_id');
             $table->foreign('type_role_id')->references('id')->on('types_roles');
             $table->string('guard_name'); // For MySQL 8.0 use string('guard_name', 125);
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
@@ -46,6 +49,9 @@ return new class extends Migration
             $table->unsignedBigInteger('type_role_id');
             $table->foreign('type_role_id')->references('id')->on('types_roles');
             $table->string('guard_name'); // For MySQL 8.0 use string('guard_name', 125);
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
             if ($teams || config('permission.testing')) {

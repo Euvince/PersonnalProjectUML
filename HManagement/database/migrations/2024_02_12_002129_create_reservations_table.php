@@ -20,6 +20,9 @@ return new class extends Migration
             $table->boolean('statut');
             $table->float('prix');
             $table->date('date_reservation');
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

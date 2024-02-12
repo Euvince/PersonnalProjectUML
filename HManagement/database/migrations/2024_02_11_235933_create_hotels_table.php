@@ -22,7 +22,11 @@ return new class extends Migration
             $table->float('directeur');
             $table->unsignedBigInteger('quartier_id');
             $table->foreign('quartier_id')->references('id')->on('quartiers');
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

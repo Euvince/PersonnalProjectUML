@@ -23,6 +23,9 @@ return new class extends Migration
             $table->string('telephone')->unique();
             $table->string('password');
             $table->rememberToken();
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

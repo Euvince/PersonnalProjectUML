@@ -18,7 +18,7 @@ Role(id, role, type_role_id),
 
 Permission(id, permission, type_role_id),
 
-Utilisateur(id, nom, prenoms, date_naissance, sexe, nationnalite, email, telephone, password, hotel_id),
+Utilisateur(id, nom, prenoms, date_naissance, sexe, nationnalite, email, telephone, password),
 
 HotelUtilisateur(hotel_id, utilisateur_id)
 

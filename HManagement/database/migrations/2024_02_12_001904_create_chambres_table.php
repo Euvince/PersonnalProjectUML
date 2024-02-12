@@ -23,7 +23,11 @@ return new class extends Migration
             $table->foreign('type_chambre_id')->references('id')->on('types_chambres');
             $table->unsignedBigInteger('hotel_id');
             $table->foreign('hotel_id')->references('id')->on('hotels');
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

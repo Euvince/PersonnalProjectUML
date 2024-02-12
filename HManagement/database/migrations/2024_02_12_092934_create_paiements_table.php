@@ -20,6 +20,9 @@ return new class extends Migration
             $table->date('date_paiement');
             $table->unsignedBigInteger('moyen_paiement_id');
             $table->foreign('moyen_paiement_id')->references('id')->on('moyens_paiements');
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
