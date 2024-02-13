@@ -24,17 +24,17 @@ class TypeChambre extends Model
         if (!app()->runningInConsole()) {
             $userFullName = Auth::user()->nom . " " . Auth::user()->prenoms;
 
-            static::creating(function ($user) use ($userFullName) {
-                $user->created_by = $userFullName;
+            static::creating(function ($typeChambre) use ($userFullName) {
+                $typeChambre->created_by = $userFullName;
             });
 
-            static::updating(function ($user) use ($userFullName) {
-                $user->updated_by = $userFullName;
+            static::updating(function ($typeChambre) use ($userFullName) {
+                $typeChambre->updated_by = $userFullName;
             });
 
-            static::deleting(function ($user) use ($userFullName) {
-                $user->deleted_by = $userFullName;
-                $user->save();
+            static::deleting(function ($typeChambre) use ($userFullName) {
+                $typeChambre->deleted_by = $userFullName;
+                $typeChambre->save();
             });
         }
     }

@@ -29,6 +29,7 @@ PermissionUtilisateur(permission_id, utilisateur_id),
 PermissionRole(permission_id, role_id),
 
 
+
 Reservation(id, chambre_id, utilisateur_id, statut, date_reservation, prix),
 
 TypeService(id, type, prix),
@@ -37,7 +38,7 @@ Service(id, description, utilisateur_id, type_service_id),
 
 MoyenPaiement(id, moyen),
 
-Paiement(id, utilisateur_id, moyen_paiement, montant, date_paiement, moyen_paiement_id),
+Paiement(id, utilisateur_id, montant, date_paiement, moyen_paiement_id),
 
 Facture(id, type, montant_total, paiement_id)
 
