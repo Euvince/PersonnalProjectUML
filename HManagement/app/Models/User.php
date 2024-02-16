@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Service;
 use App\Models\Reservation;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
@@ -57,10 +58,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
-    /* protected static function boot() {
+   /*  protected static function boot() {
 
         parent::boot();
-        if (!app()->runningInConsole() && request()->route()->getName() !== 'register') {
+
+        if (!app()->runningInConsole() && !Str::contains(request()->route()->getName() , 'register')) {
             $userFullName = Auth::user()->nom . " " . Auth::user()->prenoms;
 
             static::creating(function ($user) use ($userFullName) {

@@ -1,5 +1,6 @@
 
 
+    @livewireScripts()
 
     <!-- offset area end -->
     <!-- jquery latest version -->

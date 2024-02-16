@@ -93,7 +93,13 @@ class DatabaseSeeder extends Seeder
             'telephone' => fake()->phoneNumber(),
             'nationnalite' => fake()->country(),
             'date_naissance' => fake()->date()
-        ])->assignRole(['Administrateur'])/* ->permissions()->sync(Permission::where('type_role_id')) */;
+        ])->assignRole(['Administrateur'])->permissions()->sync([
+            /* Permission::where('type_role_id', TypeRole::where('type', 'Administrateur')->first()->id)->get() */
+            Permission::where('name', 'Gérer le Personnel')->first()->id,
+            Permission::where('name', 'Gérer les Types de Chambres')->first()->id,
+            Permission::where('name', 'Gérer les Chambres')->first()->id,
+            Permission::where('name', 'Gérer les Rôles')->first()->id
+        ]);
 
         \App\Models\User::factory()->create([
             'nom' => 'Lossin',
@@ -104,18 +110,23 @@ class DatabaseSeeder extends Seeder
             'telephone' => fake()->phoneNumber(),
             'nationnalite' => fake()->country(),
             'date_naissance' => fake()->date()
-        ])->assignRole(['Personnel de Réception']);
+        ])->assignRole(['Personnel de Réception'])->permissions()->sync([
+            Permission::where('name', 'Gérer les Clients')->first()->id,
+            Permission::where('name', 'Gérer les Réservations')->first()->id
+        ]);
 
         \App\Models\User::factory()->create([
             'nom' => 'Jackson',
             'sexe' => 'Masculin',
             'prenoms' => 'jinard',
             'email' => 'jin@jack.fr',
-            'password' => Hash::make('jackjinard'),
+            'password' => Hash::make('123456789'),
             'telephone' => fake()->phoneNumber(),
             'nationnalite' => fake()->country(),
             'date_naissance' => fake()->date()
-        ])->assignRole(['Personnel de Service']);
+        ])->assignRole(['Personnel de Service'])->permissions()->sync([
+            Permission::where('name', 'Gérer les Demandes de Services')->first()->id
+        ]);
 
         /* User::factory()->count(15)->create(); */
     }

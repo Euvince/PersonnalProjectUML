@@ -232,5 +232,12 @@ return [
         'user'                     => 'utilisateur',
         'username'                 => 'nom d\'utilisateur',
         'year'                     => 'année',
+        'nom'                      => 'Nom',
+        'prenoms'                  => 'Prénoms',
+        'date_naissance'           => 'Date de naissance',
+        'nationnalite'             => 'Nationnalité',
+        'telephone'                => 'Téléphone',
+        'sexe'                     => 'Sexe',
+        'password'                 => 'Mot de passe',
     ],
 ];

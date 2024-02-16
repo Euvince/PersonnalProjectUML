@@ -13,7 +13,7 @@ class Permission extends ModelsPermission
 {
     use HasFactory, SoftDeletes;
 
-    protected static function boot() {
+    /* protected static function boot() {
 
         parent::boot();
         if (!app()->runningInConsole()) {
@@ -32,7 +32,7 @@ class Permission extends ModelsPermission
                 $permission->save();
             });
         }
-    }
+    } */
 
     public function TypeRole() : BelongsTo {
         return $this->belongsTo(TypeRole::class, 'type_role_id', 'id');

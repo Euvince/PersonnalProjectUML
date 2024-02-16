@@ -13,7 +13,7 @@
         </form>
     </div>
     <div class="col-12 mt-5">
-        <a href="{{ route('super-admin.departements.create') }}" class="btn btn-primary mb-3">Ajouter un Département</a>
+        <a href="{{ route('super-admin.departements.create') }}" class="btn btn-primary mb-3"><i class="fa fa-plus"></i> Ajouter un Département</a>
         @if (session('success'))
             <div class="alert alert-success" role="alert">
                 <strong>{{ session('success') }}</strong>

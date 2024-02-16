@@ -20,26 +20,26 @@ class Role extends ModelsRole
         'type_role_id'
     ];
 
-    protected static function boot() {
+    /* protected static function boot() {
 
         parent::boot();
         if (!app()->runningInConsole()) {
             $userFullName = Auth::user()->nom . " " . Auth::user()->prenoms;
 
-            static::creating(function ($chambre) use ($userFullName) {
-                $chambre->created_by = $userFullName;
+            static::creating(function ($role) use ($userFullName) {
+                $role->created_by = $userFullName;
             });
 
-            static::updating(function ($chambre) use ($userFullName) {
-                $chambre->updated_by = $userFullName;
+            static::updating(function ($role) use ($userFullName) {
+                $role->updated_by = $userFullName;
             });
 
-            static::deleting(function ($chambre) use ($userFullName) {
-                $chambre->deleted_by = $userFullName;
-                $chambre->save();
+            static::deleting(function ($role) use ($userFullName) {
+                $role->deleted_by = $userFullName;
+                $role->save();
             });
         }
-    }
+    } */
 
     public function TypeRole() : BelongsTo {
         return $this->belongsTo(TypeRole::class, 'type_role_id', 'id');

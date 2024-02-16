@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\Models\Permission;
 use App\Models\Departement;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SuperAdmin\DepartementFormRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\SuperAdmin\DepartementFormRequest;
+use App\Models\TypeRole;
 
 class DepartementController extends Controller
 {
@@ -17,7 +19,6 @@ class DepartementController extends Controller
      */
     public function index() : View
     {
-        /* dd(Auth::user()->can('Gérer les Départements')); */
         return view('SuperAdmin.Departement.departements', [
             'departements' => Departement::paginate(20)
         ]);

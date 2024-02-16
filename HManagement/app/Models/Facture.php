@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Paiement;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,6 +18,27 @@ class Facture extends Model
         'paiement_id',
         'montant_total'
     ];
+
+    protected static function boot() {
+
+        parent::boot();
+        if (!app()->runningInConsole()) {
+            $userFullName = Auth::user()->nom . " " . Auth::user()->prenoms;
+
+            static::creating(function ($facture) use ($userFullName) {
+                $facture->created_by = $userFullName;
+            });
+
+            static::updating(function ($facture) use ($userFullName) {
+                $facture->updated_by = $userFullName;
+            });
+
+            static::deleting(function ($facture) use ($userFullName) {
+                $facture->deleted_by = $userFullName;
+                $facture->save();
+            });
+        }
+    }
 
     public function paiement() : BelongsTo {
         return $this->belongsTo(Paiement::class);

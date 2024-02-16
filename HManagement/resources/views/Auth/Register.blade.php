@@ -11,8 +11,8 @@
                 <form action="{{ route('register') }}" method="POST">
                     @csrf
                     <div class="login-form-head">
-                        <h4>Sign up</h4>
-                        <p>Hello there, Sign up and Join with Us</p>
+                        <h4>Créer un compte</h4>
+                        <p>Enrégistrez-vous et profitez de nos offres un peu partout.</p>
                     </div>
                     <div class="login-form-body">
                         <div class="form-gp">
@@ -20,7 +20,7 @@
                             <input type="text" id="nom" name="nom" value="{{ old('nom') }}">
                             <i class="ti-user"></i>
                             <div class="text-danger">
-                                @error('name')
+                                @error('nom')
                                     {{ $message }}
                                 @enderror
                             </div>
@@ -88,7 +88,7 @@
                         <div class="form-gp">
                             <label for="password">Mot de Passe</label>
                             <input type="password" id="password" name="password">
-                            <i class="ti-user"></i>
+                            <i class="ti-lock"></i>
                             <div class="text-danger">
                                 @error('password')
                                     {{ $message }}
@@ -106,18 +106,18 @@
                             </div>
                         </div>
                         <div class="submit-btn-area">
-                            <button id="form_submit" type="submit">Submit <i class="ti-arrow-right"></i></button>
+                            <button id="form_submit" type="submit">Soumettre <i class="ti-arrow-right"></i></button>
                             <div class="login-other row mt-4">
                                 <div class="col-6">
-                                    <a class="fb-login" href="#">Sign up with <i class="fa fa-facebook"></i></a>
+                                    <a class="fb-login" href="#">S'enrégister avec <i class="fa fa-facebook"></i></a>
                                 </div>
                                 <div class="col-6">
-                                    <a class="google-login" href="#">Sign up with <i class="fa fa-google"></i></a>
+                                    <a class="google-login" href="#">S'enrégister avec <i class="fa fa-google"></i></a>
                                 </div>
                             </div>
                         </div>
                         <div class="form-footer text-center mt-5">
-                            <p class="text-muted">Don't have an account? <a href="login.html">Sign in</a></p>
+                            <p class="text-muted">Vous avez déjà un compte ? <a href="{{ route('register') }}">Se connecter</a></p>
                         </div>
                     </div>
                 </form>

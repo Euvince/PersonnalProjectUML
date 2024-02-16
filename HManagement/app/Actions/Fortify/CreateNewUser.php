@@ -4,6 +4,8 @@ namespace App\Actions\Fortify;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Permission;
+use App\Rules\UserBirthDayRule;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -22,6 +24,7 @@ class CreateNewUser implements CreatesNewUsers
     {
         Validator::make($input, [
             'nom' => ['required', 'string', 'max:255'],
+            'sexe' => ['required'],
             'email' => [
                 'required',
                 'string',
@@ -29,10 +32,14 @@ class CreateNewUser implements CreatesNewUsers
                 'max:255',
                 Rule::unique(User::class),
             ],
+            'prenoms' => ['required', 'string', 'max:255'],
             'password' => $this->passwordRules(),
+            'telephone' => ['required', 'string',],
+            'nationnalite' => ['required', 'string',],
+            'date_naissance' => ['required', 'string', new UserBirthDayRule()],
         ])->validate();
 
-        return User::create([
+        $user = User::create([
             'nom' => $input['nom'],
             'prenoms' => $input['prenoms'],
             'date_naissance' => $input['date_naissance'],
@@ -41,6 +48,14 @@ class CreateNewUser implements CreatesNewUsers
             'email' => $input['email'],
             'telephone' => $input['telephone'],
             'password' => Hash::make($input['password']),
-        ])->assignRole(Role::where('name', 'Client'))->sync(['Consulter une']);
+        ]);
+        $user->roles()->sync(Role::where('name', 'Client')->first()->id);
+        $user->permissions()->sync([
+            Permission::where('name', 'Consulter une Chambre')->first()->id,
+            Permission::where('name', 'Réserver une Chambre')->first()->id,
+            Permission::where('name', 'Demander un Service')->first()->id,
+        ]);
+
+        return $user;
     }
 }

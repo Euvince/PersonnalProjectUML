@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\SuperAdmin;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DepartementFormRequest extends FormRequest
@@ -22,7 +23,11 @@ class DepartementFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => ['required'],
+            'nom' => ['required',
+                Rule::unique('departements')
+                ->ignore($this->route()->parameter('departement'))
+                ->withoutTrashed()
+            ],
             'longitude' => ['required'],
             'lattitude' => ['required'],
         ];
