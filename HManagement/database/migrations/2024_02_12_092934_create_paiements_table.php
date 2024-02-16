@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('paiements', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->float('montant');
             $table->date('moyen_paiement');
             $table->date('date_paiement');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('moyen_paiement_id');
             $table->foreign('moyen_paiement_id')->references('id')->on('moyens_paiements');
             $table->string('created_by')->nullable();

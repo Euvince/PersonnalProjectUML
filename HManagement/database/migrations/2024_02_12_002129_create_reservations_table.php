@@ -17,8 +17,10 @@ return new class extends Migration
             $table->foreign('chambre_id')->references('id')->on('chambres');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->boolean('statut');
+            $table->string('statut')->default('Impayé');
             $table->float('prix');
+            $table->date('debut_sejour');
+            $table->date('fin_sejour');
             $table->date('date_reservation');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();

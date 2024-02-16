@@ -13,6 +13,8 @@ class MoyenPaiement extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'moyens_paiements';
+
     protected $fillable = [
         'id', 'moyen'
     ];

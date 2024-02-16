@@ -16,10 +16,11 @@ return new class extends Migration
             $table->string('nom');
             $table->float('longitude');
             $table->float('lattitude');
-            $table->float('adresse_postale');
-            $table->float('email');
-            $table->float('telephone');
-            $table->float('directeur');
+            $table->string('adresse_postale');
+            $table->string('email')->unique();
+            $table->string('telephone');
+            $table->string('directeur');
+            $table->string('photo')->nullable();
             $table->unsignedBigInteger('quartier_id');
             $table->foreign('quartier_id')->references('id')->on('quartiers');
             $table->string('created_by')->nullable();

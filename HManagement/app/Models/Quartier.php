@@ -19,7 +19,7 @@ class Quartier extends Model
         'nom',
         'longitude',
         'lattitude',
-        'arrondissemnt_id'
+        'arrondissement_id'
     ];
 
     protected static function boot() {

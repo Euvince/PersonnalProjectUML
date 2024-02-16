@@ -13,6 +13,8 @@ class TypeService extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'types_services';
+
     protected $fillable = [
         'type',
         'prix'

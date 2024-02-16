@@ -17,7 +17,7 @@ class MoyenPaiementFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'moyen' => $this->faker->unique()->randomElement(['MOOV', 'MTN', 'STRIPE', 'ECOBANK'])
         ];
     }
 }

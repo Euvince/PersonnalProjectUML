@@ -1,81 +1,94 @@
-Fonctionnalités du Système pour le Client : 
-
-*Visiter la liste de toutes les chambres; 
-
-*Consulter une chambre spécifique;
-
-*Réserver une chambre;
-
-
-Fonctionnalités du Système pour l'Administrateur : 
+Fonctionnalités du Système pour le Super Administrateur
 
 *Gestion des Départements
+-Rechercher un département
 -Ajouter un département
 -Éditer un département
 -Supprimer un département
 
 *Gestion des Communues
--Ajouter un commune
--Éditer un commune
--Supprimer un commune
+-Rechercher une commune
+-Ajouter une commune
+-Éditer une commune
+-Supprimer une commune
 
 *Gestion des Arrondissements
+-Rechercher un arrondissement
 -Ajouter un arrondissement
 -Éditer un arrondissement
 -Supprimer un arrondissement
 
 *Gestion des Quartiers
+-Rechercher un quartier
 -Ajouter un quartier
 -Éditer un quartier
 -Supprimer un quartier
 
 *Gestion des Hôtels
+-Rechercher un hôtel
 -Ajouter un hôtel
 -Éditer un hôtel
 -Supprimer un hôtel
 
-*Gestion des Utilisateurs
--Ajouter un utilisateur
--Éditer un utilisateur
--Supprimer un utilisateur
+***Toutes les autres fonctionnalités***
+
+
+Fonctionnalités du Système pour le Client : 
+
+*Visiter la liste de toutes les chambres d'un hôtel; 
+
+*Consulter une chambre spécifique;
+
+*Réserver une chambre;
+
+*Demander un Service Spécifique
+
+
+Fonctionnalités du Système pour l'Administrateur : 
+
+
+*Gestion du Personnel
+-Rechercher du personnel
+-Ajouter du personnel
+-Éditer du personnel
+-Supprimer du personnel
+
+*Gestion des Types de Chambres
+-Rechercher un type de chambre
+-Ajouter un type de chambre
+-Éditer un type de chambre
+-Supprimer un type de chambre
 
 *Gestion des Chambres
+-Rechercher une chambre
 -Ajouter une chambre
 -Éditer une chambre
 -Supprimer une chambre
-
-*Gestion des Fonctions
--Ajouter une fonction
--Éditer une fonction
--Supprimer une fonction
 
 *Gestion des Rôles
 -Ajouter un rôle
 -Éditer un rôle
 -Supprimer un rôle
 
-*Gestion des Permissions
--Ajouter une permission
--Éditer une permission
--Supprimer une permission
-
 Fonctionnalités du Système pour le Personnel de Réception : 
 
-*Gestion des Réservations de chambres
+*Gestion des Clients
+-Rechercher un client
+-Ajouter un client
+-Éditer un client
+-Supprimer un client
 
+*Gestion des Réservations de chambres
 -Confirmer une réservation
 -Annuler une réservation
 -Check-In
 -Check-Out
 
 
-Fonctionnalités du Système pour le Personnel de Restauration : 
+Fonctionnalités du Système pour le Personnel de l'Hébergement : 
 
 *Gestion de la restauration
 
-Fonctionnalités du Système pour le Personnel de l'Hébergement : 
-
 *Gestion des services de chambres
-
 -Néttoyage,
 -Lingerie,

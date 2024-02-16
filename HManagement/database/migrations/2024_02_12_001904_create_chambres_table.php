@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('chambres', function (Blueprint $table) {
             $table->id();
-            $table->string('numero');
+            $table->string('numero')/* ->unique() */;
             $table->string('libelle');
             $table->integer('etage');
-            $table->string('description');
+            $table->text('description');
             $table->string('capacite');
-            $table->boolean('statut');
-            $table->unsignedBigInteger('type_chambre_id');
+            $table->string('statut')->default('Disponible');
+            $table->string('photo')->nullable();
+            $table->unsignedBigInteger('type_chambre_id')->nullable();
             $table->foreign('type_chambre_id')->references('id')->on('types_chambres');
             $table->unsignedBigInteger('hotel_id');
             $table->foreign('hotel_id')->references('id')->on('hotels');

@@ -13,6 +13,8 @@ class TypeChambre extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'types_chambres';
+
     protected $fillable = [
         'type',
         'prix'

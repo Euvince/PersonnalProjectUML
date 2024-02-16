@@ -17,7 +17,9 @@ class ArrondissementFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nom' => $this->faker->city(),
+            'longitude' => $this->faker->numberBetween(100, 250),
+            'lattitude' => $this->faker->numberBetween(100, 250),
         ];
     }
 }

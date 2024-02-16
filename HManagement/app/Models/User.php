@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Reservation;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
@@ -13,10 +13,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRoles, TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -54,10 +55,10 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    protected static function boot() {
+    /* protected static function boot() {
 
         parent::boot();
-        if (!app()->runningInConsole()) {
+        if (!app()->runningInConsole() && request()->route()->getName() !== 'register') {
             $userFullName = Auth::user()->nom . " " . Auth::user()->prenoms;
 
             static::creating(function ($user) use ($userFullName) {
@@ -73,7 +74,7 @@ class User extends Authenticatable
                 $user->save();
             });
         }
-    }
+    } */
 
     public function hotels() : BelongsToMany {
         return $this->belongsToMany(Hotel::class);

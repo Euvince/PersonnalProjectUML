@@ -14,9 +14,7 @@ class TypeRole extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'type'
-    ];
+    protected $table = 'types_roles';
 
     protected static function boot() {
 

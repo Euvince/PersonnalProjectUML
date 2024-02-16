@@ -17,7 +17,8 @@ class TypeChambreFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'type' => $this->faker->unique()->randomElement(['Premium', 'Classique']),
+            'prix' => $this->faker->numberBetween(444, 1200)
         ];
     }
 }

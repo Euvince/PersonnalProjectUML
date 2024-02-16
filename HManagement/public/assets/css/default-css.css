@@ -1,4 +1,4 @@
-/* 
+/*
 --------------------------
 - 1.1 Default CSS
 --------------------------
@@ -221,7 +221,7 @@ img {
 }
 
 /*------------------------------
-   Page section padding 
+   Page section padding
 -------------------------------*/
 
 .ptb--0 {
@@ -410,7 +410,7 @@ img {
     --primary-color: #4336FB;
 }
 
-#preloader {
+/* #preloader {
     position: fixed;
     left: 0;
     top: 0;
@@ -469,4 +469,4 @@ img {
         opacity: 0;
         transform: scale(0);
     }
-}
+} */

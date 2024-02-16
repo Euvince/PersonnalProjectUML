@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string('description');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('chambre_id')->nullable();
+            $table->foreign('chambre_id')->references('id')->on('chambres');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('type_service_id');
             $table->foreign('type_service_id')->references('id')->on('types_services');

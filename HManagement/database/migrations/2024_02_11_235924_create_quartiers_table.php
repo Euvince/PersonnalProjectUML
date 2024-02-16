@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('nom');
             $table->float('longitude');
             $table->float('lattitude');
-            $table->unsignedBigInteger('commune_id');
-            $table->foreign('commune_id')->references('id')->on('communes');
+            $table->unsignedBigInteger('arrondissement_id');
+            $table->foreign('arrondissement_id')->references('id')->on('arrondissements');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->string('deleted_by')->nullable();
