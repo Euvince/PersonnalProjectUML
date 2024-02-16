@@ -56,8 +56,12 @@ class Hotel extends Model
         return $this->hasMany(User::class);
     }
 
-    public function users() : BelongsToMany {
-        return $this->belongsToMany(User::class);
+    public function users() : HasMany {
+        return $this->hasMany(User::class);
     }
+
+    /* public function users() : BelongsToMany {
+        return $this->belongsToMany(User::class);
+    } */
 
 }

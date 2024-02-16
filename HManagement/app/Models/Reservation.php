@@ -19,6 +19,8 @@ class Reservation extends Model
         'statut',
         'user_id',
         'chambre_id',
+        'fin_sejour',
+        'debut_sejour',
         'date_reservation',
     ];
 

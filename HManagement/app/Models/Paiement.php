@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use App\Models\Facture;
 use App\Models\MoyenPaiement;
 use Illuminate\Support\Facades\Auth;
@@ -45,6 +46,10 @@ class Paiement extends Model
 
     public function MoyenPaiement() : BelongsTo {
         return $this->belongsTo(MoyenPaiement::class, 'moyen_paiment_id', 'id');
+    }
+
+    public function user() : BelongsTo {
+        return $this->belongsTo(User::class);
     }
 
     public function factures() : HasMany {

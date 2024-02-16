@@ -17,6 +17,7 @@ class Service extends Model
     protected $fillable = [
         'prix',
         'user_id',
+        'chambre_id',
         'description',
         'type_service_id',
     ];
@@ -48,6 +49,10 @@ class Service extends Model
 
     public function user() : BelongsTo {
         return $this->belongsTo(User::class);
+    }
+
+    public function chambre() : BelongsTo {
+        return $this->belongsTo(Chambre::class);
     }
 
 }

@@ -39,7 +39,7 @@ class TypeRole extends Model
     }
 
     public function roles() : HasMany {
-        return $this->hasMany(Role::class);
+        return $this->hasMany(Role::class, 'type_role_id', 'id');
     }
 
     public function permissions() : HasMany {

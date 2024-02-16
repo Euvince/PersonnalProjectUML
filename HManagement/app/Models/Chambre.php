@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Hotel;
+use App\Models\Service;
 use App\Models\Reservation;
 use App\Models\TypeChambre;
 use Illuminate\Support\Facades\Auth;
@@ -58,6 +59,10 @@ class Chambre extends Model
 
     public function reservations() : HasMany {
         return $this->hasMany(Reservation::class);
+    }
+
+    public function services() : HasMany {
+        return $this->hasMany(Service::class);
     }
 
 }
