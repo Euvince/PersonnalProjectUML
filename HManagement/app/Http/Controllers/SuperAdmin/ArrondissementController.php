@@ -9,10 +9,15 @@ use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\SuperAdmin\ArrondissementFormRequest;
-use App\Models\Commune;
 
 class ArrondissementController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Arrondissement::class, 'arrondissement');
+    }
+
     /**
      * Display a listing of the resource.
      */

@@ -7,6 +7,9 @@ use App\Http\Controllers\SuperAdmin\CommuneController;
 use App\Http\Controllers\SuperAdmin\QuartierController;
 use App\Http\Controllers\SuperAdmin\DepartementController;
 use App\Http\Controllers\SuperAdmin\ArrondissementController;
+use App\Http\Controllers\SuperAdmin\MoyenPaiementController;
+use App\Http\Controllers\SuperAdmin\RoleController;
+use App\Http\Controllers\SuperAdmin\TypeServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +42,18 @@ Route::group(['middleware' => ['auth', 'permission:Gérer les Hôtels'], 'prefix
     Route::resource('hotels', HotelController::class);
 });
 
-Route::group(['middleware' => ['auth', 'permission:Gérer les Types de chambres'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
+Route::group(['middleware' => ['auth', 'permission:Gérer les Types de Chambres'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
     Route::resource('type-chambre', TypeChambreController::class)->except(['show']);
+});
+
+Route::group(['middleware' => ['auth', 'permission:Gérer les Types de Services'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
+    Route::resource('type-service', TypeServiceController::class)->except(['show']);
+});
+
+Route::group(['middleware' => ['auth', 'permission:Gérer les Moyens de Paiement'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
+    Route::resource('moyen-paiement', MoyenPaiementController::class)->except(['show']);
+});
+
+Route::group(['middleware' => ['auth', 'permission:Gérer les Rôles'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
+    Route::resource('roles', RoleController::class)->except(['show']);
 });

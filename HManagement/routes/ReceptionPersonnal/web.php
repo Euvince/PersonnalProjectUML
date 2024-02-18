@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\ReceptionPersonnal\ClientController;
-use App\Http\Controllers\ReceptionPersonnal\MoyenPaiementController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => [], 'permission' => [], 'prefix' => 'service-reception', 'as' => 'service-reception.'], function () {
-    Route::resource('clients', ClientController::class);
-    Route::resource('moyen-paiement', MoyenPaiementController::class);
-});
+/* Route::group(['middleware' => [], 'permission' => [], 'prefix' => 'service-reception', 'as' => 'service-reception.'], function () {
+
+}); */

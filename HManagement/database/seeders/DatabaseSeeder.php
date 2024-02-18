@@ -95,10 +95,8 @@ class DatabaseSeeder extends Seeder
             'date_naissance' => fake()->date()
         ])->assignRole(['Administrateur'])->permissions()->sync([
             /* Permission::where('type_role_id', TypeRole::where('type', 'Administrateur')->first()->id)->get() */
-            Permission::where('name', 'Gérer le Personnel')->first()->id,
-            Permission::where('name', 'Gérer les Types de Chambres')->first()->id,
+            Permission::where('name', 'Gérer les Utilisateurs')->first()->id,
             Permission::where('name', 'Gérer les Chambres')->first()->id,
-            Permission::where('name', 'Gérer les Rôles')->first()->id
         ]);
 
         \App\Models\User::factory()->create([
@@ -111,7 +109,6 @@ class DatabaseSeeder extends Seeder
             'nationnalite' => fake()->country(),
             'date_naissance' => fake()->date()
         ])->assignRole(['Personnel de Réception'])->permissions()->sync([
-            Permission::where('name', 'Gérer les Clients')->first()->id,
             Permission::where('name', 'Gérer les Réservations')->first()->id
         ]);
 

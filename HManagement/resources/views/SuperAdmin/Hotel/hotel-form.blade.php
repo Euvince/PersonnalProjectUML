@@ -37,27 +37,13 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col row mx-1">
-                <x-select class1="form-group w-100" class2="col-form-label" class3="form-control" id="departement_id" label="Département" name="departement_id" :value="$departements" elementIdOnEntite=""/>
-            </div>
-            <div class="col row mx-1">
-                <x-select class1="form-group w-100" class2="col-form-label" class3="form-control" id="commune_id" label="Commune" name="commune_id" :value="$communes" elementIdOnEntite=""/>
-            </div>
-            <div class="col row mx-1">
-                <x-select class1="form-group w-100" class2="col-form-label" class3="form-control" id="arrondissement_id" label="Arrondissement" name="arrondissement_id" :value="$arrondissements" elementIdOnEntite=""/>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col row mx-1">
-                <x-select class1="form-group w-100" class2="col-form-label" class3="form-control" id="quartier_id" label="Quartier" name="quartier_id" :value="$quartiers" elementIdOnEntite="{{ $hotel->quartier_id }}"/>
-            </div>
-            <div class="col row mx-1">
-            </div>
-            <div class="col row mx-1">
-            </div>
-        </div>
+        @livewire('hotel-dynamic-select', [
+            'hotel' => $hotel,
+            'quartiers' => $quartiers,
+            'communes' => $communes,
+            'departements' => $departements,
+            'arrondissements' => $arrondissements
+        ])
 
         <button type="submit" class="btn btn-primary my-4">{{ $hotel->exists ? 'Modifier' : 'Enrégistrer' }}</button>
     </form>

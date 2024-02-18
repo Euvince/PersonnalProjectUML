@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('statut')->default('Impayé');
-            $table->float('prix');
+            $table->float('prix_par_nuit');
             $table->date('debut_sejour');
             $table->date('fin_sejour');
             $table->date('date_reservation');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\SuperAdmin;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class TypeChambreFormRequest extends FormRequest
@@ -22,7 +23,12 @@ class TypeChambreFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'type' => ['required', 'string',
+                Rule::unique('types_chambres')
+                ->ignore($this->route()->parameter('type_chambre'))
+                ->withoutTrashed(),
+            ],
+            'prix_par_nuit' => ['required'],
         ];
     }
 }

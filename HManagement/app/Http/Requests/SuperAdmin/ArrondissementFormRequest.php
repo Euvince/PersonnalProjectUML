@@ -26,7 +26,7 @@ class ArrondissementFormRequest extends FormRequest
             'nom' => ['required', 'string', new SameArrondissementForCommune()],
             'longitude' => ['required'],
             'lattitude' => ['required'],
-            'commune_id' => ['required', 'integer', 'exists:communes,id']
+            'commune_id' => ['required', 'integer', 'exists:communes,id'],
         ];
     }
 }

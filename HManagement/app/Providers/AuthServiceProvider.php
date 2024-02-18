@@ -4,14 +4,24 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 
-use App\Models\Commune;
-use App\Models\Departement;
 use App\Models\Hotel;
+use App\Models\Commune;
 use App\Models\Quartier;
-use App\Policies\SuperAdmin\CommunePolicy;
-use App\Policies\SuperAdmin\DepartementPolicy;
+use App\Models\Departement;
+use App\Models\TypeChambre;
+use App\Models\TypeService;
+use App\Models\Arrondissement;
+use App\Models\MoyenPaiement;
+use App\Models\Role;
 use App\Policies\SuperAdmin\HotelPolicy;
+use App\Policies\SuperAdmin\CommunePolicy;
 use App\Policies\SuperAdmin\QuartierPolicy;
+use App\Policies\SuperAdmin\DepartementPolicy;
+use App\Policies\SuperAdmin\TypeChambrePolicy;
+use App\Policies\SuperAdmin\TypeServicePolicy;
+use App\Policies\SuperAdmin\ArrondissementPolicy;
+use App\Policies\SuperAdmin\MoyenPaiementPolicy;
+use App\Policies\SuperAdmin\RolePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -22,10 +32,15 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
+        Role::class => RolePolicy::class,
         Hotel::class => HotelPolicy::class,
         Commune::class => CommunePolicy::class,
         Quartier::class => QuartierPolicy::class,
+        TypeChambre::class => TypeChambrePolicy::class,
+        TypeService::class => TypeServicePolicy::class,
         Departement::class => DepartementPolicy::class,
+        MoyenPaiement::class => MoyenPaiementPolicy::class,
+        Arrondissement::class => ArrondissementPolicy::class,
     ];
 
     /**

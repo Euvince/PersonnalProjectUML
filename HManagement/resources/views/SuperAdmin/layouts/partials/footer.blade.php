@@ -30,6 +30,10 @@
     <!-- others plugins -->
     <script src="{{ asset('assets/js/plugins.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
+
+    {{-- <script>
+        new TomSelect('select[multiple]', {plugins : {remove_button : {title : 'Supprimer'}}});
+    </script> --}}
 </body>
 
 </html>

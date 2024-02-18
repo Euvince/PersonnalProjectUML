@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\SuperAdmin;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class PersonnalFormRequest extends FormRequest
+class TypeServiceFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,12 @@ class PersonnalFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'type' => ['required', 'string',
+                Rule::unique('types_services')
+                ->ignore($this->route()->parameter('type_service'))
+                ->withoutTrashed(),
+            ],
+            'prix' => ['required'],
         ];
     }
 }

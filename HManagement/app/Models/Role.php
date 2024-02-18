@@ -14,11 +14,7 @@ class Role extends ModelsRole
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'id',
-        'role',
-        'type_role_id'
-    ];
+    protected $guarded = [];
 
     /* protected static function boot() {
 

@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ServicePersonnal\ServiceController;
-use App\Http\Controllers\ServicePersonnal\TypeServiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => [], 'permission' => [], 'prefix' => 'service-personnal', 'as' => 'service-personnal.'], function () {
-    Route::resource('type-service', TypeServiceController::class);
-    Route::resource('services', ServiceController::class);
-});
+/* Route::group(['middleware' => [], 'permission' => [], 'prefix' => 'service-personnal', 'as' => 'service-personnal.'], function () {
+
+}); */

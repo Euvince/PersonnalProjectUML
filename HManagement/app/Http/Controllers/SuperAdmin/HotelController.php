@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Models\Hotel;
-use App\Models\Commune;
-use App\Models\Quartier;
 use App\Models\Departement;
 use Illuminate\Http\Request;
-use App\Models\Arrondissement;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -15,14 +12,18 @@ use App\Http\Requests\SuperAdmin\HotelFormRequest;
 
 class HotelController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Hotel::class, 'hotel');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index() : View
     {
-        return view('SuperAdmin.Hotel.hotels', [
-            'hotels' => Hotel::paginate(20)
-        ]);
+        return view('SuperAdmin.Hotel.hotels');
     }
 
     /**
@@ -42,12 +43,33 @@ class HotelController extends Controller
             'directeur' => 'Jonh Doe',
         ]);
 
+        $departements = Departement::has('communes', '>=', 1)->orderBy('nom', 'ASC')->get();
+        if ($departements->isEmpty()) {
+            return redirect()
+            ->route('super-admin.quartiers.index')
+            ->with('error', 'Veuillez disposer d\'un Département contenant au moins une commune d\'abord.');
+        }
+
+        $communes = $departements->first()->communes->sortBy('nom');
+        if ($communes->isEmpty()) {
+            return redirect()
+            ->route('super-admin.quartiers.index')
+            ->with('error', 'Veuillez disposer d\'une Commune contenant au moins un arrondissement d\'abord.');
+        }
+
+        $arrondissements = $communes->first()->arrondissements->sortBy('nom');
+        if ($communes->isEmpty()) {
+            return redirect()
+            ->route('super-admin.quartiers.index')
+            ->with('error', 'Veuillez disposer d\'une Commune contenant au moins un arrondissement d\'abord.');
+        }
+
         return view('SuperAdmin.Hotel.hotel-form', [
             'hotel' => $hotel,
-            'departements' => Departement::orderBy('nom', 'ASC')->pluck('nom', 'id'),
-            'communes' => Commune::orderBy('nom', 'ASC')->pluck('nom', 'id'),
-            'arrondissements' => Arrondissement::orderBy('nom', 'ASC')->pluck('nom', 'id'),
-            'quartiers' => Quartier::orderBy('nom', 'ASC')->pluck('nom', 'id'),
+            'departements' => $departements,
+            'communes' => $communes,
+            'arrondissements' => $arrondissements,
+            'quartiers' => $arrondissements->first()->quartiers->sortBy('nom')
         ]);
     }
 
@@ -57,7 +79,10 @@ class HotelController extends Controller
     public function store(HotelFormRequest $request) : RedirectResponse
     {
         Hotel::create($request->validated());
-        return redirect()->route('super-admin.hotels.index')->with('success', 'L\'Hotel a été crée avec succès.');
+        return
+            redirect()
+            ->route('super-admin.hotels.index')
+            ->with('success', 'L\'Hotel a été crée avec succès.');
     }
 
     /**
@@ -73,12 +98,14 @@ class HotelController extends Controller
      */
     public function edit(Hotel $hotel) : View
     {
+        $departements = Departement::has('communes', '>=', 1)->orderBy('nom', 'ASC')->get();
+
         return view('SuperAdmin.Hotel.Hotel-form', [
             'hotel' => $hotel,
-            'departements' => Departement::orderBy('nom', 'ASC')->pluck('nom', 'id'),
-            'communes' => Commune::orderBy('nom', 'ASC')->pluck('nom', 'id'),
-            'arrondissements' => Arrondissement::orderBy('nom', 'ASC')->pluck('nom', 'id'),
-            'quartiers' => Quartier::orderBy('nom', 'ASC')->pluck('nom', 'id'),
+            'departements' => $departements,
+            'communes' => $hotel->quartier->arrondissement->commune->departement->communes->sortBy('nom'),
+            'arrondissements' => $hotel->quartier->arrondissement->commune->arrondissements->sortBy('nom'),
+            'quartiers' => $hotel->quartier->arrondissement->quartiers->sortBy('nom')
         ]);
     }
 
@@ -88,7 +115,10 @@ class HotelController extends Controller
     public function update(HotelFormRequest $request, Hotel $hotel) : RedirectResponse
     {
         $hotel->update($request->validated());
-        return redirect()->route('super-admin.hotels.index')->with('success', 'L\'Hotel a été modifié avec succès.');
+        return
+            redirect()
+            ->route('super-admin.hotels.index')
+            ->with('success', 'L\'Hotel a été modifié avec succès.');
     }
 
     /**
@@ -97,6 +127,9 @@ class HotelController extends Controller
     public function destroy(Hotel $hotel)
     {
         $hotel->delete();
-        return redirect()->route('super-admin.hotels.index')->with('success', 'L\'Hotel a été supprimé avec succès.');
+        return
+            redirect()
+            ->route('super-admin.hotels.index')
+            ->with('success', 'L\'Hotel a été supprimé avec succès.');
     }
 }

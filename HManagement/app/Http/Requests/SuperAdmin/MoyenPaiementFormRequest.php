@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Requests\ServicePersonnal;
+namespace App\Http\Requests\SuperAdmin;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class TypeServiceFormRequest extends FormRequest
+class MoyenPaiementFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,11 @@ class TypeServiceFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'moyen' =>['required', 'string',
+                Rule::unique('moyens_paiements')
+                ->ignore($this->route()->parameter('moyen_paiement'))
+                ->withoutTrashed(),
+            ]
         ];
     }
 }

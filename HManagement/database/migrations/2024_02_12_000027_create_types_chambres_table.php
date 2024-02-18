@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('types_chambres', function (Blueprint $table) {
             $table->id();
             $table->string('type');
-            $table->float('prix');
+            $table->float('prix_par_nuit');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->string('deleted_by')->nullable();

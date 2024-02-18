@@ -239,5 +239,15 @@ return [
         'telephone'                => 'Téléphone',
         'sexe'                     => 'Sexe',
         'password'                 => 'Mot de passe',
+        'departement_id'           => 'Département',
+        'commune_id'               => 'Commune',
+        'arrondissement_id'        => 'Arrondissement',
+        'quartier_id'              => 'Quartier',
+        'hotel_id'                 => 'Hôtel',
+        'type'                     => 'Type',
+        'prix_par_nuit'            => 'Prix par nuit',
+        'moyen'                    => 'Moyen de Paiement',
+        'permissions'              => 'Permissions',
+        'type_role_id'             => 'Type de Rôle'
     ],
 ];

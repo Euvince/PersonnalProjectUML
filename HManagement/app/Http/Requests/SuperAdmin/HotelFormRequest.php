@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\SuperAdmin;
 
+use App\Rules\SameHotelForQuartier;
 use Illuminate\Foundation\Http\FormRequest;
 
 class HotelFormRequest extends FormRequest
@@ -22,14 +23,14 @@ class HotelFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => ['required'],
+            'nom' => ['required', 'string', new SameHotelForQuartier()],
             'longitude' => ['required'],
             'lattitude' => ['required'],
-            'adresse_postale' => ['required'],
+            'adresse_postale' => ['required', 'string'],
             'email' => ['required', 'email'],
             'telephone' => ['required'],
             'directeur' => ['required'],
-            'quartier_id' => ['required', 'integer', 'exists:quartiers,id']
+            'quartier_id' => ['required', 'integer', 'exists:quartiers,id'],
         ];
     }
 }

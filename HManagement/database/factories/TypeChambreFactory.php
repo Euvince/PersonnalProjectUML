@@ -18,7 +18,7 @@ class TypeChambreFactory extends Factory
     {
         return [
             'type' => $this->faker->unique()->randomElement(['Premium', 'Classique']),
-            'prix' => $this->faker->numberBetween(444, 1200)
+            'prix_par_nuit' => $this->faker->numberBetween(444, 1200)
         ];
     }
 }

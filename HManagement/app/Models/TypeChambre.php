@@ -17,7 +17,7 @@ class TypeChambre extends Model
 
     protected $fillable = [
         'type',
-        'prix'
+        'prix_par_nuit'
     ];
 
     protected static function boot() {

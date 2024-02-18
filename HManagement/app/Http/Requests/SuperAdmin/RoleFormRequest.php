@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\SuperAdmin;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RoleFormRequest extends FormRequest
@@ -11,7 +12,7 @@ class RoleFormRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,13 @@ class RoleFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string',
+                Rule::unique('roles')
+                ->ignore($this->route()->parameter('role'))
+                ->withoutTrashed()
+            ],
+            'permissions' => ['required', 'array', 'exists:permissions,id'],
+            'type_role_id' => ['required', 'integer', 'exists:types_roles,id'],
         ];
     }
 }

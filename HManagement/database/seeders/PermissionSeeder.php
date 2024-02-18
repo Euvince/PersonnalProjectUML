@@ -22,6 +22,10 @@ class PermissionSeeder extends Seeder
             'Gérer les Arrondissements',
             'Gérer les Quartiers',
             'Gérer les Hôtels',
+            'Gérer les Types de Chambres',
+            'Gérer les Types de Services',
+            'Gérer les Moyens de Paiement',
+            'Gérer les Rôles',
         ];
 
         $clientPermissions = [
@@ -31,14 +35,11 @@ class PermissionSeeder extends Seeder
         ];
 
         $adminPermissions = [
-            'Gérer le Personnel',
-            'Gérer les Types de Chambres',
+            'Gérer les Utilisateurs',
             'Gérer les Chambres',
-            'Gérer les Rôles',
         ];
 
         $receptionPersonnalPermissions = [
-            'Gérer les Clients',
             'Gérer les Réservations',
         ];
 

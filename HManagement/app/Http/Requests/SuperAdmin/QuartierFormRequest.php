@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\SuperAdmin;
 
+use App\Rules\SameQuartierForArrondissement;
 use Illuminate\Foundation\Http\FormRequest;
 
 class QuartierFormRequest extends FormRequest
@@ -22,10 +23,10 @@ class QuartierFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => ['required'],
+            'nom' => ['required', 'string', new SameQuartierForArrondissement()],
             'longitude' => ['required'],
             'lattitude' => ['required'],
-            'arrondissement_id' => ['required', 'integer', 'exists:arrondissements,id']
+            'arrondissement_id' => ['required', 'integer', 'exists:arrondissements,id'],
         ];
     }
 }
