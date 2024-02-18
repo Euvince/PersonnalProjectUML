@@ -20,10 +20,17 @@
     <link rel="stylesheet" href="{{ asset('assets/css/default-css.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <!-- modernizr css -->
     <script src="{{ asset('assets/js/vendor/modernizr-2.8.3.min.js') }}"></script>
 
     @livewireStyles()
+    @vite([
+        'resources/css/app.css',
+        'resources/js/app.js',
+    ])
 </head>
 
 <body>

@@ -18,9 +18,7 @@ class ArrondissementController extends Controller
      */
     public function index() : View
     {
-        return view('SuperAdmin.Arrondissement.arrondissements', [
-            'arrondissements' => Arrondissement::paginate(20)
-        ]);
+        return view('SuperAdmin.Arrondissement.arrondissements');
     }
 
     /**
@@ -28,10 +26,17 @@ class ArrondissementController extends Controller
      */
     public function create() : View
     {
+        $departements = Departement::has('communes', '>=', 1)->orderBy('nom', 'ASC')->get();
+        if ($departements->isEmpty()) {
+            return redirect()
+            ->route('super-admin.arrondissements.index')
+            ->with('error', 'Veuillez disposer d\'un Département contenant au moins une commune d\'abord.');
+        }
+
         return view('SuperAdmin.Arrondissement.arrondissement-form', [
             'arrondissement' => new Arrondissement(),
-            'departements' => Departement::orderBy('nom', 'ASC')->pluck('nom', 'id'),
-            'communes' => Commune::orderBy('nom', 'ASC')->pluck('nom', 'id'),
+            'departements' => $departements,
+            'communes' => $departements->first()->communes->sortBy('nom'),
         ]);
     }
 
@@ -41,15 +46,10 @@ class ArrondissementController extends Controller
     public function store(ArrondissementFormRequest $request) : RedirectResponse
     {
         Arrondissement::create($request->validated());
-        return redirect()->route('super-admin.arrondissements.index')->with('success', 'L\'Arrondissement a été crée avec succès.');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Arrondissement $arrondissement)
-    {
-        //
+        return
+            redirect()
+            ->route('super-admin.arrondissements.index')
+            ->with('success', 'L\'Arrondissement a été crée avec succès.');
     }
 
     /**
@@ -57,10 +57,12 @@ class ArrondissementController extends Controller
      */
     public function edit(Arrondissement $arrondissement) : View
     {
+        $departements = Departement::has('communes', '>=', 1)->orderBy('nom', 'ASC')->get();
+
         return view('SuperAdmin.Arrondissement.arrondissement-form', [
             'arrondissement' => $arrondissement,
-            'departements' => Departement::orderBy('nom', 'ASC')->pluck('nom', 'id'),
-            'communes' => Commune::orderBy('nom', 'ASC')->pluck('nom', 'id'),
+            'departements' => $departements,
+            'communes' => $arrondissement->commune->departement->communes->sortBy('nom'),
         ]);
     }
 
@@ -70,7 +72,10 @@ class ArrondissementController extends Controller
     public function update(ArrondissementFormRequest $request, Arrondissement $arrondissement) : RedirectResponse
     {
         $arrondissement->update($request->validated());
-        return redirect()->route('super-admin.arrondissements.index')->with('success', 'L\'Arrondissement a été modifié avec succès.');
+        return
+            redirect()
+            ->route('super-admin.arrondissements.index')
+            ->with('success', 'L\'Arrondissement a été modifié avec succès.');
     }
 
     /**
@@ -79,6 +84,9 @@ class ArrondissementController extends Controller
     public function destroy(Arrondissement $arrondissement)
     {
         $arrondissement->delete();
-        return redirect()->route('super-admin.arrondissements.index')->with('success', 'L\'Arrondissement a été supprimé avec succès.');
+        return
+            redirect()
+            ->route('super-admin.arrondissements.index')
+            ->with('success', 'L\'Arrondissement a été supprimé avec succès.');
     }
 }

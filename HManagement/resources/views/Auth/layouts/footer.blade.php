@@ -1,5 +1,8 @@
 <!-- login area end -->
 
+
+    @livewireScripts()
+
     <!-- jquery latest version -->
     <script src="{{ asset('assets/js/vendor/jquery-2.2.4.min.js') }}"></script>
     <!-- bootstrap 4 js -->

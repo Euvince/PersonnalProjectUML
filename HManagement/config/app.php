@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
-use Krlove\EloquentModelGenerator\Provider\GeneratorServiceProvider;
 
 return [
 
@@ -170,7 +169,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
-        GeneratorServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
+        Krlove\EloquentModelGenerator\Provider\GeneratorServiceProvider::class
     ])->toArray(),
 
     /*

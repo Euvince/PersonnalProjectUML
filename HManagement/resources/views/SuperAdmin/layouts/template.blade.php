@@ -67,7 +67,6 @@
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
                                     @method('post')
-
                                     <button type="submit" class="dropdown-item" style="font-weight: bold;">Déconnexion</button>
                                 </form>
                             </div>

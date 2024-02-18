@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('etage');
             $table->text('description');
             $table->string('capacite');
+            $table->float('prix_par_nuit');
             $table->string('statut')->default('Disponible');
             $table->string('photo')->nullable();
             $table->unsignedBigInteger('type_chambre_id')->nullable();

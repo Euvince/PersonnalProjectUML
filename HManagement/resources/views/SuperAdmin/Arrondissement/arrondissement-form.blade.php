@@ -20,16 +20,11 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col row mx-1">
-                <x-select class1="form-group w-100" class2="col-form-label" class3="form-control" id="departement_id" label="Département" name="departement_id" :value="$departements" elementIdOnEntite=""/>
-            </div>
-            <div class="col row mx-1">
-                <x-select class1="form-group w-100" class2="col-form-label" class3="form-control" id="commune_id" label="Commune" name="commune_id" :value="$communes" elementIdOnEntite="{{ $arrondissement->commune_id }}"/>
-            </div>
-            <div class="col row mx-1">
-            </div>
-        </div>
+        @livewire('arrondissement-dynamic-select', [
+            'communes' => $communes,
+            'departements' => $departements,
+            'arrondissement' => $arrondissement
+        ])
 
         <button type="submit" class="btn btn-primary my-4">{{ $arrondissement->exists ? 'Modifier' : 'Enrégistrer' }}</button>
     </form>

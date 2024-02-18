@@ -23,10 +23,10 @@ class DepartementFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => ['required',
+            'nom' => ['required', 'string',
                 Rule::unique('departements')
                 ->ignore($this->route()->parameter('departement'))
-                ->withoutTrashed()
+                ->withoutTrashed(),
             ],
             'longitude' => ['required'],
             'lattitude' => ['required'],

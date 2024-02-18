@@ -6,30 +6,40 @@
     <div class="menu-inner">
         <nav>
             <ul class="metismenu" id="menu">
-                <li @class(['active' => str_contains($routeName, 'departements')])>
-                    <a href="{{ route('super-admin.departements.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Départements</span></a>
-                </li>
-                <li @class(['active' => str_contains($routeName, 'communes')])>
-                    <a href="{{ route('super-admin.communes.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Communes</span></a>
-                </li>
-                <li @class(['active' => str_contains($routeName, 'arrondissements')])>
-                    <a href="{{ route('super-admin.arrondissements.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Arrondissements</span></a>
-                </li>
-                <li @class(['active' => str_contains($routeName, 'quartiers')])>
-                    <a href="{{ route('super-admin.quartiers.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Quartiers</span></a>
-                </li>
+                @can('Gérer les Départements')
+                    <li @class(['active' => str_contains($routeName, 'departements')])>
+                        <a href="{{ route('super-admin.departements.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Départements</span></a>
+                    </li>
+                @endcan
+                @can('Gérer les Communes')
+                    <li @class(['active' => str_contains($routeName, 'communes')])>
+                        <a href="{{ route('super-admin.communes.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Communes</span></a>
+                    </li>
+                @endcan
+                @can('Gérer les Arrondissements')
+                    <li @class(['active' => str_contains($routeName, 'arrondissements')])>
+                        <a href="{{ route('super-admin.arrondissements.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Arrondissements</span></a>
+                    </li>
+                @endcan
+                @can('Gérer les Quartiers')
+                    <li @class(['active' => str_contains($routeName, 'quartiers')])>
+                        <a href="{{ route('super-admin.quartiers.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Quartiers</span></a>
+                    </li>
+                @endcan
+                @can('Gérer les Hôtels')
+                    <li @class(['active' => str_contains($routeName, 'hotels')])>
+                        <a href="{{ route('super-admin.hotels.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Hôtels</span></a>
+                    </li>
+                @endcan
                 <li @class(['active' => str_contains($routeName, 'type-chambre')])>
-                    <a href="{{ route('admin.type-chambre.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Hôtels</span></a>
+                    <a href="{{ route('super-admin.type-chambre.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Types de Chambres</span></a>
                 </li>
-                <li @class(['active' => str_contains($routeName, 'chambres')])>
-                    <a href="{{ route('admin.chambres.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Hôtels</span></a>
-                </li>
-                <li @class(['active' => str_contains($routeName, 'roles')])>
+                {{-- <li @class(['active' => str_contains($routeName, 'roles')])>
                     <a href="{{ route('admin.roles.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Hôtels</span></a>
-                </li>
-                <li @class(['active' => str_contains($routeName, 'employees')])>
+                </li> --}}
+                {{-- <li @class(['active' => str_contains($routeName, 'employees')])>
                     <a href="{{ route('admin.employees.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Hôtels</span></a>
-                </li>
+                </li> --}}
                 {{-- <li>
                     <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layout-sidebar-left"></i><span>Sidebar
                             Types

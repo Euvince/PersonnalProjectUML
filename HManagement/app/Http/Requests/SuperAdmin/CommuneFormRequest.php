@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\SuperAdmin;
 
+use App\Rules\SameCommuneForDepartement;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CommuneFormRequest extends FormRequest
@@ -22,7 +23,7 @@ class CommuneFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => ['required'],
+            'nom' => ['required', 'string', new SameCommuneForDepartement()],
             'longitude' => ['required'],
             'lattitude' => ['required'],
             'departement_id' => ['required', 'integer', 'exists:departements,id']

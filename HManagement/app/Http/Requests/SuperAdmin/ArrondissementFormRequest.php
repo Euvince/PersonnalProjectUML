@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\SuperAdmin;
 
+use App\Rules\SameArrondissementForCommune;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ArrondissementFormRequest extends FormRequest
@@ -22,7 +23,7 @@ class ArrondissementFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => ['required'],
+            'nom' => ['required', 'string', new SameArrondissementForCommune()],
             'longitude' => ['required'],
             'lattitude' => ['required'],
             'commune_id' => ['required', 'integer', 'exists:communes,id']

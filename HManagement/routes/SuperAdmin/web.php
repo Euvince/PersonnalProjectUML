@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\SuperAdmin\ArrondissementController;
-use App\Http\Controllers\SuperAdmin\CommuneController;
-use App\Http\Controllers\SuperAdmin\DepartementController;
-use App\Http\Controllers\SuperAdmin\HotelController;
-use App\Http\Controllers\SuperAdmin\QuartierController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SuperAdmin\HotelController;
+use App\Http\Controllers\SuperAdmin\TypeChambreController;
+use App\Http\Controllers\SuperAdmin\CommuneController;
+use App\Http\Controllers\SuperAdmin\QuartierController;
+use App\Http\Controllers\SuperAdmin\DepartementController;
+use App\Http\Controllers\SuperAdmin\ArrondissementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +19,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => [], 'permission' => [], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
-    Route::resource('departements', DepartementController::class);
-    Route::resource('communes', CommuneController::class);
-    Route::resource('arrondissements', ArrondissementController::class);
-    Route::resource('quartiers', QuartierController::class);
+Route::group(['middleware' => ['auth', 'permission:Gérer les Départements'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
+    Route::resource('departements', DepartementController::class)->except(['show']);
+});
+
+Route::group(['middleware' => ['auth', 'permission:Gérer les Communes'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
+    Route::resource('communes', CommuneController::class)->except(['show']);
+});
+
+Route::group(['middleware' => ['auth', 'permission:Gérer les Arrondissements'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
+    Route::resource('arrondissements', ArrondissementController::class)->except(['show']);
+});
+
+Route::group(['middleware' => ['auth', 'permission:Gérer les Quartiers'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
+    Route::resource('quartiers', QuartierController::class)->except(['show']);
+});
+
+Route::group(['middleware' => ['auth', 'permission:Gérer les Hôtels'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
     Route::resource('hotels', HotelController::class);
+});
+
+Route::group(['middleware' => ['auth', 'permission:Gérer les Types de chambres'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
+    Route::resource('type-chambre', TypeChambreController::class)->except(['show']);
 });
