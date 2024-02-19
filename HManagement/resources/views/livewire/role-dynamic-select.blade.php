@@ -29,7 +29,7 @@
         </div>
         <div class="col row">
             <div class="form-group w-100">
-                <select class="js-example-basic-multiple" placeholder="Choisissez quelques permissions" name="permissions[]" wire:model="selectedPermissions" multiple="multiple">
+                <select class="form-control" placeholder="Choisissez quelques permissions" name="permissions[]" wire:model="selectedPermissions" multiple="multiple">
                     @foreach ($permissions as $permission)
                         <option value="{{ $permission['id'] }}">{{ $permission['name'] }}</option>
                     @endforeach

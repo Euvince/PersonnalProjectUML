@@ -57,5 +57,28 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+
+        $this->renderable(function (\Spatie\Permission\Exceptions\UnauthorizedException $e, $request) {
+            if(Auth::user()->hasAnyPermission([
+                'Gérer les Départements',
+                'Gérer les Communes',
+                'Gérer les Arrondissements',
+                'Gérer les Quartiers',
+                'Gérer les Hôtels',
+                'Gérer les Types de Chambres',
+                'Gérer les Types de Services',
+                'Gérer les Moyens de Paiement',
+                'Gérer les Rôles',
+                'Gérer les Utilisateurs',
+                'Gérer les Chambres',
+                'Gérer les Réservations',
+                'Gérer les Demandes de Services',
+            ])){
+                return to_route('statistiques');
+            }
+            else{
+                return to_route('clients.hotels.index');
+            }
+        });
     }
 }

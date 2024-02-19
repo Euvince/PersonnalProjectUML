@@ -10,10 +10,9 @@
             <div class="login-box ptb--100">
                 <form action="{{ route('verification.send') }}" method="POST">
                     @csrf
-
                     <div class="login-form-head">
                         <h4>Vérification d'adresse e-mail.</h4>
-                        <p>Vous devez vérifier votre adresese email.</p>
+                        <p>Un courrriel vous a été envoyé, Vous devez vérifier votre adresese email.</p>
                     </div>
                     <div class="login-form-body">
                         @if (session('status'))

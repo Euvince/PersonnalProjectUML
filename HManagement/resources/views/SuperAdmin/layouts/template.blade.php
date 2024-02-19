@@ -36,10 +36,10 @@
                                 </i>
                                 @include('SuperAdmin.layouts.partials.notifications')
                             </li>
-                            <li class="dropdown">
+                            {{-- <li class="dropdown">
                                 <i class="fa fa-envelope-o dropdown-toggle" data-toggle="dropdown"><span>3</span></i>
                                 @include('SuperAdmin.layouts.partials.messages')
-                            </li>
+                            </li> --}}
                             {{-- <li class="settings-btn">
                                 <i class="ti-settings"></i>
                             </li> --}}
@@ -63,7 +63,7 @@
                             <div class="dropdown-menu">
                                 {{-- <a class="dropdown-item" href="#">Message</a>
                                 <a class="dropdown-item" href="#">Settings</a> --}}
-                                {{-- <a class="dropdown-item" href="#">Déconnexion</a> --}}
+                                <a class="dropdown-item" href="" style="font-weight: bold;">Profile</a>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
                                     @method('post')

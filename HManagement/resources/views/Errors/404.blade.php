@@ -17,7 +17,7 @@
             <div class="error-content">
                 <h2>404</h2>
                 <p>Ooops! Page Introuvable sur ce serveur.</p>
-                <a href="{{ back() }}">Retour au Dashboard</a>
+                <a href="{{-- {{ route('statistiques') }} --}}">Retour au Dashboard</a>
             </div>
         </div>
     </div>

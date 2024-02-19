@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Client\ClientController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,3 +13,16 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+$idRegex = '[0-9]+';
+$slugRegex = '[0-9a-z\-]+';
+$mailRegex = '[^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$]';
+
+
+Route::get('/', [ClientController::class, 'index'])->name('clients.hotels.index')/* ->middleware('verified') */;
+Route::get('/hotels/{slug}/{id}', [ClientController::class, 'show'])
+->name('clients.hotels.show')
+->where([
+    'id' => $idRegex,
+    'slug' => $slugRegex
+]);

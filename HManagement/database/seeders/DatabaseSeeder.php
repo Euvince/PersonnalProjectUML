@@ -82,7 +82,18 @@ class DatabaseSeeder extends Seeder
             'telephone' => fake()->phoneNumber(),
             'nationnalite' => fake()->country(),
             'date_naissance' => fake()->date()
-        ])->assignRole([Role::all()])->permissions()->sync(Permission::all());
+        ])->assignRole(['Super Admin'])->permissions()->sync([
+            Permission::where('name', 'Gérer les Départements')->first()->id,
+            Permission::where('name', 'Gérer les Communes')->first()->id,
+            Permission::where('name', 'Gérer les Arrondissements')->first()->id,
+            Permission::where('name', 'Gérer les Quartiers')->first()->id,
+            Permission::where('name', 'Gérer les Hôtels')->first()->id,
+            Permission::where('name', 'Gérer les Types de Chambres')->first()->id,
+            Permission::where('name', 'Gérer les Types de Services')->first()->id,
+            Permission::where('name', 'Gérer les Moyens de Paiement')->first()->id,
+            Permission::where('name', 'Gérer les Rôles')->first()->id,
+        ])
+        /* ->assignRole([Role::all()])->permissions()->sync(Permission::all()) */;
 
         \App\Models\User::factory()->create([
             'nom' => 'Lawson',

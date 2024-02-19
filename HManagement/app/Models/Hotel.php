@@ -27,7 +27,7 @@ class Hotel extends Model
         'adresse_postale',
     ];
 
-    protected static function boot() {
+    /* protected static function boot() {
 
         parent::boot();
         if (!app()->runningInConsole()) {
@@ -46,7 +46,7 @@ class Hotel extends Model
                 $hotel->save();
             });
         }
-    }
+    } */
 
     public function quartier() : BelongsTo {
         return $this->belongsTo(Quartier::class);

@@ -117,7 +117,7 @@
                             </div>
                         </div>
                         <div class="form-footer text-center mt-5">
-                            <p class="text-muted">Vous avez déjà un compte ? <a href="{{ route('register') }}">Se connecter</a></p>
+                            <p class="text-muted">Vous avez déjà un compte ? <a href="{{ route('login') }}">Se connecter</a></p>
                         </div>
                     </div>
                 </form>

@@ -17,7 +17,7 @@
             <div class="error-content">
                 <h2>403</h2>
                 <p>Accès Interdit.</p>
-                <a href="{{ back() }}">Retour au Dashborad.</a>
+                <a href="{{-- {{ route('statistiques') }} --}}">Retour au Dashborad.</a>
             </div>
         </div>
     </div>

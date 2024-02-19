@@ -13,7 +13,3 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-/* Route::group(['middleware' => [], 'permission' => [], 'prefix' => 'service-personnal', 'as' => 'service-personnal.'], function () {
-
-}); */

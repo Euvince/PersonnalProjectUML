@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\Admin\ChambreController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\ChambreController;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => [], 'permission' => [], 'prefix' => 'admin', 'as' => 'admin.'], function () {
-    Route::resource('chambres', ChambreController::class);
+Route::group(['middleware' => ['auth', 'verified', 'permission:Gérer les Utilisateurs'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::resource('users', UserController::class)->except(['show', 'create', 'store']);
+});
+
+Route::group(['middleware' => ['auth', 'verified', 'permission:Gérer les Chambres'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::resource('chambres', ChambreController::class)->except(['show']);
 });

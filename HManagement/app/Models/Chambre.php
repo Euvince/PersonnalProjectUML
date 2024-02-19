@@ -21,10 +21,10 @@ class Chambre extends Model
         'etage',
         'statut',
         'numero',
-        'hotel_id',
         'capacite',
-        'libbelle',
+        'libelle',
         'description',
+        'hotel_id',
         'type_chambre_id'
     ];
 

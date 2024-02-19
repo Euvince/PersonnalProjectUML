@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,14 +15,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->middleware('guest');
 
-/* Route::get('/home', function () {
+$idRegex = '[0-9]+';
+$slugRegex = '[0-9a-z\-]+';
+$mailRegex = '[^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$]';
+
+Route::get('/home', function () {
     return view ('home');
-})->middleware(['auth', 'verified']); */
+})/* ->middleware(['auth', 'verified']) */;
 
 Route::get('/statistiques', function () {
     return view('Statistiques');
-});
+})->name('statistiques');
+
+
+Route::get('update-profile/{user}', [ProfileController::class, 'edit'])
+->name('profile.edit')
+->where(['user' => $idRegex]);
+
+Route::put('update-profile/{user}', [ProfileController::class, 'update'])
+->name('profile.update')
+->where(['user' => $idRegex]);

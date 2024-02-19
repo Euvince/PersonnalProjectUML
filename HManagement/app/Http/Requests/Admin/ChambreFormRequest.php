@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ChambreFormRequest extends FormRequest
@@ -11,7 +12,7 @@ class ChambreFormRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,16 @@ class ChambreFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'numero' => ['required',
+                Rule::unique('chambres')
+                ->ignore($this->route()->parameter('chambre'))
+                ->withoutTrashed(),
+            ],
+            'libelle' => ['required', 'string'],
+            'etage' => ['required'],
+            'description' => ['required', 'string'],
+            'capacite' => ['required', 'string'],
+            'type_chambre_id' => ['required', 'integer', 'exists:types_chambres,id']
         ];
     }
 }

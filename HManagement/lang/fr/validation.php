@@ -248,6 +248,13 @@ return [
         'prix_par_nuit'            => 'Prix par nuit',
         'moyen'                    => 'Moyen de Paiement',
         'permissions'              => 'Permissions',
-        'type_role_id'             => 'Type de Rôle'
+        'type_role_id'             => 'Type de Rôle',
+        'description'              => 'Description',
+        'numero'                   => 'Numéro',
+        'libelle'                  => 'Libellé',
+        'etage'                    => 'Étage',
+        'capacite'                 => 'Capacité',
+        'type_chambre_id'          => 'Type de Chambre',
+        'type_chambre_id'          => 'Type de Chambre',
     ],
 ];

@@ -51,6 +51,29 @@
                         <a href="{{ route('super-admin.roles.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Rôles</span></a>
                     </li>
                 @endcan
+                @can('Gérer les Utilisateurs')
+                    <li @class(['active' => str_contains($routeName, 'users')])>
+                        <a href="{{ route('admin.users.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Utilisateurs</span></a>
+                    </li>
+                @endcan
+                @can('Gérer les Chambres')
+                    <li @class(['active' => str_contains($routeName, 'chambres')])>
+                        <a href="{{ route('admin.chambres.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Chambres</span></a>
+                    </li>
+                @endcan
+                @can('Gérer les Réservations')
+                    <li @class(['active' => str_contains($routeName, 'reservations')])>
+                        <a href="" aria-expanded="true"><i class="ti-dashboard"></i><span>Réservations</span></a>
+                    </li>
+                @endcan
+                @can('Gérer les Demandes de Services')
+                    <li @class(['active' => str_contains($routeName, 'demande-service')])>
+                        <a href="" aria-expanded="true"><i class="ti-dashboard"></i><span>Demandes de services</span></a>
+                    </li>
+                @endcan
+                <li @class(['active' => str_contains($routeName, 'profile')])>
+                    <a href="{{ route('profile.edit', ['user' => auth()->user()->id]) }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Mon Profile</span></a>
+                </li>
             </ul>
         </nav>
     </div>

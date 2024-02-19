@@ -1,6 +1,6 @@
 @extends('Auth.layouts.template')
 
-@section('title', 'Connexion')
+@section('title', 'Mot de passe oublié')
 
 @section('content')
 
@@ -8,25 +8,31 @@
      <div class="login-area">
         <div class="container">
             <div class="login-box ptb--100">
-                <form action="{{ url('user/confirm-password') }}" method="POST">
+                <form action="{{ url('/two-factor-challenge') }}" method="POST">
                     @csrf
                     <div class="login-form-head">
-                        <h4>Confirmation de Mot de passe.</h4>
-                        <p>Confirmer votre mot de passe pour continuer.</p>
+                        <h4>Confirmation de code</h4>
+                        <p>Entrez votre code de vérification.</p>
                     </div>
                     <div class="login-form-body">
+                        @if (session('status'))
+                            <div class="alert alert-success my-3">
+                                {{ session('status') }}
+                            </div>
+                        @endif
                         <div class="form-gp">
-                            <label for="password">Mot de Passe</label>
-                            <input type="password" id="password" name="password">
+                            <label for="code">Code</label>
+                            <input type="text" id="code" name="code">
                             <i class="ti-user"></i>
                             <div class="text-danger">
-                                @error('password')
+                                @error('email')
                                     {{ $message }}
                                 @enderror
                             </div>
                         </div>
                         <div class="submit-btn-area">
                             <button id="form_submit" type="submit">Soumettre <i class="ti-arrow-right"></i></button>
+                        </div>
                     </div>
                 </form>
             </div>
