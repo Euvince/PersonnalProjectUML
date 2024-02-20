@@ -16,6 +16,8 @@ class Role extends ModelsRole
 
     protected $guarded = [];
 
+    public $guard_name = 'api';
+
     /* protected static function boot() {
 
         parent::boot();

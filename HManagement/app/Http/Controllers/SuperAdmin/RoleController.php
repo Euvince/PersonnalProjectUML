@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\SuperAdmin\RoleFormRequest;
+use Spatie\Permission\PermissionRegistrar;
 
 class RoleController extends Controller
 {
@@ -48,11 +49,17 @@ class RoleController extends Controller
     {
         $data = $request->validated();
         unset($data['permissions']);
+        /* app()['cache']->forget('saptie.permission.cache'); */
+        /* app()[\Saptie\Permission\PermissionRegistar::class]->forgetCachedPermissions(); */
+        /* foreach ($request->permissions as $permission) {
+            $permission = (int)$permission;
+        } */
         Role::create($data)
             ->givePermissionTo($request->permissions);
-        return redirect()
-        ->route('super-admin.roles.index')
-        ->with('success', 'Le Rôle a bien été crée');
+        return
+            redirect()
+            ->route('super-admin.roles.index')
+            ->with('success', 'Le Rôle a bien été crée');
     }
 
      /**
@@ -77,7 +84,8 @@ class RoleController extends Controller
          unset($data['permissions']);
          $role->update($data);
          $role->syncPermissions($request->permissions);
-         return redirect()
+         return
+            redirect()
             ->route('super-admin.roles.index')
             ->with('success', 'Le Rôle a bien été modifié');
      }
@@ -88,7 +96,8 @@ class RoleController extends Controller
     public function destroy(Role $role): RedirectResponse
     {
         $role->delete();
-        return redirect()
+        return
+            redirect()
             ->route('super-admin.roles.index')
             ->with('success', 'Le Rôle a bien été supprimé');
     }

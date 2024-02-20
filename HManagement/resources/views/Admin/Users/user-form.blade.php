@@ -12,13 +12,20 @@
         @csrf
         @method('put')
 
-        {{-- <div class="row">
+        <div class="row">
             <div class="col row">
-                <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="nom" label="Nom" type="text" name="nom" placeholder="Nom"  readonly="" value="{{ $departement->nom }}" />
-                <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="longitude" label="Longitude" type="text" name="longitude" placeholder="Longitude"  readonly="" value="{{ $departement->longitude }}" />
-                <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="lattitude" label="Lattitude" type="text" name="lattitude" placeholder="Lattitude"  readonly="" value="{{ $departement->lattitude }}" />
+                <div class="form-group w-100 mx-3 mt-4">
+                    <select class="form-control" style="height: 200px;" placeholder="Choisissez quelques roles" name="roles[]" multiple="multiple">
+                        @foreach ($roles as $id => $name)
+                            <option value="{{ $id }}">{{ $name }}</option>
+                        @endforeach
+                    </select>
+                    @error('roles')
+                        <span style="color: red; font-size: 0.7rem">{{ $message }}</span>
+                    @enderror
+                </div>
             </div>
-        </div> --}}
+        </div>
 
         <button type="submit" class="btn btn-primary my-4">Modifier</button>
     </form>

@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Departement;
 use DateTime;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -25,12 +26,12 @@ class DepartementsTable extends Component
         'nom' => 'nullable|string'
     ];
 
-    public function updatedNom()
+    public function updatedNom() : void
     {
         $this->resetPage();
     }
 
-    public function deletedDepartements(array $ids)
+    public function deletedDepartements(array $ids) : void
     {
         Departement::destroy($ids);
         $this->departementsChecked = [];
@@ -48,7 +49,7 @@ class DepartementsTable extends Component
         }
     }
 
-    public function render()
+    public function render() : View
     {
         $this->validate();
 

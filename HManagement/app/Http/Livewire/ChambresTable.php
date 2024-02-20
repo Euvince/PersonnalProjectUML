@@ -6,6 +6,8 @@ use DateTime;
 use App\Models\Chambre;
 use Livewire\Component;
 use App\Models\TypeChambre;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
 
 class ChambresTable extends Component
@@ -28,19 +30,19 @@ class ChambresTable extends Component
         'numero' => 'nullable|string'
     ];
 
-    public function updatedNumero()
+    public function updatedNumero() : void
     {
         $this->resetPage();
     }
 
-    public function deletedChambres(array $ids)
+    public function deletedChambres(array $ids) : void
     {
         Chambre::destroy($ids);
         $this->chambresChecked = [];
         session()->flash('success', 'Le(s) Chambre(s) ont bien été supprimé');
     }
 
-    public function setOrderField(string | int | DateTime  $field)
+    public function setOrderField(string | int | DateTime  $field) : void
     {
         if($field === $this->orderField){
             $this->orderDirection = $this->orderDirection === 'ASC' ? 'DESC' : 'ASC';
@@ -51,7 +53,7 @@ class ChambresTable extends Component
         }
     }
 
-    public function render()
+    public function render() : View
     {
         $this->validate();
 
@@ -67,6 +69,7 @@ class ChambresTable extends Component
 
         return view('livewire.chambres-table', [
             'chambres' => $chambres
+                ->where('hotel_id', Auth::user()->hotel_id)
                 ->orderBy($this->orderField, $this->orderDirection)
                 ->paginate(20),
             'typesChambres' => TypeChambre::orderBy('type', 'ASC')->get()

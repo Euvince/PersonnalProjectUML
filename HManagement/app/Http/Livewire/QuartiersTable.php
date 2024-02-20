@@ -7,6 +7,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Arrondissement;
 use App\Models\Quartier;
+use Illuminate\Contracts\View\View;
 
 class QuartiersTable extends Component
 {
@@ -28,19 +29,19 @@ class QuartiersTable extends Component
         'nom' => 'nullable|string'
     ];
 
-    public function updatedNom()
+    public function updatedNom() : void
     {
         $this->resetPage();
     }
 
-    public function deletedQuartiers(array $ids)
+    public function deletedQuartiers(array $ids) : void
     {
         Quartier::destroy($ids);
         $this->quartiersChecked = [];
         session()->flash('success', 'Le(s) Quartier(s) ont bien été supprimé');
     }
 
-    public function setOrderField(string | int | DateTime  $field)
+    public function setOrderField(string | int | DateTime  $field) : void
     {
         if($field === $this->orderField){
             $this->orderDirection = $this->orderDirection === 'ASC' ? 'DESC' : 'ASC';
@@ -51,7 +52,7 @@ class QuartiersTable extends Component
         }
     }
 
-    public function render()
+    public function render() : View
     {
         $this->validate();
 

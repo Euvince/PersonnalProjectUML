@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Models\User;
 use DateTime;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -28,24 +30,24 @@ class UsersTable extends Component
         'nationnalite' => 'nullable|string',
     ];
 
-    public function updatedNom()
+    public function updatedNom() : void
     {
         $this->resetPage();
     }
 
-    public function updatedNationnalite()
+    public function updatedNationnalite() : void
     {
         $this->resetPage();
     }
 
-    public function deletedUsers(array $ids)
+    public function deletedUsers(array $ids) : void
     {
         User::destroy($ids);
         $this->usersChecked = [];
         session()->flash('success', 'Le(s) Utilisateurs(s) ont bien été supprimé');
     }
 
-    public function setOrderField(string | int | DateTime  $field)
+    public function setOrderField(string | int | DateTime  $field) : void
     {
         if($field === $this->orderField){
             $this->orderDirection = $this->orderDirection === 'ASC' ? 'DESC' : 'ASC';
@@ -56,7 +58,7 @@ class UsersTable extends Component
         }
     }
 
-    public function render()
+    public function render() : View
     {
         $this->validate();
 
@@ -72,6 +74,10 @@ class UsersTable extends Component
 
         return view('livewire.users-table', [
             'users' => $users
+                ->whereHas('roles', function ($query) {
+                    $query->where('name', '!=', 'Super Admin');
+                })
+                /* ->where('hotel_id', Auth::user()->id) */
                 ->orderBy($this->orderField, $this->orderDirection)
                 ->paginate(20)
         ]);

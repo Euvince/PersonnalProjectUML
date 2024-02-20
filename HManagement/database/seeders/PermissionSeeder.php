@@ -17,6 +17,7 @@ class PermissionSeeder extends Seeder
     {
 
         $superAdminPermissions = [
+            /* 'Modifier Profil', */
             'Gérer les Départements',
             'Gérer les Communes',
             'Gérer les Arrondissements',
@@ -29,21 +30,24 @@ class PermissionSeeder extends Seeder
         ];
 
         $clientPermissions = [
-            'Consulter une Chambre',
+            /* 'Modifier Profil', */
             'Réserver une Chambre',
             'Demander un Service',
         ];
 
         $adminPermissions = [
+            /* 'Modifier Profil', */
             'Gérer les Utilisateurs',
             'Gérer les Chambres',
         ];
 
         $receptionPersonnalPermissions = [
+            /* 'Modifier Profil', */
             'Gérer les Réservations',
         ];
 
         $servicePersonnalPermissions = [
+            /* 'Modifier Profil', */
             'Gérer les Demandes de Services',
         ];
 

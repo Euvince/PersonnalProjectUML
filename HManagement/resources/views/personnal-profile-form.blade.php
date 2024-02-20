@@ -14,7 +14,7 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('profile.update', ['user' => auth()->user()->id]) }}">
+    <form method="POST" action="{{ route('personnal-profile.update', ['user' => auth()->user()->id]) }}">
         @csrf
         @method('put')
 

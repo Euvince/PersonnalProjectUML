@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\TypeService;
 use DateTime;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -28,24 +29,24 @@ class TypesServicesTable extends Component
         'prix' => 'nullable',
     ];
 
-    public function updatedType()
+    public function updatedType() : void
     {
         $this->resetPage();
     }
 
-    public function updatedPrix()
+    public function updatedPrix() : void
     {
         $this->resetPage();
     }
 
-    public function deletedTypes(array $ids)
+    public function deletedTypes(array $ids) : void
     {
         TypeService::destroy($ids);
         $this->typesChecked = [];
         session()->flash('success', 'Le(s) Type(s) de Service(s) ont bien été supprimé');
     }
 
-    public function setOrderField(string | int | DateTime  $field)
+    public function setOrderField(string | int | DateTime  $field) : void
     {
         if($field === $this->orderField){
             $this->orderDirection = $this->orderDirection === 'ASC' ? 'DESC' : 'ASC';
@@ -56,7 +57,7 @@ class TypesServicesTable extends Component
         }
     }
 
-    public function render()
+    public function render() : View
     {
         $this->validate();
 

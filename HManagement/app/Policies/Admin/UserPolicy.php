@@ -4,6 +4,7 @@ namespace App\Policies\Admin;
 
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
 
 class UserPolicy
 {
@@ -20,7 +21,8 @@ class UserPolicy
      */
     public function view(User $user, User $model): bool
     {
-        return $user->can('Gérer les Utilisateurs');
+        return $user->can('Gérer les Utilisateurs')
+            /* && $model->hotel_id === Auth::user()->hotel_id */;
     }
 
     /**
@@ -36,7 +38,8 @@ class UserPolicy
      */
     public function update(User $user, User $model): bool
     {
-        return $user->can('Gérer les Utilisateurs');
+        return $user->can('Gérer les Utilisateurs')
+            /* && $model->hotel_id === Auth::user()->hotel_id */;
     }
 
     /**
@@ -44,7 +47,8 @@ class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
-        return $user->can('Gérer les Utilisateurs');
+        return $user->can('Gérer les Utilisateurs')
+            /* && $model->hotel_id === Auth::user()->hotel_id */;
     }
 
     /**
@@ -52,7 +56,8 @@ class UserPolicy
      */
     public function restore(User $user, User $model): bool
     {
-        return $user->can('Gérer les Utilisateurs');
+        return $user->can('Gérer les Utilisateurs')
+            /* && $model->hotel_id === Auth::user()->hotel_id */;
     }
 
     /**
@@ -60,6 +65,19 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model): bool
     {
-        return $user->can('Gérer les Utilisateurs');
+        return $user->can('Gérer les Utilisateurs')
+            /* && $model->hotel_id === Auth::user()->hotel_id */;
     }
+
+
+    public function editProfile(User $user): bool
+    {
+        return $user->id === Auth::user()->id;
+    }
+
+    public function updateProfile(User $user) : bool
+    {
+        return $user->id === Auth::user()->id;
+    }
+
 }

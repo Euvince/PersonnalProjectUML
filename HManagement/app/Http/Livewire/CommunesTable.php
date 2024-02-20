@@ -6,6 +6,7 @@ use DateTime;
 use App\Models\Commune;
 use Livewire\Component;
 use App\Models\Departement;
+use Illuminate\Contracts\View\View;
 use Livewire\WithPagination;
 
 class CommunesTable extends Component
@@ -28,19 +29,19 @@ class CommunesTable extends Component
         'nom' => 'nullable|string'
     ];
 
-    public function updatedNom()
+    public function updatedNom() : void
     {
         $this->resetPage();
     }
 
-    public function deletedCommunes(array $ids)
+    public function deletedCommunes(array $ids) : void
     {
         Commune::destroy($ids);
         $this->communesChecked = [];
         session()->flash('success', 'Le(s) Commune(s) ont bien été supprimé');
     }
 
-    public function setOrderField(string | int | DateTime  $field)
+    public function setOrderField(string | int | DateTime  $field) : void
     {
         if($field === $this->orderField){
             $this->orderDirection = $this->orderDirection === 'ASC' ? 'DESC' : 'ASC';
@@ -51,7 +52,7 @@ class CommunesTable extends Component
         }
     }
 
-    public function render()
+    public function render() : View
     {
         $this->validate();
 

@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Admin\UserFormRequest;
+use App\Models\Role;
 
 class UserController extends Controller
 {
@@ -21,6 +22,19 @@ class UserController extends Controller
      */
     public function index() : View
     {
+        /* foreach (User::find(1)->roles as $role) {
+            $rolesNames[] = $role->name;
+        }
+        dd($rolesNames); */
+        /* $rolesNames = [];
+        array_map(function ($role) use (&$rolesNames) {
+            $rolesNames[] = $role['name'];
+        }, User::find(1)->roles->toArray());
+        dd($rolesNames); */
+        /* dd(in_array('Super Admin', $rolesNames)); */
+        /* dd(User::whereHas('roles', function ($query) {
+            $query->where('name', '!=', 'Super Admin');
+        })->get()); */
         return view('Admin.Users.users');
     }
 
@@ -30,7 +44,8 @@ class UserController extends Controller
     public function edit(User $user) : View
     {
         return view('Admin.Users.user-form', [
-            'user' => $user
+            'user' => $user,
+            'roles' => Role::where('name', '!=', 'Super Admin')->pluck('name', 'id')
         ]);
     }
 
@@ -39,7 +54,10 @@ class UserController extends Controller
      */
     public function update(UserFormRequest $request, User $user) : RedirectResponse
     {
-        $user->update($request->validated());
+        $user->roles()->sync($request['roles']);
+        foreach($request['roles'] as $role){
+            $user->permissions()->sync(Role::find($role)->permissions);
+        }
         return
             redirect()
             ->route('admin.users.index')

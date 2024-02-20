@@ -83,6 +83,7 @@ class DatabaseSeeder extends Seeder
             'nationnalite' => fake()->country(),
             'date_naissance' => fake()->date()
         ])->assignRole(['Super Admin'])->permissions()->sync([
+            /* Permission::where('name', 'Modifier Profil')->first()->id, */
             Permission::where('name', 'Gérer les Départements')->first()->id,
             Permission::where('name', 'Gérer les Communes')->first()->id,
             Permission::where('name', 'Gérer les Arrondissements')->first()->id,
@@ -106,6 +107,7 @@ class DatabaseSeeder extends Seeder
             'date_naissance' => fake()->date()
         ])->assignRole(['Administrateur'])->permissions()->sync([
             /* Permission::where('type_role_id', TypeRole::where('type', 'Administrateur')->first()->id)->get() */
+            /* Permission::where('name', 'Modifier Profil')->first()->id, */
             Permission::where('name', 'Gérer les Utilisateurs')->first()->id,
             Permission::where('name', 'Gérer les Chambres')->first()->id,
         ]);
@@ -120,6 +122,7 @@ class DatabaseSeeder extends Seeder
             'nationnalite' => fake()->country(),
             'date_naissance' => fake()->date()
         ])->assignRole(['Personnel de Réception'])->permissions()->sync([
+            /* Permission::where('name', 'Modifier Profil')->first()->id, */
             Permission::where('name', 'Gérer les Réservations')->first()->id
         ]);
 
@@ -133,6 +136,7 @@ class DatabaseSeeder extends Seeder
             'nationnalite' => fake()->country(),
             'date_naissance' => fake()->date()
         ])->assignRole(['Personnel de Service'])->permissions()->sync([
+            /* Permission::where('name', 'Modifier Profil')->first()->id, */
             Permission::where('name', 'Gérer les Demandes de Services')->first()->id
         ]);
 

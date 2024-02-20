@@ -1,5 +1,7 @@
 Fonctionnalités du Système pour le Super Administrateur
 
+*Modifier son Profil
+
 *Gestion des Départements
 -Rechercher un département
 -Ajouter un département
@@ -58,17 +60,16 @@ Fonctionnalités du Système pour le Super Administrateur
 
 Fonctionnalités du Système pour le Client : 
 
-*Visiter la liste de toutes les chambres d'un hôtel; 
-
-*Consulter une chambre spécifique;
-
 *Réserver une chambre;
 
 *Demander un Service Spécifique
 
+*Modifier son Profil
+
 
 Fonctionnalités du Système pour l'Administrateur : 
 
+*Modifier son Profil
 
 *Gestion des Utilisateurs
 -Rechercher un utilisateur
@@ -83,6 +84,8 @@ Fonctionnalités du Système pour l'Administrateur :
 
 Fonctionnalités du Système pour le Personnel de Réception : 
 
+*Modifier son Profil
+
 *Gestion des Réservations de chambres
 -Confirmer une réservation
 -Annuler une réservation
@@ -93,6 +96,8 @@ Fonctionnalités du Système pour le Personnel de Réception :
 
 
 Fonctionnalités du Système pour le Personnel de l'Hébergement : 
+
+*Modifier son Profil
 
 *Gestion de la restauration
 

@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use DateTime;
 use App\Models\Role;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -25,19 +26,19 @@ class RolesTable extends Component
         'role' => 'nullable|string'
     ];
 
-    public function updatedRole()
+    public function updatedRole() : void
     {
         $this->resetPage();
     }
 
-    public function deletedRoles(array $ids)
+    public function deletedRoles(array $ids) : void
     {
         Role::destroy($ids);
         $this->rolesChecked = [];
         session()->flash('success', 'Le(s) Rôle(s) ont bien été supprimé');
     }
 
-    public function setOrderField(string | int | DateTime  $field)
+    public function setOrderField(string | int | DateTime  $field) : void
     {
         if($field === $this->orderField){
             $this->orderDirection = $this->orderDirection === 'ASC' ? 'DESC' : 'ASC';
@@ -48,7 +49,7 @@ class RolesTable extends Component
         }
     }
 
-    public function render()
+    public function render() : View
     {
         $this->validate();
 

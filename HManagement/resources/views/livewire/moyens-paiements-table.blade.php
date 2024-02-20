@@ -53,7 +53,7 @@
                                               <p>Souhaitez-vous vraiment supprimer ce moyen de paiement ?</p>
                                             </div>
                                             <div class="modal-footer">
-                                              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                              <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
                                               <form action="{{ route('super-admin.moyen-paiement.destroy', ['moyen_paiement' => $moyen->id]) }}" method="POST">
                                                 @csrf
                                                 @method('delete')

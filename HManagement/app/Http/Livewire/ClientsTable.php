@@ -2,48 +2,41 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\TypeChambre;
+use App\Models\User;
 use DateTime;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class TypesChambresTable extends Component
+class ClientsTable extends Component
 {
     use WithPagination;
 
-    public $type = '';
+    public $nom = '';
 
-    public $prix = '';
+    public $nationnalite = '';
 
-    public $orderField = 'type';
+    public $orderField = 'nom';
 
     public $orderDirection = 'ASC';
 
-    public array $typesChecked = [];
+    public array $usersChecked = [];
 
     protected $paginationTheme = 'bootstrap';
 
     protected $rules = [
-        'type' => 'nullable|string',
-        'prix' => 'nullable',
+        'nom' => 'nullable|string',
+        'nationnalite' => 'nullable|string',
     ];
 
-    public function updatedType() : void
+    public function updatedNom() : void
     {
         $this->resetPage();
     }
 
-    public function updatedPrix() : void
+    public function updatedNationnalite() : void
     {
         $this->resetPage();
-    }
-
-    public function deletedTypes(array $ids) : void
-    {
-        TypeChambre::destroy($ids);
-        $this->typesChecked = [];
-        session()->flash('success', 'Le(s) Type(s) de Chambre(s) ont bien été supprimé');
     }
 
     public function setOrderField(string | int | DateTime  $field) : void
@@ -61,18 +54,22 @@ class TypesChambresTable extends Component
     {
         $this->validate();
 
-        $types = TypeChambre::query();
+        $clients = User::query();
 
-        if(!empty($this->type)){
-            $types = $types->where('type', 'LIKE', "%{$this->type}%");
+        if(!empty($this->nom)){
+            $clients = $clients->where('nom', 'LIKE', "%{$this->nom}%");
         }
 
-        if(!empty($this->prix)){
-            $types = $types->where('prix_par_nuit', 'LIKE', "%{$this->prix}%");
+        if(!empty($this->nationnalite)){
+            $clients = $clients->where('nationnalite', 'LIKE', "%{$this->nationnalite}%");
         }
 
-        return view('livewire.types-chambres-table', [
-            'types' => $types
+        return view('livewire.clients-table', [
+            'clients' => $clients
+                ->whereHas('roles', function ($query) {
+                    $query->where('name', '=', 'Client');
+                    $query->where('hotel_id', '=', NULL);
+                })
                 ->orderBy($this->orderField, $this->orderDirection)
                 ->paginate(20)
         ]);

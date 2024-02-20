@@ -24,15 +24,28 @@ Route::get('/home', function () {
     return view ('home');
 })/* ->middleware(['auth', 'verified']) */;
 
-Route::get('/statistiques', function () {
-    return view('Statistiques');
-})->name('statistiques');
+Route::group(['middleware' => ['auth'], 'as' => 'statistiques'], function (){
+    Route::get('/statistiques', function () {return view('Statistiques'); });
+});
+
+/* Route::group(['middleware' => ['auth', 'permission:Gestion des Rôles|Gestion des Services|Gestion des Fonctions|Gestion des Divisions|Gestion des Documents|Gestion des Directions|Gestion des Catégories|Gestion des Classements|Gestion des Utilisateurs|Gestion des Boîtes Archives|Gestion des Rayons Rangements|Gestion des Chemises Dossiers|Gestion des Demandes de Prêts|Gestion des Natures de Documents|Gestion des Demandes de Transferts|Gestion des Demandes de Transferts du MISP'], 'as' => 'admin.statistique'], function () {
+    Route::get('admin/statistiques', [StatistiquesController::class, 'stat']);
+}); */
 
 
-Route::get('update-profile/{user}', [ProfileController::class, 'edit'])
-->name('profile.edit')
+
+Route::get('client-update-profile/{user}', [ProfileController::class, 'edit'])
+->name('client-profile.edit')
 ->where(['user' => $idRegex]);
 
-Route::put('update-profile/{user}', [ProfileController::class, 'update'])
-->name('profile.update')
+Route::put('client-update-profile/{user}', [ProfileController::class, 'update'])
+->name('client-profile.update')
+->where(['user' => $idRegex]);
+
+Route::get('personnal-update-profile/{user}', [ProfileController::class, 'edit'])
+->name('personnal-profile.edit')
+->where(['user' => $idRegex]);
+
+Route::put('personnal-update-profile/{user}', [ProfileController::class, 'update'])
+->name('personnal-profile.update')
 ->where(['user' => $idRegex]);

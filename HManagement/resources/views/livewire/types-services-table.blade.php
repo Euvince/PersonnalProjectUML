@@ -56,7 +56,7 @@
                                               <p>Souhaitez-vous vraiment supprimer ce type de service ?</p>
                                             </div>
                                             <div class="modal-footer">
-                                              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                              <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
                                               <form action="{{ route('super-admin.type-service.destroy', ['type_service' => $type->id]) }}" method="POST">
                                                 @csrf
                                                 @method('delete')

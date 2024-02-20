@@ -27,8 +27,8 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e)
     {
-        /* if($e instanceof AuthorizationException)
-        return to_route('admin.statistique'); */
+        if($e instanceof AuthorizationException)
+        return to_route('statistiques');
 
         if ($e instanceof ModelNotFoundException)
         return response()->view('errors.401', [], 401);

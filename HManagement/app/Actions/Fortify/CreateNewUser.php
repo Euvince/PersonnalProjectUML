@@ -51,7 +51,6 @@ class CreateNewUser implements CreatesNewUsers
         ]);
         $user->roles()->sync(Role::where('name', 'Client')->first()->id);
         $user->permissions()->sync([
-            Permission::where('name', 'Consulter une Chambre')->first()->id,
             Permission::where('name', 'Réserver une Chambre')->first()->id,
             Permission::where('name', 'Demander un Service')->first()->id,
         ]);

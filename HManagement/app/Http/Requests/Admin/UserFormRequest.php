@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Rules\SameTypeRoleRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserFormRequest extends FormRequest
@@ -22,7 +23,7 @@ class UserFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-
+            'roles' => ['required', 'array', 'exists:roles,id', new SameTypeRoleRule()],
         ];
     }
 }

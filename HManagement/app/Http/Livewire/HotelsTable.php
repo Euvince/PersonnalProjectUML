@@ -7,6 +7,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Hotel;
 use App\Models\Quartier;
+use Illuminate\Contracts\View\View;
 
 class HotelsTable extends Component
 {
@@ -28,19 +29,19 @@ class HotelsTable extends Component
         'nom' => 'nullable|string'
     ];
 
-    public function updatedNom()
+    public function updatedNom() : void
     {
         $this->resetPage();
     }
 
-    public function deletedHotels(array $ids)
+    public function deletedHotels(array $ids) : void
     {
         Hotel::destroy($ids);
         $this->hotelsChecked = [];
         session()->flash('success', 'Le(s) Hôtel(s) ont bien été supprimé');
     }
 
-    public function setOrderField(string | int | DateTime  $field)
+    public function setOrderField(string | int | DateTime  $field) : void
     {
         if($field === $this->orderField){
             $this->orderDirection = $this->orderDirection === 'ASC' ? 'DESC' : 'ASC';
@@ -51,7 +52,7 @@ class HotelsTable extends Component
         }
     }
 
-    public function render()
+    public function render() : View
     {
         $this->validate();
 

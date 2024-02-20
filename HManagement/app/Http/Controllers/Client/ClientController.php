@@ -13,7 +13,9 @@ class ClientController extends Controller
 {
     public function index() : View
     {
-        return view('Client.Hotels.hotels', ['hotels' => Hotel::paginate(30)]);
+        return view('Client.Hotels.hotels', [
+            'hotels' => Hotel::paginate(32)
+        ]);
     }
 
     public function show (String $slug, Hotel $hotel) : View | RedirectResponse

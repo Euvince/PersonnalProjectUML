@@ -5,6 +5,7 @@ namespace App\Policies\Admin;
 use App\Models\Chambre;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ChambrePolicy
 {
@@ -21,7 +22,8 @@ class ChambrePolicy
      */
     public function view(User $user, Chambre $chambre): bool
     {
-        return $user->can('Gérer les Chambres');
+        return $user->can('Gérer les Chambres')
+            && $chambre->hotel_id === Auth::user()->hotel_id;
     }
 
     /**
@@ -37,7 +39,8 @@ class ChambrePolicy
      */
     public function update(User $user, Chambre $chambre): bool
     {
-        return $user->can('Gérer les Chambres');
+        return $user->can('Gérer les Chambres')
+            && $chambre->hotel_id === Auth::user()->hotel_id;
     }
 
     /**
@@ -45,7 +48,8 @@ class ChambrePolicy
      */
     public function delete(User $user, Chambre $chambre): bool
     {
-        return $user->can('Gérer les Chambres');
+        return $user->can('Gérer les Chambres')
+            && $chambre->hotel_id === Auth::user()->hotel_id;
     }
 
     /**
@@ -53,7 +57,8 @@ class ChambrePolicy
      */
     public function restore(User $user, Chambre $chambre): bool
     {
-        return $user->can('Gérer les Chambres');
+        return $user->can('Gérer les Chambres')
+            && $chambre->hotel_id === Auth::user()->hotel_id;
     }
 
     /**
@@ -61,6 +66,7 @@ class ChambrePolicy
      */
     public function forceDelete(User $user, Chambre $chambre): bool
     {
-        return $user->can('Gérer les Chambres');
+        return $user->can('Gérer les Chambres')
+            && $chambre->hotel_id === Auth::user()->hotel_id;
     }
 }

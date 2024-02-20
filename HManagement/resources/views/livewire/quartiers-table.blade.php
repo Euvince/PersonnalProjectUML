@@ -65,7 +65,7 @@
                                               <p>Souhaitez-vous vraiment supprimer ce quartier ?</p>
                                             </div>
                                             <div class="modal-footer">
-                                              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                              <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
                                               <form action="{{ route('super-admin.quartiers.destroy', ['quartier' => $quartier->id]) }}" method="POST">
                                                 @csrf
                                                 @method('delete')

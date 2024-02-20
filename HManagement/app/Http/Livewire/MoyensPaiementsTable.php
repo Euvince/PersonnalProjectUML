@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\MoyenPaiement;
 use DateTime;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -25,19 +26,19 @@ class MoyensPaiementsTable extends Component
         'moyen' => 'nullable|string',
     ];
 
-    public function updatedMoyen()
+    public function updatedMoyen() : void
     {
         $this->resetPage();
     }
 
-    public function deletedMoyens(array $ids)
+    public function deletedMoyens(array $ids) : void
     {
         MoyenPaiement::destroy($ids);
         $this->moyensChecked = [];
         session()->flash('success', 'Le(s) Moyen(s) de Paiement(s) ont bien été supprimé');
     }
 
-    public function setOrderField(string | int | DateTime  $field)
+    public function setOrderField(string | int | DateTime  $field) : void
     {
         if($field === $this->orderField){
             $this->orderDirection = $this->orderDirection === 'ASC' ? 'DESC' : 'ASC';
@@ -48,7 +49,7 @@ class MoyensPaiementsTable extends Component
         }
     }
 
-    public function render()
+    public function render() : View
     {
         $this->validate();
 

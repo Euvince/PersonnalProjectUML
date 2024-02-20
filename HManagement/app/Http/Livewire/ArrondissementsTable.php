@@ -7,6 +7,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Arrondissement;
 use App\Models\Commune;
+use Illuminate\Contracts\View\View;
 
 class ArrondissementsTable extends Component
 {
@@ -28,19 +29,19 @@ class ArrondissementsTable extends Component
         'nom' => 'nullable|string'
     ];
 
-    public function updatedNom()
+    public function updatedNom() : void
     {
         $this->resetPage();
     }
 
-    public function deletedArrondissements(array $ids)
+    public function deletedArrondissements(array $ids) : void
     {
         Arrondissement::destroy($ids);
         $this->arrondissementsChecked = [];
         session()->flash('success', 'Le(s) Arrondissement(s) ont bien été supprimé');
     }
 
-    public function setOrderField(string | int | DateTime  $field)
+    public function setOrderField(string | int | DateTime  $field) : void
     {
         if($field === $this->orderField){
             $this->orderDirection = $this->orderDirection === 'ASC' ? 'DESC' : 'ASC';
@@ -51,7 +52,7 @@ class ArrondissementsTable extends Component
         }
     }
 
-    public function render()
+    public function render() : View
     {
         $this->validate();
 

@@ -65,7 +65,7 @@
                                               <p>Souhaitez-vous vraiment supprimer cette commune ?</p>
                                             </div>
                                             <div class="modal-footer">
-                                              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                              <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
                                               <form action="{{ route('super-admin.communes.destroy', ['commune' => $commune->id]) }}" method="POST">
                                                 @csrf
                                                 @method('delete')

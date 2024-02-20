@@ -24,6 +24,7 @@
                                     <x-table-header label="ID" :direction="$orderDirection" name="id" :field="$orderField"></x-table-header>
                                     <x-table-header label="Rôle" :direction="$orderDirection" name="name" :field="$orderField"></x-table-header>
                                     <x-table-header label="Date de Création" :direction="$orderDirection" name="created_at" :field="$orderField"></x-table-header>
+                                    <th scope="col">Permissions</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>
@@ -35,6 +36,11 @@
                                         </td>
                                         <th scope="row">{{ $role->id }}</th>
                                         <td>{{ $role->name }}</td>
+                                        <td>
+                                            @foreach ($role->permissions as $permission)
+                                                {{ $permission->name }} <br>
+                                            @endforeach
+                                        </td>
                                         <td>{{ $role->created_at->format('d-m-Y') }}</td>
                                         <td>
                                             <ul class="d-flex justify-content-center">
@@ -53,7 +59,7 @@
                                               <p>Souhaitez-vous vraiment supprimer ce rôle ?</p>
                                             </div>
                                             <div class="modal-footer">
-                                              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                              <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
                                               <form action="{{ route('super-admin.roles.destroy', ['role' => $role->id]) }}" method="POST">
                                                 @csrf
                                                 @method('delete')

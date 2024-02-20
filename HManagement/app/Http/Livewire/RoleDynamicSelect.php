@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Permission;
 use App\Models\TypeRole;
+use Illuminate\Contracts\View\View;
 
 class RoleDynamicSelect extends Component
 {
@@ -22,7 +23,7 @@ class RoleDynamicSelect extends Component
 
     public $selectedPermissions;
 
-    public function mount()
+    public function mount() : void
     {
         $this->selectedTypeRole = $this->role->type_role_id;
         if (old('type_role_id')) {
@@ -31,7 +32,7 @@ class RoleDynamicSelect extends Component
         }
     }
 
-    public function updatedSelectedTypeRole($typeRole)
+    public function updatedSelectedTypeRole($typeRole) : void
     {
         $this->permissions = Permission::where('type_role_id', $typeRole)->get()->toArray();
         $this->alwaysPermissions = null;
@@ -51,7 +52,7 @@ class RoleDynamicSelect extends Component
         });
     }
 
-    public function render()
+    public function render() : View
     {
         return view('livewire.role-dynamic-select');
     }
