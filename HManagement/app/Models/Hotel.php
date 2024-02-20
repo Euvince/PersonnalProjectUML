@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Commune;
 use App\Models\Quartier;
+use App\Models\Departement;
+use App\Models\Arrondissement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -50,6 +53,18 @@ class Hotel extends Model
 
     public function quartier() : BelongsTo {
         return $this->belongsTo(Quartier::class);
+    }
+
+    public function arrondissement() : BelongsTo {
+        return $this->belongsTo(Arrondissement::class);
+    }
+
+    public function commune() : BelongsTo {
+        return $this->belongsTo(Commune::class);
+    }
+
+    public function departement() : BelongsTo {
+        return $this->belongsTo(Departement::class);
     }
 
     public function chambres() : HasMany {

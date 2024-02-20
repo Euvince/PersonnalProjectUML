@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Admin\UserFormRequest;
-use App\Models\Role;
 
 class UserController extends Controller
 {
@@ -22,6 +23,7 @@ class UserController extends Controller
      */
     public function index() : View
     {
+        /* dd(Auth::user()->hasRole(['Client', 'Super Admin'])); */
         /* foreach (User::find(1)->roles as $role) {
             $rolesNames[] = $role->name;
         }

@@ -13,18 +13,20 @@ class ClientController extends Controller
 {
     public function index() : View
     {
-        return view('Client.Hotels.hotels', [
-            'hotels' => Hotel::paginate(32)
-        ]);
+        /* dd(Hotel::whereHas('departement', function ($query) {
+            $query->where('nom', 'LIKE', "%cole inc%");
+        })->get()); */
+        return view('Client.Hotels.hotels');
     }
 
     public function show (String $slug, Hotel $hotel) : View | RedirectResponse
     {
-        $hotelSlug = Str::slug($$hotel->nom);
-        if ($slug !== $hotelSlug) {
-            return to_route('clients.hotels.show', ['slug' => $hotelSlug, 'university' => $hotel->id]);
+        if ($slug !== Str::slug($hotel->nom)) {
+            return to_route('clients.hotels.show', ['slug' => Str::slug($hotel->nom), 'hotel' => $hotel->id]);
         }
-        return view('Client.Hotels.hotel', ['hotel' => $hotel]);
+        return view('Client.Hotels.hotel', [
+            'hotel' => $hotel
+        ]);
     }
 
 }

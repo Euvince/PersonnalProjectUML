@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Hotel;
 use App\Models\Commune;
 use App\Models\Quartier;
 use Illuminate\Support\Facades\Auth;
@@ -50,4 +51,9 @@ class Arrondissement extends Model
     public function quartiers() : HasMany {
         return $this->hasMany(Quartier::class);
     }
+
+    public function hotels() : HasMany {
+        return $this->hasMany(Hotel::class);
+    }
+
 }

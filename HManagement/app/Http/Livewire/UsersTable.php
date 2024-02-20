@@ -77,7 +77,7 @@ class UsersTable extends Component
                 ->whereHas('roles', function ($query) {
                     $query->where('name', '!=', 'Super Admin');
                 })
-                /* ->where('hotel_id', Auth::user()->id) */
+                ->where('hotel_id', Auth::user()->hotel_id)
                 ->orderBy($this->orderField, $this->orderDirection)
                 ->paginate(20)
         ]);

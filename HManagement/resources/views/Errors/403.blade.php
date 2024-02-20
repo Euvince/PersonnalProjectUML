@@ -16,8 +16,8 @@
         <div class="container">
             <div class="error-content">
                 <h2>403</h2>
-                <p>Accès Interdit.</p>
-                <a href="{{-- {{ route('statistiques') }} --}}">Retour au Dashborad.</a>
+                <p>Forbidden.</p>
+                <a href="{{ route('statistiques') }}">Retour au Dashborad.</a>
             </div>
         </div>
     </div>

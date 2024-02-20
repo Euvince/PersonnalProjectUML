@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Arrondissement;
+use App\Models\Commune;
+use App\Models\Departement;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -23,6 +26,9 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->unsignedBigInteger('quartier_id');
             $table->foreign('quartier_id')->references('id')->on('quartiers');
+            $table->foreignIdFor(Arrondissement::class)->nullable();
+            $table->foreignIdFor(Commune::class)->nullable();
+            $table->foreignIdFor(Departement::class)->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->string('deleted_by')->nullable();

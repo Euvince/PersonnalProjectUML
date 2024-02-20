@@ -243,6 +243,9 @@ return [
         'commune_id'               => 'Commune',
         'arrondissement_id'        => 'Arrondissement',
         'quartier_id'              => 'Quartier',
+        'arrondissement_id'        => 'Arrondissement',
+        'commune_id'               => 'Commune',
+        'departement_id'           => 'Département',
         'hotel_id'                 => 'Hôtel',
         'type'                     => 'Type',
         'prix_par_nuit'            => 'Prix par nuit',
@@ -256,5 +259,6 @@ return [
         'capacite'                 => 'Capacité',
         'type_chambre_id'          => 'Type de Chambre',
         'type_chambre_id'          => 'Type de Chambre',
+        'roles'                    => 'Rôles',
     ],
 ];

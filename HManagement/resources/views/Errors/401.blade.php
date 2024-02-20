@@ -1,6 +1,6 @@
 @extends('Errors.layouts.template')
 
-@section('title', '404 Not Found')
+@section('title', '403 Unauthorized')
 @section('content')
 
     <!--[if lt IE 8]>
@@ -15,11 +15,12 @@
     <div class="error-area ptb--100 text-center">
         <div class="container">
             <div class="error-content">
-                <h2>404</h2>
-                <p>Ooops! Url Introuvable sur ce serveur.</p>
-                <a href="{{ route('statistiques') }}">Retour au Dashboard</a>
+                <h2>403</h2>
+                <p>Accès Interdit.</p>
+                <a href="{{ route('statistiques') }}">Retour au Dashborad.</a>
             </div>
         </div>
     </div>
+    <!-- error area end -->
 
 @endsection

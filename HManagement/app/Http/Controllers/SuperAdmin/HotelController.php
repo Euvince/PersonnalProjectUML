@@ -78,6 +78,7 @@ class HotelController extends Controller
      */
     public function store(HotelFormRequest $request) : RedirectResponse
     {
+        dd($request->validated());
         Hotel::create($request->validated());
         return
             redirect()

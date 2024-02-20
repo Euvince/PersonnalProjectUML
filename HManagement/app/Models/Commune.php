@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Hotel;
 use App\Models\Departement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -48,6 +49,10 @@ class Commune extends Model
 
     public function arrondissements() : HasMany {
         return $this->hasMany(Arrondissement::class);
+    }
+
+    public function hotels() : HasMany {
+        return $this->hasMany(Hotel::class);
     }
 
 }

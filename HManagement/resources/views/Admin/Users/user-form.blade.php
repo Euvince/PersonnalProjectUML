@@ -15,7 +15,8 @@
         <div class="row">
             <div class="col row">
                 <div class="form-group w-100 mx-3 mt-4">
-                    <select class="form-control" style="height: 200px;" placeholder="Choisissez quelques roles" name="roles[]" multiple="multiple">
+                    <label for="roles" class="col-form-label">Rôles</label>
+                    <select class="form-control" style="height: 200px;" placeholder="Choisissez quelques roles" id="roles" name="roles[]" multiple="multiple">
                         @foreach ($roles as $id => $name)
                             <option value="{{ $id }}">{{ $name }}</option>
                         @endforeach
@@ -27,7 +28,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary my-4">Modifier</button>
+        <button type="submit" class="btn btn-primary my-2">Modifier</button>
     </form>
 
 @endsection

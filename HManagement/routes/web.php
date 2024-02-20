@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StatistiquesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,19 +21,9 @@ $idRegex = '[0-9]+';
 $slugRegex = '[0-9a-z\-]+';
 $mailRegex = '[^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$]';
 
-Route::get('/home', function () {
-    return view ('home');
-})/* ->middleware(['auth', 'verified']) */;
-
-Route::group(['middleware' => ['auth'], 'as' => 'statistiques'], function (){
-    Route::get('/statistiques', function () {return view('Statistiques'); });
+Route::group(['middleware' => ['auth', 'permission:Gérer les Départements|Gérer les Communes|Gérer les Arrondissements|Gérer les Quartiers|Gérer les Hôtels|Gérer les Types de Chambres|Gérer les Types de Services|Gérer les Rôles|Gestion des Utilisateurs|Gérer les Utilisateurs|Gérer les Chambres|Gérer les Réservations|Gérer les Demandes de Services']], function () {
+    Route::get('statistiques', [StatistiquesController::class, 'index'])->name('statistiques');
 });
-
-/* Route::group(['middleware' => ['auth', 'permission:Gestion des Rôles|Gestion des Services|Gestion des Fonctions|Gestion des Divisions|Gestion des Documents|Gestion des Directions|Gestion des Catégories|Gestion des Classements|Gestion des Utilisateurs|Gestion des Boîtes Archives|Gestion des Rayons Rangements|Gestion des Chemises Dossiers|Gestion des Demandes de Prêts|Gestion des Natures de Documents|Gestion des Demandes de Transferts|Gestion des Demandes de Transferts du MISP'], 'as' => 'admin.statistique'], function () {
-    Route::get('admin/statistiques', [StatistiquesController::class, 'stat']);
-}); */
-
-
 
 Route::get('client-update-profile/{user}', [ProfileController::class, 'edit'])
 ->name('client-profile.edit')
@@ -49,3 +40,9 @@ Route::get('personnal-update-profile/{user}', [ProfileController::class, 'edit']
 Route::put('personnal-update-profile/{user}', [ProfileController::class, 'update'])
 ->name('personnal-profile.update')
 ->where(['user' => $idRegex]);
+
+
+
+/* Route::get('/home', function () {
+    return view ('home');
+})->middleware(['auth', 'verified']); */

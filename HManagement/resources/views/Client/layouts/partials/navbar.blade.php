@@ -27,7 +27,7 @@
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     @method('post')
-                    <button type="subbmit" style="background: dark">Se déconnecter</button>
+                    <button type="subbmit" style="background: inherit; border: none;">Se déconnecter</button>
                 </form>
               @endauth
             </div>

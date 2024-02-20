@@ -17,7 +17,7 @@
             <div class="error-content">
                 <h2>500</h2>
                 <p>Erreur Interne de Serveur!</p>
-                <a href="{{-- {{ route('statistiques') }} --}}">Retour au Dashboard</a>
+                <a href="{{ route('statistiques') }}">Retour au Dashboard</a>
             </div>
         </div>
     </div>

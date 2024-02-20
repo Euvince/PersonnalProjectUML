@@ -31,6 +31,9 @@ class HotelFormRequest extends FormRequest
             'telephone' => ['required'],
             'directeur' => ['required'],
             'quartier_id' => ['required', 'integer', 'exists:quartiers,id'],
+            'arrondissement_id' => ['required', 'integer', 'exists:arrondissments,id'],
+            'commune_id' => ['required', 'integer', 'exists:communes,id'],
+            'departement_id' => ['required', 'integer', 'exists:departements,id'],
         ];
     }
 }
