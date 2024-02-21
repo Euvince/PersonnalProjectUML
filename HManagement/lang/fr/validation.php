@@ -260,5 +260,7 @@ return [
         'type_chambre_id'          => 'Type de Chambre',
         'type_chambre_id'          => 'Type de Chambre',
         'roles'                    => 'Rôles',
+        'debut_sejour'             => 'Début du séjour',
+        'fin_sejour'               => 'Fin du séjour',
     ],
 ];

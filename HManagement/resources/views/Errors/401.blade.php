@@ -1,6 +1,6 @@
 @extends('Errors.layouts.template')
 
-@section('title', '403 Unauthorized')
+@section('title', '401 Unauthorized')
 @section('content')
 
     <!--[if lt IE 8]>
@@ -15,9 +15,9 @@
     <div class="error-area ptb--100 text-center">
         <div class="container">
             <div class="error-content">
-                <h2>403</h2>
+                <h2>401</h2>
                 <p>Accès Interdit.</p>
-                <a href="{{ route('statistiques') }}">Retour au Dashborad.</a>
+               {{--  <a href="{{ route('statistiques') }}">Retour au Dashborad.</a> --}}
             </div>
         </div>
     </div>

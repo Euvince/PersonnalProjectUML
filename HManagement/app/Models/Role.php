@@ -16,10 +16,10 @@ class Role extends ModelsRole
 
     protected $guarded = [];
 
-    /* protected static function boot() {
+    protected static function boot() {
 
         parent::boot();
-        if (!app()->runningInConsole()) {
+        if (!app()->runningInConsole() && auth()->check()) {
             $userFullName = Auth::user()->nom . " " . Auth::user()->prenoms;
 
             static::creating(function ($role) use ($userFullName) {
@@ -35,7 +35,7 @@ class Role extends ModelsRole
                 $role->save();
             });
         }
-    } */
+    }
 
     public function TypeRole() : BelongsTo {
         return $this->belongsTo(TypeRole::class, 'type_role_id', 'id');

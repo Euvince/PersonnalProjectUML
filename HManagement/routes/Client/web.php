@@ -21,11 +21,29 @@ $mailRegex = '[^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$]';
 
 Route::get('/', [ClientController::class, 'index'])->name('clients.hotels.index');
 
-Route::get('/hotels/{slug}/{hotel}', [ClientController::class, 'show'])
+Route::get('hotels/{slug}/{hotel}', [ClientController::class, 'showHotel'])
 ->name('clients.hotels.show')
 ->where([
-    'id' => $idRegex,
+    'hotel' => $idRegex,
     'slug' => $slugRegex
 ]);
 
-Route::get('/json-placeholder', [HotelController::class, 'index']);
+Route::get('chambres/{slug}/{chambre}', [ClientController::class, 'showChambre'])
+->name('clients.chambres.show')
+->where([
+    'chambre' => $idRegex,
+    'slug' => $slugRegex
+]);
+
+/* Route::get('chambres/{chambre}/reservation', [ClientController::class, 'showReservationForm'])
+->name('clients.chambres.reservation-form')
+->where(['chambre' => $idRegex])
+->middleware(['auth', 'verified', 'permission:Réserver une Chambre']); */
+
+Route::post('chambres/{chambre}/reservation', [ClientController::class, 'sendReservation'])
+->name('clients.chambres.reservation-send')
+->where(['chambre' => $idRegex])
+->middleware(['auth', 'verified', 'permission:Réserver une Chambre']);
+
+
+Route::get('api', [HotelController::class, 'index']);

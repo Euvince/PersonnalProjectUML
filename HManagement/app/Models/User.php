@@ -59,11 +59,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
-   /*  protected static function boot() {
+    protected static function boot() {
 
         parent::boot();
 
-        if (!app()->runningInConsole() && !Str::contains(request()->route()->getName() , 'register')) {
+        if (!app()->runningInConsole() && auth()->check()) {
             $userFullName = Auth::user()->nom . " " . Auth::user()->prenoms;
 
             static::creating(function ($user) use ($userFullName) {
@@ -79,7 +79,7 @@ class User extends Authenticatable implements MustVerifyEmail
                 $user->save();
             });
         }
-    } */
+    }
 
     public function hotel() : BelongsTo {
         return $this->belongsTo(Hotel::class);

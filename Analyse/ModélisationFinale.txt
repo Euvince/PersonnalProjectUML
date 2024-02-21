@@ -10,7 +10,7 @@ Hotel(id, nom, longitude, lattitude, adresse_postale, email, telephone, directeu
 
 TypeChambre(id, type, prix),
 
-Chambre(id, numero, libelle, etage, description, capacite, statut, type_Chambre_id, hotel_id),
+Chambre(id, numero, libelle, etage, description, capacite, prix_par_nuit, statut, type_Chambre_id, hotel_id),
 
 TypeRole(id, type)
 
@@ -36,7 +36,7 @@ Service(id, description, chambre_id, utilisateur_id, type_service_id),
 
 MoyenPaiement(id, moyen),
 
-Paiement(id, utilisateur_id, montant, date_paiement, moyen_paiement_id),
+Paiement(id, montant, date_paiement, utilisateur_id, moyen_paiement_id),
 
 Facture(id, type, montant_total, paiement_id)
 

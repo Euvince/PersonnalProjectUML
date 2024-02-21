@@ -17,7 +17,7 @@
             <div class="error-content">
                 <h2>405</h2>
                 <p>Méthode non supportée.</p>
-                <a href="{{ route('statistiques') }}">Retour au Dashborad.</a>
+                {{-- <a href="{{ route('statistiques') }}">Retour au Dashborad.</a> --}}
             </div>
         </div>
     </div>

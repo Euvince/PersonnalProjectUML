@@ -6,8 +6,8 @@
         <input class="{{ $class3 }}" type="{{ $type }}" name="{{ $name }}" placeholder="{{ $placeholder }}" id="{{ $id }}" {{ $readonly }} value="{{ old($name, $value)  }}"/>
     @elseif($type === 'file')
         <input class="form-control" type="file" id="formFile">
-    @else
-        <input class="form-control" type="number" id="formFile">
+    @elseif($type === 'date')
+        <input class="form-control" type="date" id="formFile">
     @endif
     @error($name)
         <span style="color: red; font-size: 0.7rem">{{ $message }}</span>

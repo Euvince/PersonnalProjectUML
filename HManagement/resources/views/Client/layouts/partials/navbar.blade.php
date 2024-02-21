@@ -7,10 +7,21 @@
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link active" href="{{-- {{ route('user.university.index') }} --}}">Hôtels
+            <a class="nav-link active" href="{{ route('clients.hotels.index') }}">Hôtels
               <span class="visually-hidden">(current)</span>
             </a>
           </li>
+          @auth
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Menu</a>
+                <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ route('client-profile.edit', ['user' => auth()->user()->id]) }}">Profile</a>
+                <a class="dropdown-item" href="#">Demander un service</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Paramètres</a>
+                </div>
+            </li>
+          @endauth
         </ul>
         {{-- <form class="d-flex">
           <input class="form-control me-sm-2" type="search" placeholder="Search" readonly>
@@ -27,7 +38,7 @@
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     @method('post')
-                    <button type="subbmit" style="background: inherit; border: none;">Se déconnecter</button>
+                    <button type="subbmit" style="background: inherit; border: none; padding-left: 15px">Se déconnecter</button>
                 </form>
               @endauth
             </div>

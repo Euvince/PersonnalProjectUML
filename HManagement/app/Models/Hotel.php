@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Chambre;
 use App\Models\Commune;
 use App\Models\Quartier;
 use App\Models\Departement;
@@ -30,10 +31,10 @@ class Hotel extends Model
         'adresse_postale',
     ];
 
-    /* protected static function boot() {
+    protected static function boot() {
 
         parent::boot();
-        if (!app()->runningInConsole()) {
+        if (!app()->runningInConsole() && auth()->check()) {
             $userFullName = Auth::user()->nom . " " . Auth::user()->prenoms;
 
             static::creating(function ($hotel) use ($userFullName) {
@@ -49,7 +50,7 @@ class Hotel extends Model
                 $hotel->save();
             });
         }
-    } */
+    }
 
     public function quartier() : BelongsTo {
         return $this->belongsTo(Quartier::class);
@@ -68,7 +69,7 @@ class Hotel extends Model
     }
 
     public function chambres() : HasMany {
-        return $this->hasMany(User::class);
+        return $this->hasMany(Chambre::class);
     }
 
     public function users() : HasMany {

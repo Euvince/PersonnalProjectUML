@@ -4,6 +4,8 @@
 
 @section('content')
 
-    @livewire('chambres-page-table')
+    @livewire('chambres-page-table', [
+        'hotel' => $hotel
+    ])
 
 @endsection

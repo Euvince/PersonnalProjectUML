@@ -4,29 +4,36 @@
     <div class="d-flex justify-content-between align-items-center">
 
         <div class="mt-2 mb-3 ml-5 d-flex">
-            <input type="text" class="form-control w-50 mx-2" placeholder="Numéro" wire:model="departement">
-            <input type="text" class="form-control w-50 mx-2" placeholder="Libellé" wire:model="commune">
-            <input type="text" class="form-control w-50 mx-2" placeholder="Capacité" wire:model="arrondissement">
-            <input type="text" class="form-control w-50 mx-2" placeholder="Type de chambre" wire:model="quartier">
+            {{-- <select name="type_chambre_id" id="type_chambre_id" class="form-control" wire:model="selectedTypeChambre">
+                @foreach ($types as $id => $type)
+                    <option value="{{ $id }}">{{ $type }}</option>
+                @endforeach
+            </select> --}}
+            <input type="text" class="form-control w-50 mx-2" placeholder="Type de chambre" wire:model="typechambre">
+            <input type="text" class="form-control w-50 mx-2" placeholder="Numéro" wire:model="numero">
+            <input type="text" class="form-control w-50 mx-2" placeholder="Libellé" wire:model="libelle">
+            <input type="number" class="form-control w-50 mx-2" placeholder="Capacité" wire:model="capacite">
+            <input type="text" class="form-control w-50 mx-2" placeholder="Description" wire:model="description">
         </div>
     </div>
 
     <div class="container mt-4">
         <div class="row">
-            @foreach ($hotels as $hotel)
-                <div class="col-4">
+            @foreach ($chambres as $chambre)
+                <div class="col-3">
                     <div class="card bg-secondary mb-3" style="max-width: 25rem;">
                         <img src="{{ asset('storage/images/image.png') }}" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h6 class="card-title">{{ Str::limit( $hotel->nom, 20, '...') }}</h6>
-                            <p class="card-text" style="font-size: 13px;">Directeur : <strong>{{ $hotel->directeur }}</strong></p>
-                            <p class="card-text" style="font-size: 13px;"><strong>{{ $hotel->email }}</strong></p>
-                            <a href="{{ route('clients.hotels.show', ['slug' => Str::slug($hotel->nom), 'hotel' => $hotel->id]) }}" class="btn btn-sm btn-primary">Visiter</a>
+                            <p class="card-text" style="font-size: 13px;">Chambre N° : <strong>{{ $chambre->numero }}</strong></p>
+                            <h6 class="card-title">{{ Str::limit( $chambre->libelle, 20, '...') }}</h6>
+                            <p class="card-text" style="font-size: 13px;">Statut : <strong>{{ $chambre->statut }}</strong></p>
+                            <p class="card-text" style="font-size: 13px;">Niveau : <strong>{{ $chambre->TypeChambre->type }}</strong></p>
+                            <a href="{{ route('clients.chambres.show', ['slug' => Str::slug($chambre->libelle), 'chambre' => $chambre->id]) }}" class="btn btn-sm btn-primary">Voir plus...</a>
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
-    {{ $hotels->links() }}
+    {{ $chambres->links() }}
 </div>

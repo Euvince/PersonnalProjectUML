@@ -61,17 +61,6 @@ class HotelsPageTable extends Component
         $this->resetPage();
     }
 
-    public function setOrderField(string | int | DateTime  $field) : void
-    {
-        if($field === $this->orderField){
-            $this->orderDirection = $this->orderDirection === 'ASC' ? 'DESC' : 'ASC';
-        }
-        else {
-            $this->orderField = $field;
-            $this->reset('orderDirection');
-        }
-    }
-
     public function render() : View
     {
         $this->validate();

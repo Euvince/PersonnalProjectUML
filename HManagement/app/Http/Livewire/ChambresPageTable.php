@@ -2,114 +2,102 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Chambre;
 use App\Models\Hotel;
+use App\Models\TypeChambre;
 use DateTime;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class HotelsPageTable extends Component
+class ChambresPageTable extends Component
 {
     use WithPagination;
 
-    public $nom = '';
+    public $hotel;
 
-    public $commune = '';
+    public $numero = '';
 
-    public $quartier = '';
+    public $libelle = '';
 
-    public $departement = '';
+    public $capacite = '';
 
-    public $arrondissement = '';
+    public $description = '';
 
-    public $orderField = 'nom';
+    public $typechambre = '';
+
+    public $orderField = 'numero';
 
     public $orderDirection = 'ASC';
 
     protected $paginationTheme = 'bootstrap';
 
     protected $rules = [
-        'nom' => 'nullable|string',
-        'commune' => 'nullable|string',
-        'quartier' => 'nullable|string',
-        'departement' => 'nullable|string',
-        'arrondissement' => 'nullable|string',
+        'numero' => 'nullable|string',
+        'libelle' => 'nullable|string',
+        'capacite' => 'nullable|string',
+        'description' => 'nullable|string',
+        'typechambre' => 'nullable|string',
     ];
 
-    public function updatedNom() : void
+    public function updatedNumero() : void
     {
         $this->resetPage();
     }
 
-    public function updatedDepartement() : void
+    public function updatedLibelle() : void
     {
         $this->resetPage();
     }
 
-    public function updatedCommune() : void
+    public function updatedCapacite() : void
     {
         $this->resetPage();
     }
 
-    public function updatedArrondissement() : void
+    public function updatedDescription() : void
     {
         $this->resetPage();
     }
 
-    public function updatedQuartier() : void
+    public function updatedTypechambre() : void
     {
         $this->resetPage();
-    }
-
-    public function setOrderField(string | int | DateTime  $field) : void
-    {
-        if($field === $this->orderField){
-            $this->orderDirection = $this->orderDirection === 'ASC' ? 'DESC' : 'ASC';
-        }
-        else {
-            $this->orderField = $field;
-            $this->reset('orderDirection');
-        }
     }
 
     public function render() : View
     {
         $this->validate();
 
-        $hotels = Hotel::query();
+        $chambres = Chambre::query()->where('hotel_id', $this->hotel->id);
 
-        if(!empty($this->nom)){
-            $hotels = $hotels->where('nom', 'LIKE', "%{$this->nom}%");
+        if(!empty($this->numero)){
+            $chambres = $chambres->where('numero', 'LIKE', "%{$this->numero}%");
         }
 
-        if(!empty($this->departement)){
-            $hotels = $hotels->whereHas('departement', function ($query) {
-                $query->where('nom', 'LIKE', "%{$this->departement}%");
+        if(!empty($this->libelle)){
+            $chambres = $chambres->where('libelle', 'LIKE', "%{$this->libelle}%");
+        }
+
+        if(!empty($this->capacite)){
+            $chambres = $chambres->where('capacite', 'LIKE', "%{$this->capacite}%");
+        }
+
+        if(!empty($this->description)){
+            $chambres = $chambres->where('description', 'LIKE', "%{$this->description}%");
+        }
+
+        if(!empty($this->typechambre)){
+            $chambres = $chambres->whereHas('TypeChambre', function ($query) {
+                $query->where('type', 'LIKE', "%{$this->typechambre}%");
             });
         }
 
-        if(!empty($this->commune)){
-            $hotels = $hotels->whereHas('commune', function ($query) {
-                $query->where('nom', 'LIKE', "%{$this->commune}%");
-            });
-        }
-
-        if(!empty($this->arrondissment)){
-            $hotels = $hotels->whereHas('arrondissment', function ($query) {
-                $query->where('nom', 'LIKE', "%{$this->arrondissment}%");
-            });
-        }
-
-        if(!empty($this->quartier)){
-            $hotels = $hotels->whereHas('quartier', function ($query) {
-                $query->where('nom', 'LIKE', "%{$this->quartier}%");
-            });
-        }
-
-        return view('livewire.hotels-page-table', [
-            'hotels' => $hotels
+        return view('livewire.chambres-page-table', [
+            'chambres' => $chambres
                 ->orderBy($this->orderField, $this->orderDirection)
-                ->paginate(15)
+                ->paginate(21),
+            /* 'types' => TypeChambre::all()->pluck('type', 'id') */
         ]);
     }
 

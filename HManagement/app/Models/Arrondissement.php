@@ -26,7 +26,7 @@ class Arrondissement extends Model
     protected static function boot() {
 
         parent::boot();
-        if (!app()->runningInConsole()) {
+        if (!app()->runningInConsole() && auth()->check()) {
             $userFullName = Auth::user()->nom . " " . Auth::user()->prenoms;
 
             static::creating(function ($arrondissement) use ($userFullName) {

@@ -30,13 +30,10 @@ class Handler extends ExceptionHandler
         if($e instanceof AuthorizationException)
         return to_route('statistiques');
 
-        if ($e instanceof ModelNotFoundException)
-        return response()->view('errors.401', [], 401);
-
         if ($e instanceof AccessDeniedHttpException)
         return response()->view('Errors.403', [], 403);
 
-        if ($e instanceof NotFoundHttpException)
+        if ($e instanceof NotFoundHttpException || $e instanceof ModelNotFoundException)
         return response()->view('Errors.404', [], 404);
 
         if ($e instanceof MethodNotAllowedHttpException)
