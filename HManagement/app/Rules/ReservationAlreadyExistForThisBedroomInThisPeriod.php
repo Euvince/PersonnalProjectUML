@@ -14,6 +14,6 @@ class ReservationAlreadyExistForThisBedroomInThisPeriod implements ValidationRul
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        //
+
     }
 }

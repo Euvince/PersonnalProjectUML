@@ -9,6 +9,8 @@ use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\ReservationFormRequest;
 use App\Models\Chambre;
+use App\Models\Facture;
+use App\Models\Paiement;
 use App\Models\Reservation;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
@@ -37,6 +39,7 @@ class ClientController extends Controller
 
     public function showChambre (String $slug, Chambre $chambre) : View | RedirectResponse
     {
+        dd('2024-02-20' <= '2024-02-15');
         if ($slug !== Str::slug($chambre->libelle)) {
             return to_route('clients.chambres.show', ['slug' => Str::slug($chambre->nom), 'chambre' => $chambre->id]);
         }
@@ -45,9 +48,19 @@ class ClientController extends Controller
         ]);
     }
 
-    public function sendReservation (ReservationFormRequest $request, Chambre $chambre)/*  : RedirectResponse | View */
+    public function sendReservation (ReservationFormRequest $request, Chambre $chambre) : RedirectResponse | View
     {
         dd($request->validated());
+        if ($chambre->reservations
+            ->where('debut_sejour', '<=', $request->fin_sejour)
+            ->where('fin_sejour', '>=', $request->debut_sejour)
+            ->count() > 0
+        )
+        return
+            redirect()
+            ->route('clients.chambres.show', ['slug' => Str::slug($chambre->libelle), 'chambre' => $chambre->id])
+            ->with('error', 'Cette chambre est déjà réservée pour cette période.');
+
         Reservation::create(array_merge(
             $request->validated(),
             [
@@ -57,10 +70,31 @@ class ClientController extends Controller
                 'prix_par_nuit' => $chambre->TypeChambre->prix_par_nuit,
             ]
         ));
-        /* return
+        $chambre->update([
+            'statut' => 'réservé'
+        ]);
+
+        $period = Carbon::parse($request->fin_sejour)->diffInDays(Carbon::parse($request->debut_sejour));
+        $montant = $chambre->TypeChambre->prix_par_nuit * $period;
+
+        /* auth()->user()->charge($montant, $request->payment_method); */
+
+        $paiement = Paiement::create([
+            'montant' => $montant,
+            'date_paiement' => Carbon::now()->format('d-m-Y'),
+            'user_id' => Auth::user()->id
+        ]);
+
+        $facture = Facture::create([
+            'type' => 'départ',
+            'paiement_id' => $paiement->id,
+            'montant_total' => $paiement->montant_total
+        ]);
+
+        return
             redirect()
-            ->route('personnal-profile.edit', ['user' => $user])
-            ->with('success', 'Votre profile a été modifié avec succès.'); */
+            ->route('clients.chambres.show', ['slug' => Str::slug($chambre->libelle), 'chambre' => $chambre->id])
+            ->with('success', 'Votre réservation a été éffectuée avec succès.');
     }
 
 }

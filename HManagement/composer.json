@@ -9,6 +9,7 @@
         "almasaeed2010/adminlte": "^3.2",
         "coreui/coreui": "^4.3",
         "guzzlehttp/guzzle": "^7.2",
+        "laravel/cashier": "^15.2",
         "laravel/fortify": "^1.20",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",

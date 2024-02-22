@@ -8,6 +8,8 @@
         <input class="form-control" type="file" id="formFile">
     @elseif($type === 'date')
         <input class="form-control" type="date" id="formFile">
+    @elseif($type === 'hidden')
+        <input class="form-control" type="hidden" id="formFile">
     @endif
     @error($name)
         <span style="color: red; font-size: 0.7rem">{{ $message }}</span>

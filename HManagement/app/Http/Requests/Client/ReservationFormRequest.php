@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Client;
 
+use App\Rules\ReservationAlreadyExistForThisBedroomInThisPeriod;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ReservationFormRequest extends FormRequest
@@ -22,7 +23,7 @@ class ReservationFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'debut_sejour' => ['required', 'date'],
+            'debut_sejour' => ['required', 'date', new ReservationAlreadyExistForThisBedroomInThisPeriod()],
             'fin_sejour' => ['required', 'date']
         ];
     }
