@@ -143,6 +143,21 @@ class DatabaseSeeder extends Seeder
             Permission::where('name', 'Gérer les Demandes de Services')->first()->id
         ]);
 
+        \App\Models\User::factory()->create([
+            'nom' => 'CAPO CHICHI',
+            'sexe' => 'Masculin',
+            'prenoms' => 'Jean-Daniel',
+            'email' => 'danieleuvince2003@gmail.com',
+            'password' => Hash::make('123456789'),
+            'telephone' => '+229 96909016',
+            'nationnalite' => 'Béninoise',
+            'date_naissance' => '2003-12-12'
+        ])->assignRole(['Client'])->permissions()->sync([
+            /* Permission::where('name', 'Modifier Profil')->first()->id, */
+            Permission::where('name', 'Réserver une Chambre')->first()->id,
+            Permission::where('name', 'Demander un Service')->first()->id,
+        ]);
+
         /* User::factory()->count(15)->create(); */
     }
 }

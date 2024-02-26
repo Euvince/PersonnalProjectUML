@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('paiements', function (Blueprint $table) {
             $table->id();
             $table->float('montant');
-            /* $table->string('moyen_paiement')->nullable(); */
+            $table->string('moyen_paiement')->default('STRIPE')/* ->nullable() */;
             $table->date('date_paiement');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

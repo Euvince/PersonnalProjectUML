@@ -2,12 +2,16 @@
 
 namespace App\Mail;
 
+use App\Models\Chambre;
+use App\Models\Facture;
+use App\Models\Reservation;
+use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ReservationPaymentMail extends Mailable
 {
@@ -16,7 +20,12 @@ class ReservationPaymentMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(
+        public Facture $facture,
+        public Chambre $chambre,
+        public Reservation $reservation,
+        public String $downloadFactureRoute
+    )
     {
         //
     }
@@ -27,7 +36,8 @@ class ReservationPaymentMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Reservation Payment Mail',
+            to: $this->facture->paiement->user->email,
+            subject: 'Paiement pour réservation de chambre',
         );
     }
 
@@ -38,6 +48,13 @@ class ReservationPaymentMail extends Mailable
     {
         return new Content(
             markdown: 'mail.reservation-payment-mail',
+            with: [
+                'facture' => $this->facture,
+                'chambre' => $this->chambre,
+                'reservation' => $this->reservation,
+                'url' => $this->downloadFactureRoute,
+                /* 'slugH' => Str::slug($this->chambre->hotel->nom) */
+            ]
         );
     }
 

@@ -21,6 +21,7 @@ class Reservation extends Model
         'chambre_id',
         'fin_sejour',
         'debut_sejour',
+        'prix_par_nuit',
         'date_reservation',
     ];
 

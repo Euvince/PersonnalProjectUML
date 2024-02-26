@@ -20,6 +20,7 @@ class Paiement extends Model
         'montant',
         'user_id',
         'date_paiement',
+        'moyen_paiement',
         'moyen_paiement_id'
     ];
 

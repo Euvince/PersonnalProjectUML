@@ -43,7 +43,23 @@ Route::get('chambres/{slug}/{chambre}', [ClientController::class, 'showChambre']
 Route::post('chambres/{chambre}/reservation', [ClientController::class, 'sendReservation'])
 ->name('clients.chambres.reservation-send')
 ->where(['chambre' => $idRegex])
-/* ->middleware(['auth', 'verified', 'permission:Réserver une Chambre']) */;
+->middleware(['auth'/* , 'verified' */, 'permission:Réserver une Chambre']);
+
+Route::get('facture-show/{facture}/{chambre}', [ClientController::class, 'showFacture'])
+->name('clients.facture-show')
+->where([
+    'facture' => $idRegex,
+    'chambre' => $idRegex
+])
+->middleware(['auth'/* , 'verified' */, 'permission:Réserver une Chambre']);
+
+Route::get('facture-download/{facture}/{chambre}', [ClientController::class, 'downloadFacture'])
+->name('clients.facture-download')
+->where([
+    'facture' => $idRegex,
+    'chambre' => $idRegex
+])
+->middleware(['auth'/* , 'verified' */, 'permission:Réserver une Chambre']);
 
 
 Route::get('api', [HotelController::class, 'index']);

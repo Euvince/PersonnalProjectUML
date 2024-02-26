@@ -60,6 +60,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
+    public static function stripeOptions() : array
+    {
+        return [
+            'api_key' => config('services.stripe.secret'),
+        ];
+    }
+
+
     protected static function boot() {
 
         parent::boot();

@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Http\Requests\Client;
+namespace App\Http\Requests\ReceptionPersonnal;
 
-use App\Rules\DatesRules;
-use App\Rules\ReservationAlreadyExistForThisBedroomInThisPeriod;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ReservationFormRequest extends FormRequest
@@ -13,7 +11,7 @@ class ReservationFormRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,8 +22,7 @@ class ReservationFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'debut_sejour' => ['required', 'date', new DatesRules()],
-            'fin_sejour' => ['required', 'date']
+            //
         ];
     }
 }

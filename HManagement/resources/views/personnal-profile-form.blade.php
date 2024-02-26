@@ -48,8 +48,8 @@
                     @enderror
                 </div>
             </div>
-            <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="password" label="Mot de passe" type="text" name="password" placeholder="Mot de passe"  readonly="" value="" />
-            <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="password_confirmation" label="Confirmer mot de passe" type="text" name="password_confirmation" placeholder="Mot de passe"  readonly="" value="" />
+            <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="password" label="Mot de passe" type="password" name="password" placeholder="Mot de passe"  readonly="" value="" />
+            <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="password_confirmation" label="Confirmer mot de passe" type="password" name="password_confirmation" placeholder="Mot de passe"  readonly="" value="" />
         </div>
 
         <button type="submit" class="btn btn-primary my-4">{{ 'Sauvegarder' }}</button>

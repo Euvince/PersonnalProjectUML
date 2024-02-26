@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
+
 return [
 
     /*
@@ -170,7 +172,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-        Krlove\EloquentModelGenerator\Provider\GeneratorServiceProvider::class
+        Krlove\EloquentModelGenerator\Provider\GeneratorServiceProvider::class,
+        \Barryvdh\DomPDF\ServiceProvider::class
     ])->toArray(),
 
     /*
@@ -186,6 +189,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        'PDF' => PDF::class
     ])->toArray(),
 
 ];

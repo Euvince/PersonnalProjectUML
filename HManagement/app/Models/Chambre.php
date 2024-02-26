@@ -6,6 +6,7 @@ use App\Models\Hotel;
 use App\Models\Service;
 use App\Models\Reservation;
 use App\Models\TypeChambre;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -47,6 +48,10 @@ class Chambre extends Model
                 $chambre->save();
             });
         }
+    }
+
+    public function getSlug() : string {
+        return Str::slug($this->libelle);
     }
 
     public function hotel() : BelongsTo {

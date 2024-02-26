@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ReceptionPersonnal\ReservationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,3 +13,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::group(['middleware' => ['auth', 'permission:Gérer les Réservations'], 'prefix' => 'reception-personnal', 'as' => 'reception-personnal.'], function () {
+    Route::resource('reservations', ReservationController::class)->except(['show']);
+});

@@ -7,6 +7,7 @@ use App\Models\Chambre;
 use App\Models\Commune;
 use App\Models\Quartier;
 use App\Models\Departement;
+use Illuminate\Support\Str;
 use App\Models\Arrondissement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -50,6 +51,10 @@ class Hotel extends Model
                 $hotel->save();
             });
         }
+    }
+
+    public function getSlug() : string {
+        return Str::slug($this->nom);
     }
 
     public function quartier() : BelongsTo {

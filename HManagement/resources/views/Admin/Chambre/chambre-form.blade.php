@@ -28,6 +28,14 @@
             <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="description" label="Description" type="text" name="description" placeholder="Description"  readonly="" value="{{ $chambre->description }}" />
         </div>
 
+        <div class="row">
+            <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="photo" label="Photo" type="file" name="photo" placeholder="Photo"  readonly="" value="{{ $chambre->photo }}" />
+            <div class="col row mx-1">
+            </div>
+            <div class="col row mx-1">
+            </div>
+        </div>
+
         <button type="submit" class="btn btn-primary my-4">{{ $chambre->exists ? 'Modifier' : 'Enrégistrer' }}</button>
     </form>
 
