@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class DatesRules implements ValidationRule
+class ReservationDatesRules implements ValidationRule
 {
     /**
      * Run the validation rule.
@@ -20,7 +20,7 @@ class DatesRules implements ValidationRule
         }
 
         if (request()->debut_sejour > request()->fin_sejour) {
-            $fail("La date de début de séjour doit être inférieure à celle de fin de séjour");
+            $fail("La date de début de séjour doit être inférieure à celle de fin de séjour.");
         }
     }
 }

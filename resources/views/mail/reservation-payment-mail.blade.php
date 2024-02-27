@@ -6,10 +6,10 @@ Votre réservation pour la chambre
 a été confirmée dans l'hôtel
 <a href="{{ route('clients.hotels.show', ['slug' => $chambre->hotel->getSlug(), 'hotel' => $chambre->hotel->id]) }}">{{ $chambre->hotel->nom }}</a>
 
--Prénoms : {{ $reservation->user->prenoms }} <br>
--Noms : {{ $reservation->user->nom }} <br>
--Téléphone : {{ $reservation->user->telephone }} <br>
--Email : {{ $reservation->user->email }} <br>
+-Prénoms : {{ $reservation->prenoms_client }} <br>
+-Noms : {{ $reservation->nom_client }} <br>
+-Téléphone : {{ $reservation->telephone_client }} <br>
+-Email : {{ $reservation->email_client }} <br>
 
 **Durée du séjour** <br>
 Du {{ $reservation->debut_sejour }} au {{ $reservation->fin_sejour }}

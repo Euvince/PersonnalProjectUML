@@ -2,43 +2,63 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Departement;
+use App\Models\Reservation;
 use DateTime;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class DepartementsTable extends Component
+class ReservationsTable extends Component
 {
     use WithPagination;
 
-    public $nom = '';
+    public $numChambre = '';
 
-    public $orderField = 'nom';
+    public $userLastName = '';
+
+    public $userFirstName = '';
+
+    public $orderField = 'chambre_id';
 
     public $orderDirection = 'ASC';
 
-    public array $departementsChecked = [];
+    public array $reservationsChecked = [];
 
     protected $paginationTheme = 'bootstrap';
 
     protected $rules = [
-        'nom' => 'nullable|string'
+        /* 'numChambre' => 'nullable', */
+        'userLastName' => 'nullable|string',
+        'userFirstName' => 'nullable|string',
     ];
 
-    public function updatedNom() : void
+    public function updatedChambreNum() : void
     {
         $this->resetPage();
     }
 
-    public function deletedDepartements(array $ids) : void
+    public function updatedUserLastName() : void
     {
-        Departement::destroy($ids);
-        $this->departementsChecked = [];
-        session()->flash('success', 'Le(s) Départment(s) ont bien été supprimé');
+        $this->resetPage();
     }
 
-    public function setOrderField(string | int | DateTime  $field)
+    public function updatedUserFirstName() : void
+    {
+        $this->resetPage();
+    }
+
+    public function withdrawReservations(array $ids) : void
+    {
+        foreach ($ids as $id) {
+            Reservation::find($id)->update([
+                'retire' => 1
+            ]);
+        }
+        $this->reservationsChecked = [];
+        session()->flash('success', 'Le(s) Réservation(s) ont bien été retiré');
+    }
+
+    public function setOrderField(string | int | DateTime  $field) : void
     {
         if($field === $this->orderField){
             $this->orderDirection = $this->orderDirection === 'ASC' ? 'DESC' : 'ASC';
@@ -53,16 +73,24 @@ class DepartementsTable extends Component
     {
         $this->validate();
 
-        $departements = Departement::query();
+        $reservations = Reservation::query()->where('retire', 0);
 
-        if(!empty($this->nom)){
-            $departements = $departements->where('nom', 'LIKE', "%{$this->nom}%");
+        if(!empty($this->numChambre)){
+            $reservations = $reservations->where('chambre_id', 'LIKE', "%{$this->numChambre}%");
         }
 
-        return view('livewire.departements-table', [
-            'departements' => $departements
+        if(!empty($this->userLastName)){
+            $reservations = $reservations->where('prenoms_client', 'LIKE', "%{$this->userLastName}%");
+        }
+
+        if(!empty($this->userFirstName)){
+            $reservations = $reservations->where('nom_client', 'LIKE', "%{$this->userFirstName}%");
+        }
+
+        return view('livewire.reservations-table', [
+            'reservations' => $reservations
                 ->orderBy($this->orderField, $this->orderDirection)
-                ->paginate(20)
+                ->paginate(15)
         ]);
     }
 

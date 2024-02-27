@@ -262,5 +262,9 @@ return [
         'roles'                    => 'Rôles',
         'debut_sejour'             => 'Début du séjour',
         'fin_sejour'               => 'Fin du séjour',
+        'nom_client'               => 'Nom du client',
+        'prenoms_client'           => 'Prénoms du client',
+        'email_client'             => 'Email du client',
+        'telephone_client'         => 'Téléphone du client',
     ],
 ];

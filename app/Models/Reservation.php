@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Chambre;
 use Illuminate\Support\Facades\Auth;
@@ -19,9 +20,13 @@ class Reservation extends Model
         'statut',
         'user_id',
         'chambre_id',
+        'nom_client',
         'fin_sejour',
         'debut_sejour',
+        'email_client',
         'prix_par_nuit',
+        'prenoms_client',
+        'telephone_client',
         'date_reservation',
     ];
 
@@ -44,6 +49,11 @@ class Reservation extends Model
                 $reservation->save();
             });
         }
+    }
+
+    public function getMontant () : float {
+        $period = Carbon::parse($this->fin_sejour)->diffInDays(Carbon::parse($this->debut_sejour));
+        return $this->prix_par_nuit * $period;
     }
 
     public function user() : BelongsTo {

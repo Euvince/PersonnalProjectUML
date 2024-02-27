@@ -8,18 +8,18 @@ use App\Models\Hotel;
 use App\Models\Chambre;
 use App\Models\Facture;
 use App\Models\Paiement;
+use Barryvdh\DomPDF\PDF;
 use App\Models\Reservation;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\MoyenPaiement;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\Client\ReservationFormRequest;
 use App\Jobs\ReservationPaymentJob;
-use App\Models\MoyenPaiement;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
-use Barryvdh\DomPDF\PDF;
+use App\Http\Requests\Client\ReservationFormRequest;
 
 class ClientController extends Controller
 {
@@ -106,7 +106,7 @@ class ClientController extends Controller
         return
             redirect()
             ->route('clients.chambres.show', ['slug' => Str::slug($chambre->libelle), 'chambre' => $chambre->id])
-            ->with('success', 'Votre réservation est confirmée,.');
+            ->with('success', 'Votre réservation est confirmée.');
     }
 
     public function showFacture (Facture $facture, Chambre $chambre) : View

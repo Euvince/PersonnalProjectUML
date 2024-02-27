@@ -34,6 +34,8 @@
     {{-- <script>
         new TomSelect('select[multiple]', {plugins : {remove_button : {title : 'Supprimer'}}});
     </script> --}}
+
+    @yield('extraaa-js')
 </body>
 
 </html>

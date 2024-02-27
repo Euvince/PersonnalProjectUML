@@ -47,9 +47,9 @@
 
         <div class="row">
             <div class="col row">
-                <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="nom" label="Nom" type="text" name="nom" placeholder="Nom"  readonly="readonly" value="{{ auth()->check() ? auth()->user()->nom : '' }}" />
-                <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="prenoms" label="Prénoms" type="text" name="prenoms" placeholder="Prénoms"  readonly="readonly" value="{{ auth()->check() ? auth()->user()->prenoms : '' }}" />
-                <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="email" label="Email" type="text" name="email" placeholder="Email"  readonly="readonly" value="{{ auth()->check() ? auth()->user()->email : '' }}" />
+                <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="nom_client" label="Nom" type="text" name="nom_client" placeholder="Nom"  readonly="readonly" value="{{ auth()->check() ? auth()->user()->nom : '' }}" />
+                <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="prenoms_client" label="Prénoms" type="text" name="prenoms_client" placeholder="Prénoms"  readonly="readonly" value="{{ auth()->check() ? auth()->user()->prenoms : '' }}" />
+                <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="email_client" label="Email" type="text" name="email_client" placeholder="Email"  readonly="readonly" value="{{ auth()->check() ? auth()->user()->email : '' }}" />
             </div>
         </div>
 
@@ -58,6 +58,16 @@
                 <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="prix_par_nuit" label="Prix par nuit" type="text" name="prix_par_nuit" placeholder="Prix par nuit"  readonly="readonly" value="{{ $chambre->TypeChambre->prix_par_nuit }}" />
                 <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="debut_sejour" label="Début du séjour" type="date" name="debut_sejour" placeholder="Début du séjour"  readonly="" value="{{ $chambre->debut_sejour }}" />
                 <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="fin_sejour" label="Fin du séjour" type="date" name="fin_sejour" placeholder="Fin du séjour"  readonly="" value="{{ $chambre->fin_sejour }}" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col row">
+                <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="telephone_client" label="Téléphone" type="text" name="telephone_client" placeholder="Téléphone"  readonly="readonly" value="{{ auth()->check() ? auth()->user()->telephone : '' }}" />
+                <div class="col row mx-1">
+                </div>
+                <div class="col row mx-1">
+                </div>
             </div>
         </div>
 
@@ -78,7 +88,7 @@
     <script src="https://js.stripe.com/v3"></script>
     <script>
 
-        const stripe = Stripe(" {{ env('STRIPE_PUBLIQUE_KEY') }}");
+        const stripe = Stripe("{{ env('STRIPE_PUBLIQUE_KEY') }}");
 
         const elements = stripe.elements();
         const cardElement = elements.create('card', {

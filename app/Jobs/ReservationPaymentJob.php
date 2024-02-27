@@ -2,17 +2,17 @@
 
 namespace App\Jobs;
 
-use App\Mail\ReservationPaymentMail;
 use App\Models\Chambre;
 use App\Models\Facture;
 use App\Models\Reservation;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use App\Mail\ReservationPaymentMail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 
 class ReservationPaymentJob implements ShouldQueue
 {
