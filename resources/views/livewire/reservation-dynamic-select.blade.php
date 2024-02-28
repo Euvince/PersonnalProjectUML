@@ -14,7 +14,7 @@
     </div>
     <div class="form-group col">
         <label for="prix_par_nuit" class="form-label mt-4">Prix par nuit</label>
-            <input class="form-control" type="number" name="prix_par_nuit" placeholder="Prix par nuit" id="prix_par_nuit" value="{{ old('prix_par_nuit', $reservation->prix_par_nuit)  }}" wire:model="price" readonly style="background: white;"/>
+            <input class="form-control" type="number" name="prix_par_nuit" placeholder="Prix par nuit" id="prix_par_nuit" value="{{-- {{ old('prix_par_nuit', $reservation->prix_par_nuit)  }} --}}" wire:model="price" readonly style="background: white;"/>
         @error('prix_par_nuit')
             <span style="color: red; font-size: 0.7rem">{{ $message }}</span>
         @enderror

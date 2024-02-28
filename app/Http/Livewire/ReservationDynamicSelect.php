@@ -21,6 +21,9 @@ class ReservationDynamicSelect extends Component
     public function mount() : void
     {
         $this->price = Chambre::where('libelle', $this->chambres->first())->first()->TypeChambre->prix_par_nuit;
+        if (old('chambre_id')) {
+            $this->selectedChambre = old('chambre_id');
+        }
     }
 
     public function updatedSelectedChambre(int $chambre_id) : void

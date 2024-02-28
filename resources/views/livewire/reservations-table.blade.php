@@ -24,14 +24,14 @@
                                 <div class="card-body">
                                     <div>
                                         <input class="form-check-input" type="checkbox" x-model="reservationsChecked" value="">
-                                        <h6 class="card-title">{{ $reservation->nom_client }} {{ $reservation->prenoms_client }}</h6>
+                                        <h6 class="card-title">{{-- {{ $reservation->nom_client }}  --}}{{ $reservation->prenoms_client }}</h6>
                                     </div>
                                     <p class="card-text" style="font-size: 13px;"><strong>{{ $reservation->chambre->libelle }}</strong></p>
                                     <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center mb-3">
                                         <strong>{{  $reservation->statut }}</strong>
                                         <span class="badge bg-primary rounded-pill">{{ number_format($reservation->getMontant(), 0, ',', '.')}}</span>
                                     </li>
-                                    <a href="" class="btn btn-primary btn-sm">Confirmer</a>
+                                    <a href="" class="btn btn-primary btn-sm">Valider</a>
                                     <a href="" class="btn btn-danger btn-sm">Annuler</a>
                                     <a href="" class="btn btn-success btn-sm" data-target="#modal" data-toggle="modal">Retirer</a>
                                 </div>

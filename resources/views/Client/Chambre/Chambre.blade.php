@@ -21,7 +21,6 @@
                     <strong>Description : <br></strong>
                     {{ Str::limit($chambre->description , 200, '...') }}
                 </p>
-                {{-- <a href="{{ route('clients.chambres.reservation-form', ['chambre' => $chambre->id]) }}" class="btn btn-primary">Réserver</a> --}}
             </div>
         </div>
     </div>

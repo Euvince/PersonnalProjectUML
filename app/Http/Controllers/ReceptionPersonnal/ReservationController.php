@@ -31,8 +31,19 @@ class ReservationController extends Controller
      */
     public function create() : View
     {
+        $reservation = new Reservation();
+
+        $reservation->fill([
+            'nom_client' => "AGOSSOU",
+            'prenoms_client' => "Gilles",
+            'email_client' => "gilles@gmail.com",
+            'telephone_client' => "+229 65141420",
+            'debut_sejour' => "12/12/2024",
+            'fin_sejour' => "12/12/2025",
+        ]);
+
         return view('ReceptionPersonnal.Reservation.reservation-form', [
-            'reservation' => new Reservation(),
+            'reservation' => $reservation,
             'chambres' => Auth::user()->hotel->chambres->sortBy('libelle')->pluck('libelle', 'id'),
         ]);
     }
@@ -42,7 +53,7 @@ class ReservationController extends Controller
      */
     public function store(ReservationFormRequest $request) : RedirectResponse
     {
-        $chambre = Chambre::find('chambre_id');
+        $chambre = Chambre::find(request()->chambre_id);
         if ($chambre->reservations
             ->where('debut_sejour', '<=', $request->fin_sejour)
             ->where('fin_sejour', '>=', $request->debut_sejour)
