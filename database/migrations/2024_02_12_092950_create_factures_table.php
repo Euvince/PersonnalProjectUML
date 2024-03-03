@@ -17,6 +17,10 @@ return new class extends Migration
             $table->float('montant_total');
             $table->unsignedBigInteger('paiement_id');
             $table->foreign('paiement_id')->references('id')->on('paiements');
+            $table->string('nom_client');
+            $table->string('prenoms_client');
+            $table->string('email_client');
+            $table->string('telephone_client');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->string('deleted_by')->nullable();

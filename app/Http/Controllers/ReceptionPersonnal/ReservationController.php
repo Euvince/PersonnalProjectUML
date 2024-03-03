@@ -80,6 +80,10 @@ class ReservationController extends Controller
         $paiement = Paiement::create([
             'montant' => $montant,
             'user_id' => Auth::user()->id,
+            'nom_client' => $reservation->nom_client,
+            'prenoms_client' => $reservation->prenoms_client,
+            'email_client' => $reservation->email_client,
+            'telephone_client' => $reservation->telephone_client,
             'date_paiement' => Carbon::now()->format('Y-m-d'),
             'moyen_paiement_id' =>MoyenPaiement::where('moyen', 'STRIPE')->first()->id
         ]);
@@ -94,7 +98,11 @@ class ReservationController extends Controller
         $facture = Facture::create([
             'type' => 'départ',
             'paiement_id' => $paiement->id,
-            'montant_total' => $paiement->montant
+            'montant_total' => $paiement->montant,
+            'nom_client' => $reservation->nom_client,
+            'prenoms_client' => $reservation->prenoms_client,
+            'email_client' => $reservation->email_client,
+            'telephone_client' => $reservation->telephone_client,
         ]);
 
         $downloadFactureRoute = route('clients.facture-download', ['facture' => $facture, 'chambre' => $chambre]);
@@ -103,7 +111,7 @@ class ReservationController extends Controller
         return
             redirect()
             ->route('reception-personnal.reservations.index')
-            ->with('success', 'La réservation a été crée avec succès.');
+            ->with('success', 'La réservation a été faite avec succès.');
     }
 
     /**

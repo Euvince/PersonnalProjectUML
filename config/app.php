@@ -3,8 +3,6 @@
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
-use Barryvdh\DomPDF\Facade\Pdf as PDF;
-
 return [
 
     /*
@@ -189,7 +187,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
-        'PDF' => PDF::class
+        /* "PDF" => Barryvdh\DomPDF\Facade::class */
     ])->toArray(),
 
 ];

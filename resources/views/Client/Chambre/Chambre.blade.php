@@ -54,7 +54,7 @@
 
         <div class="row">
             <div class="col row">
-                <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="prix_par_nuit" label="Prix par nuit" type="text" name="prix_par_nuit" placeholder="Prix par nuit"  readonly="readonly" value="{{ $chambre->TypeChambre->prix_par_nuit }}" />
+                <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="prix_par_nuit" label="Prix par nuit($)" type="text" name="prix_par_nuit" placeholder="Prix par nuit($)"  readonly="readonly" value="{{ $chambre->TypeChambre->prix_par_nuit }}" />
                 <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="debut_sejour" label="Début du séjour" type="date" name="debut_sejour" placeholder="Début du séjour"  readonly="" value="{{ $chambre->debut_sejour }}" />
                 <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="fin_sejour" label="Fin du séjour" type="date" name="fin_sejour" placeholder="Fin du séjour"  readonly="" value="{{ $chambre->fin_sejour }}" />
             </div>

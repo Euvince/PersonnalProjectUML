@@ -15,8 +15,12 @@ class Facture extends Model
 
     protected $fillable = [
         'type',
+        'nom_client',
         'paiement_id',
-        'montant_total'
+        'email_client',
+        'montant_total',
+        'prenoms_client',
+        'telephone_client',
     ];
 
     protected static function boot() {

@@ -35,11 +35,6 @@ Route::get('chambres/{slug}/{chambre}', [ClientController::class, 'showChambre']
     'slug' => $slugRegex
 ]);
 
-/* Route::get('chambres/{chambre}/reservation', [ClientController::class, 'showReservationForm'])
-->name('clients.chambres.reservation-form')
-->where(['chambre' => $idRegex])
-->middleware(['auth', 'verified', 'permission:Réserver une Chambre']); */
-
 Route::post('chambres/{chambre}/reservation', [ClientController::class, 'sendReservation'])
 ->name('clients.chambres.reservation-send')
 ->where(['chambre' => $idRegex])

@@ -15,7 +15,7 @@ class ReservationPriceRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (request()->routeIs('clients.chambres.reservation-send') ) {
+        if (request()->routeIs('clients.chambres.reservation-send')) {
             if ((float)request()->prix_par_nuit !== request()->route()->parameter('chambre')->TypeChambre->prix_par_nuit) {
                 $fail("Le prix de la chambre est incorrect.");
             }

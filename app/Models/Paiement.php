@@ -19,9 +19,13 @@ class Paiement extends Model
     protected $fillable = [
         'montant',
         'user_id',
+        'nom_client',
+        'email_client',
         'date_paiement',
         'moyen_paiement',
-        'moyen_paiement_id'
+        'prenoms_client',
+        'telephone_client',
+        'moyen_paiement_id',
     ];
 
     protected static function boot() {

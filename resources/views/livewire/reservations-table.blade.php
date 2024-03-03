@@ -20,7 +20,7 @@
                 <div class="row">
                     @foreach ($reservations as $reservation)
                         <div class="col-4">
-                            <div class="card mb-3" style="max-width: 25rem; background:#d6e9f4;">
+                            <div class="card mb-3" style="background:#d6e9f4;">
                                 <div class="card-body">
                                     <div>
                                         <input class="form-check-input" type="checkbox" x-model="reservationsChecked" value="">
@@ -29,7 +29,7 @@
                                     <p class="card-text" style="font-size: 13px;"><strong>{{ $reservation->chambre->libelle }}</strong></p>
                                     <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center mb-3">
                                         <strong>{{  $reservation->statut }}</strong>
-                                        <span class="badge bg-primary rounded-pill">{{ number_format($reservation->getMontant(), 0, ',', '.')}}</span>
+                                        <span class="badge bg-primary rounded-pill">{{ number_format($reservation->getMontant(), 0, ',', '.')}}$</span>
                                     </li>
                                     <a href="" class="btn btn-primary btn-sm">Valider</a>
                                     <a href="" class="btn btn-danger btn-sm">Annuler</a>

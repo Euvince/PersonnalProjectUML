@@ -14,10 +14,14 @@ return new class extends Migration
         Schema::create('paiements', function (Blueprint $table) {
             $table->id();
             $table->float('montant');
-            $table->string('moyen_paiement')->default('STRIPE')/* ->nullable() */;
-            $table->date('date_paiement');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->string('nom_client');
+            $table->string('prenoms_client');
+            $table->string('email_client');
+            $table->string('telephone_client');
+            $table->date('date_paiement');
+            $table->string('moyen_paiement')->default('STRIPE')/* ->nullable() */;
             $table->unsignedBigInteger('moyen_paiement_id')->nullable();
             $table->foreign('moyen_paiement_id')->references('id')->on('moyens_paiements');
             $table->string('created_by')->nullable();

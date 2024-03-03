@@ -83,6 +83,10 @@ class ClientController extends Controller
         $paiement = Paiement::create([
             'montant' => $montant,
             'user_id' => Auth::user()->id,
+            'nom_client' => $reservation->nom_client,
+            'prenoms_client' => $reservation->prenoms_client,
+            'email_client' => $reservation->email_client,
+            'telephone_client' => $reservation->telephone_client,
             'date_paiement' => Carbon::now()->format('Y-m-d'),
             'moyen_paiement_id' =>MoyenPaiement::where('moyen', 'STRIPE')->first()->id
         ]);
@@ -97,7 +101,11 @@ class ClientController extends Controller
         $facture = Facture::create([
             'type' => 'départ',
             'paiement_id' => $paiement->id,
-            'montant_total' => $paiement->montant
+            'montant_total' => $paiement->montant,
+            'nom_client' => $reservation->nom_client,
+            'prenoms_client' => $reservation->prenoms_client,
+            'email_client' => $reservation->email_client,
+            'telephone_client' => $reservation->telephone_client,
         ]);
 
         $downloadFactureRoute = route('clients.facture-download', ['facture' => $facture, 'chambre' => $chambre]);
@@ -119,13 +127,14 @@ class ClientController extends Controller
 
     public function downloadFacture (Facture $facture, Chambre $chambre)
     {
-        /* $pdf = PDF::loadView()->setPaper('A4', 'portrait'); */
         $pdf = FacadePdf::loadView('Client.Reservation.facture', [
             'facture' => $facture,
             'chambre' => $chambre
-        ])->setPaper('A4', 'portrait');
+        ])
+        ->setOptions(['defaultFont' => 'sans-serif'])
+        ->setPaper('A4', 'portrait');
         /* $pdf->save(public_path("storage/factures/")); */
-        return $pdf->download('facture' . "pdf");
+        return $pdf->download('facture.pdf');
     }
 
 }

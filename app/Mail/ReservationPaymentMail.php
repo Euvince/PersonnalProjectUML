@@ -36,7 +36,7 @@ class ReservationPaymentMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            to: $this->facture->paiement->user->email,
+            to: $this->facture->email_client,
             subject: 'Paiement pour réservation de chambre',
         );
     }

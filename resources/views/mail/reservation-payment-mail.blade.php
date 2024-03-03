@@ -20,5 +20,3 @@ Du {{ $reservation->debut_sejour }} au {{ $reservation->fin_sejour }}
 Merci,<br>
 {{ config('app.name') }}
 </x-mail::message>
-
-
