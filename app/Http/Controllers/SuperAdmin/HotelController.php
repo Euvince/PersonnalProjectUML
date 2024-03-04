@@ -87,14 +87,6 @@ class HotelController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Hotel $Hotel)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Hotel $hotel) : View

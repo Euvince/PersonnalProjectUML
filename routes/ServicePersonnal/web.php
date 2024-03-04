@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ServicePersonnal\ServiceController;
+use App\Http\Controllers\ServicePersonnal\DemandeServiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,3 +13,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::group(['middleware' => ['auth', 'permission:Gérer les Demandes de Services'], 'prefix' => 'service-personnal', 'as' => 'service-personnal.'], function () {
+    Route::resource('demande-service', DemandeServiceController::class)->except(['show']);
+});

@@ -24,7 +24,6 @@ Route::group(['middleware' => ['auth', 'permission:Gérer les Chambres'], 'prefi
     Route::resource('chambres', ChambreController::class)->except(['show']);
 });
 
-
 Route::group(['middleware' => ['auth', 'permission:Gérer les Utilisateurs'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('clients', [ClientController::class, 'index'])->name('clients.index');
 

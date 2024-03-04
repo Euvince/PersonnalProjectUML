@@ -13,7 +13,9 @@ use App\Models\TypeService;
 use App\Models\Arrondissement;
 use App\Models\Chambre;
 use App\Models\MoyenPaiement;
+use App\Models\Reservation;
 use App\Models\Role;
+use App\Models\Service;
 use App\Models\User;
 use App\Policies\Admin\ChambrePolicy;
 use App\Policies\SuperAdmin\HotelPolicy;
@@ -26,6 +28,8 @@ use App\Policies\SuperAdmin\ArrondissementPolicy;
 use App\Policies\SuperAdmin\MoyenPaiementPolicy;
 use App\Policies\SuperAdmin\RolePolicy;
 use App\Policies\Admin\UserPolicy;
+use App\Policies\ReceptionPersonnal\ReservationPolicy;
+use App\Policies\ServicePersonnal\DemandeServicePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -45,6 +49,8 @@ class AuthServiceProvider extends ServiceProvider
         TypeChambre::class => TypeChambrePolicy::class,
         TypeService::class => TypeServicePolicy::class,
         Departement::class => DepartementPolicy::class,
+        Service::class => DemandeServicePolicy::class,
+        Reservation::class => ReservationPolicy::class,
         MoyenPaiement::class => MoyenPaiementPolicy::class,
         Arrondissement::class => ArrondissementPolicy::class,
     ];

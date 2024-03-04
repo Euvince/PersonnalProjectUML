@@ -15,15 +15,18 @@ class ProfileController extends Controller
 
     public function edit(User $user) : View | RedirectResponse
     {
-        $this->authorize('editProfile', $user);
-        return Auth::user()->hasRole('Client')
+        if ($user->id ===  Auth::user()->id) {
+            return Auth::user()->hasRole('Client')
             ?  view('Client.profile-form', ['user' => $user])
             :  view('personnal-profile-form', ['user' => $user]);
+        }
+        else {
+            return view('Statistiques');
+        }
     }
 
     public function update(ProfileFormRequest $request, User $user) : RedirectResponse
     {
-        /* $this->authorize('updateProfile', $user); */
         $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
         $user->update($data);

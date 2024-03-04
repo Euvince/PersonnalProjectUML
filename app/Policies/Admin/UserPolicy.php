@@ -59,7 +59,8 @@ class UserPolicy
     public function restore(User $user, User $model): bool
     {
         return $user->can('Gérer les Utilisateurs')
-            && $model->hotel_id === Auth::user()->hotel_id;
+            && $model->hotel_id === Auth::user()->hotel_id
+            && !$model->hasRole('Super Admin');
     }
 
     /**

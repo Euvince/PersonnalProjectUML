@@ -16,4 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth', 'permission:Gérer les Réservations'], 'prefix' => 'reception-personnal', 'as' => 'reception-personnal.'], function () {
     Route::resource('reservations', ReservationController::class)->except(['show']);
+
+    $idRegex = '[0-9]+';
+    Route::patch('confirm-reservation/{reservation}', [ReservationController::class, 'confirmReservation'])
+    ->where(['id' => $idRegex])
+    ->name('reservation.confirm');
 });

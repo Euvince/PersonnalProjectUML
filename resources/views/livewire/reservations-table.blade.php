@@ -6,7 +6,7 @@
     </div>
     <div class="col-12 mt-5">
         <div class="row ml-2">
-            <a class="btn btn-danger mb-3" style="color: white;" x-show="reservationsChecked.length > 0" x-on:click="$wire.withdrawReservations(reservationsChecked)" x-cloak><i class="fa fa-trash"></i> Retirer</a>
+            <a class="btn btn-danger mb-3" style="color: white;" x-show="reservationsChecked.length > 0" x-on:click="$wire.confirmReservations(reservationsChecked)" x-cloak><i class="fa fa-trash"></i> Confirmer</a>
             <a href="{{ route('reception-personnal.reservations.create') }}" class="btn btn-primary mb-3 ml-1"><i class="fa fa-plus"></i> Créer une Réservation</a>
         </div>
         @if (session('success'))
@@ -31,27 +31,27 @@
                                         <strong>{{  $reservation->statut }}</strong>
                                         <span class="badge bg-primary rounded-pill">{{ number_format($reservation->getMontant(), 0, ',', '.')}}$</span>
                                     </li>
-                                    <a href="" class="btn btn-primary btn-sm">Valider</a>
+                                    <a href="" class="btn btn-primary btn-sm" data-target="#modal{{ $reservation->id }}" data-toggle="modal">Valider</a>
+                                    <a href="" class="btn btn-success btn-sm">Éditer</a>
                                     <a href="" class="btn btn-danger btn-sm">Annuler</a>
-                                    <a href="" class="btn btn-success btn-sm" data-target="#modal" data-toggle="modal">Retirer</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal fade" tabindex="-1" id="modal">
+                        <div class="modal fade" tabindex="-1" id="modal{{ $reservation->id }}">
                             <div class="modal-dialog modal-dialog-centered">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title">Confirmation de Retrait</h5>
+                                  <h5 class="modal-title">Confirmation de validation</h5>
                                 </div>
                                 <div class="modal-body">
-                                  <p>Souhaitez-vous vraiment retirer cette réservation ?</p>
+                                  <p>Souhaitez-vous vraiment valider cette réservation ?</p>
                                 </div>
                                 <div class="modal-footer">
-                                  <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
+                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
                                   <form action="" method="POST">
                                     @csrf
                                     @method('patch')
-                                    <button class="btn btn-success">Retirer</button>
+                                    <button class="btn btn-primary">Valider</button>
                                   </form>
                                 </div>
                               </div>

@@ -47,7 +47,7 @@ class ReservationsTable extends Component
         $this->resetPage();
     }
 
-    public function withdrawReservations(array $ids) : void
+    public function confirmReservations(array $ids) : void
     {
         foreach ($ids as $id) {
             Reservation::find($id)->update([
@@ -55,7 +55,7 @@ class ReservationsTable extends Component
             ]);
         }
         $this->reservationsChecked = [];
-        session()->flash('success', 'Le(s) Réservation(s) ont bien été retiré');
+        session()->flash('success', 'Le(s) Réservation(s) ont bien été confirmé');
     }
 
     public function setOrderField(string | int | DateTime  $field) : void

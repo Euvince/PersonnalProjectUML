@@ -18,6 +18,12 @@ use App\Http\Requests\ReceptionPersonnal\ReservationFormRequest;
 
 class ReservationController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Reservation::class, 'reservation');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -137,4 +143,10 @@ class ReservationController extends Controller
     {
         //
     }
+
+    public function confirmReservation(Reservation $reservation) : RedirectResponse
+    {
+        $this->authorize('confirmReservation', $reservation);
+    }
+
 }
