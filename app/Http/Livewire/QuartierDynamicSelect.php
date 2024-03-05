@@ -49,7 +49,7 @@ class QuartierDynamicSelect extends Component
         }
     }
 
-    public function updatedSelectedDepartement($departement_id) : void
+    public function updatedSelectedDepartement(int $departement_id) : void
     {
         $this->communes = Commune::where('departement_id', $departement_id)->orderBy('nom', 'ASC')->get();
         if($this->communes->isNotEmpty()) {
@@ -60,13 +60,13 @@ class QuartierDynamicSelect extends Component
         }
     }
 
-    public function updatedSelectedCommune($commune_id) : void
+    public function updatedSelectedCommune(int $commune_id) : void
     {
         $this->arrondissements = Arrondissement::where('commune_id', $commune_id)->orderBy('nom', 'ASC')->get();
         $this->selectedDepartement = Commune::find($commune_id)->departement_id;
     }
 
-    public function updatedSelectedArrondissement($arrondissement_id) : void
+    public function updatedSelectedArrondissement(int $arrondissement_id) : void
     {
         $this->selectedCommune = Arrondissement::find($arrondissement_id)->commune_id;
         $this->selectedDepartement = Commune::find($this->selectedCommune)->departement_id;

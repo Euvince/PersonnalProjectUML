@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Reservation;
 use DateTime;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -76,8 +77,10 @@ class ReservationsTable extends Component
     {
         $this->validate();
 
-        $reservations = Reservation::query()->where('retire', 0);
-
+        $reservations = Reservation::query();
+        $reservations = $reservations->whereHas('chambre', function ($query) {
+            $query->where('hotel_id', '=', Auth::user()->hotel_id);
+        });
         if(!empty($this->numChambre)){
             $reservations = $reservations->where('chambre_id', 'LIKE', "%{$this->numChambre}%");
         }

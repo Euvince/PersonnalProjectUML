@@ -6,6 +6,7 @@ use App\Models\Chambre;
 use Livewire\Component;
 use App\Models\Reservation;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class ReservationDynamicSelect extends Component
 {
@@ -20,7 +21,12 @@ class ReservationDynamicSelect extends Component
 
     public function mount() : void
     {
-        $this->price = Chambre::where('libelle', $this->chambres->first())->first()->TypeChambre->prix_par_nuit;
+        if (request()->routeIs('reception-personnal.reservations.create')) {
+            $this->price = Chambre::where('libelle', $this->chambres->first())->first()->TypeChambre->prix_par_nuit;
+        }else {
+            $this->price = $this->reservation->prix_par_nuit;
+            $this->selectedChambre = $this->reservation->chambre_id;
+        }
         if (old('chambre_id')) {
             $this->selectedChambre = old('chambre_id');
         }

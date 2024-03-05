@@ -123,9 +123,12 @@ class ReservationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Reservation $reservation) /* : View */
+    public function edit(Reservation $reservation) : View
     {
-        //
+        return view('ReceptionPersonnal.Reservation.reservation-form', [
+            'reservation' => $reservation,
+            'chambres' => Auth::user()->hotel->chambres->sortBy('libelle')->pluck('libelle', 'id'),
+        ]);
     }
 
     /**

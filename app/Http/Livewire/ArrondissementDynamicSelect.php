@@ -37,14 +37,14 @@ class ArrondissementDynamicSelect extends Component
         }
     }
 
-    public function updatedSelectedDepartement($departement_id) : void
+    public function updatedSelectedDepartement(int $departement_id) : void
     {
         $this->communes =
             Commune::where('departement_id', $departement_id)
             ->orderBy('nom', 'ASC')->get();
     }
 
-    public function updatedSelectedCommune($commune_id) : void
+    public function updatedSelectedCommune(int $commune_id) : void
     {
         $this->selectedDepartement = Commune::find($commune_id)->departement_id;
     }

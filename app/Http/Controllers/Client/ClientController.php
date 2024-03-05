@@ -78,7 +78,7 @@ class ClientController extends Controller
         $period = Carbon::parse($request->fin_sejour)->diffInDays(Carbon::parse($request->debut_sejour));
         $montant = $chambre->TypeChambre->prix_par_nuit * $period;
 
-        /* auth()->user()->charge($montant, $request->payment_method, User::stripeOptions()); */
+        auth()->user()->charge($montant, $request->payment_method/* , User::stripeOptions() */);
 
         $paiement = Paiement::create([
             'montant' => $montant,
