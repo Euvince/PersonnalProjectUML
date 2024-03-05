@@ -154,7 +154,7 @@ class ReservationController extends Controller
         return
             redirect()
             ->route('reception-personnal.reservations.index')
-            ->with('success', 'Le check-in a été fait avec succès.');
+            ->with('success', 'Le check-in a été éffectué avec succès.');
     }
 
 }
