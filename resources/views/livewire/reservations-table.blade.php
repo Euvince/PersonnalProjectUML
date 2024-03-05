@@ -6,7 +6,7 @@
     </div>
     <div class="col-12 mt-5">
         <div class="row ml-2">
-            <a class="btn btn-danger mb-3" style="color: white;" x-show="reservationsChecked.length > 0" x-on:click="$wire.confirmReservations(reservationsChecked)" x-cloak><i class="fa fa-trash"></i> Confirmer</a>
+            <a class="btn btn-success mb-3" style="color: white;" x-show="reservationsChecked.length > 0" x-on:click="$wire.confirmReservations(reservationsChecked)" x-cloak><i class="fa fa-trash"></i> Confirmer</a>
             <a href="{{ route('reception-personnal.reservations.create') }}" class="btn btn-primary mb-3 ml-1"><i class="fa fa-plus"></i> Créer une Réservation</a>
         </div>
         @if (session('success'))
@@ -23,10 +23,10 @@
                             <div class="card mb-3" style="background:#d6e9f4;">
                                 <div class="card-body">
                                     <div>
-                                        <input class="form-check-input" type="checkbox" x-model="reservationsChecked" value="">
+                                        <input class="form-check-input" type="checkbox" x-model="reservationsChecked" value="{{ $reservation->id }}">
                                         <h6 class="card-title">{{-- {{ $reservation->nom_client }}  --}}{{ $reservation->prenoms_client }}</h6>
                                     </div>
-                                    <p class="card-text" style="font-size: 13px;"><strong>{{ $reservation->chambre->libelle }}</strong></p>
+                                    <p class="card-text" style="font-size: 13px;"><strong>{{ Str::limit($reservation->chambre->libelle, 25, '...') }}</strong></p>
                                     <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center mb-3">
                                         <strong>{{  $reservation->statut }}</strong>
                                         <span class="badge bg-primary rounded-pill">{{ number_format($reservation->getMontant(), 0, ',', '.')}}$</span>
@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
-                                  <form action="" method="POST">
+                                  <form action="{{ route('reception-personnal.reservation.confirm', ['reservation' => $reservation->id]) }}" method="POST">
                                     @csrf
                                     @method('patch')
                                     <button class="btn btn-primary">Valider</button>

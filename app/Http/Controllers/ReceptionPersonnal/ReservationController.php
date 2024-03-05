@@ -147,6 +147,11 @@ class ReservationController extends Controller
     public function confirmReservation(Reservation $reservation) : RedirectResponse
     {
         $this->authorize('confirmReservation', $reservation);
+        $reservation->chambre()->update(['statut' => 'Occupé']);
+        return
+            redirect()
+            ->route('reception-personnal.reservations.index')
+            ->with('success', 'Le check-in a été fait avec succès.');
     }
 
 }

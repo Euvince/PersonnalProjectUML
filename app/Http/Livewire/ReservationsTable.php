@@ -49,10 +49,13 @@ class ReservationsTable extends Component
 
     public function confirmReservations(array $ids) : void
     {
-        foreach ($ids as $id) {
+        /* foreach ($ids as $id) {
             Reservation::find($id)->update([
                 'retire' => 1
             ]);
+        } */
+        foreach ($ids as $id) {
+            Reservation::find($id)->chambre()->update(['statut' => 'Occupé']);
         }
         $this->reservationsChecked = [];
         session()->flash('success', 'Le(s) Réservation(s) ont bien été confirmé');

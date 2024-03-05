@@ -15,13 +15,14 @@ class ProfileController extends Controller
 
     public function edit(User $user) : View | RedirectResponse
     {
-        if ($user->id ===  Auth::user()->id) {
+        if (auth()->check() && $user->id === Auth::user()->id) {
             return Auth::user()->hasRole('Client')
             ?  view('Client.profile-form', ['user' => $user])
             :  view('personnal-profile-form', ['user' => $user]);
         }
         else {
-            return view('Statistiques');
+            if (Auth::user()->hasRole('Client')) return redirect()->route('clients.hotels.index');
+            else  return to_route('statistiques');
         }
     }
 
@@ -31,12 +32,12 @@ class ProfileController extends Controller
         $data['password'] = Hash::make($data['password']);
         $user->update($data);
         return  Auth::user()->hasRole('Client')
-               ? redirect()
-                 ->route('client-profile.edit', ['user' => $user])
-                 ->with('success', 'Votre profile a été modifié avec succès.')
-               : redirect()
-                 ->route('personnal-profile.edit', ['user' => $user])
-                 ->with('success', 'Votre profile a été modifié avec succès.');
+            ? redirect()
+                ->route('client-profile.edit', ['user' => $user])
+                ->with('success', 'Votre profile a été modifié avec succès.')
+            : redirect()
+                ->route('personnal-profile.edit', ['user' => $user])
+                ->with('success', 'Votre profile a été modifié avec succès.');
     }
 
 }
