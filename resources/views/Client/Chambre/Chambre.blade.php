@@ -99,7 +99,7 @@
 
         const submitButton = document.getElementById('submit-button');
 
-        submitButton.addEventListener('click', async(e) => {
+        /* submitButton.addEventListener('click', async(e) => {
             e.preventDefault();
 
             const { paymentMethod, error } = await stripe.createPaymentMethod('card', cardElement);
@@ -110,7 +110,7 @@
             }
 
             document.getElementById('form').submit();
-        });
+        }); */
 
     </script>
 
