@@ -38,6 +38,7 @@
                                         <td>{{ $moyen->created_at->format('d-m-Y') }}</td>
                                         <td>
                                             <ul class="d-flex justify-content-center">
+                                                <li class="mr-3"><a href="{{ route('super-admin.moyen-paiement.show', ['moyen_paiement' => $moyen->id]) }}" class="text-primary"><i class="fa-solid fa-eye"></i></a></li>
                                                 <li class="mr-3"><a href="{{ route('super-admin.moyen-paiement.edit', ['moyen_paiement' => $moyen->id]) }}" class="text-secondary"><i class="fa fa-edit"></i></a></li>
                                                 <li><a href="" class="text-danger" data-target="#modal{{ $moyen->id }}" data-toggle="modal"><i class="ti-trash"></i></a></li>
                                             </ul>

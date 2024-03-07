@@ -44,7 +44,7 @@
                                         <td>{{ $role->created_at->format('d-m-Y') }}</td>
                                         <td>
                                             <ul class="d-flex justify-content-center">
-                                                <li class="mr-3"><a href="" class="text-primary"><i class="fa-solid fa-eye"></i></a></li>
+                                                <li class="mr-3"><a href="{{ route('super-admin.roles.show', ['role' => $role->id]) }}" class="text-primary"><i class="fa-solid fa-eye"></i></a></li>
                                                 <li class="mr-3"><a href="{{ route('super-admin.roles.edit', ['role' => $role->id]) }}" class="text-secondary"><i class="fa fa-edit"></i></a></li>
                                                 <li><a href="" class="text-danger" data-target="#modal{{ $role->id }}" data-toggle="modal"><i class="ti-trash"></i></a></li>
                                             </ul>

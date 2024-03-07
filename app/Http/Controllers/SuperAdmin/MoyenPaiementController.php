@@ -51,7 +51,7 @@ class MoyenPaiementController extends Controller
      */
     public function show(MoyenPaiement $moyenPaiement) : View
     {
-        return view('SuperAdmin.MoyenPaiement.moyen-paiement', compact('moyenPaiement'));
+        return view('SuperAdmin.MoyenPaiement.moyen', compact('moyenPaiement'));
     }
 
     /**

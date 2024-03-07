@@ -41,6 +41,7 @@
                                         <td>{{ $type->created_at->format('d-m-Y') }}</td>
                                         <td>
                                             <ul class="d-flex justify-content-center">
+                                                <li class="mr-3"><a href="{{ route('super-admin.type-service.show', ['type_service' => $type->id]) }}" class="text-primary"><i class="fa-solid fa-eye"></i></a></li>
                                                 <li class="mr-3"><a href="{{ route('super-admin.type-service.edit', ['type_service' => $type->id]) }}" class="text-secondary"><i class="fa fa-edit"></i></a></li>
                                                 <li><a href="" class="text-danger" data-target="#modal{{ $type->id }}" data-toggle="modal"><i class="ti-trash"></i></a></li>
                                             </ul>

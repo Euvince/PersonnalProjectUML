@@ -1,6 +1,6 @@
 @extends('SuperAdmin.layouts.template')
 
-@section('title', 'Les départements')
+@section('title', 'Un département spécifique')
 @section('content-title', 'Détails d\'un Département')
 
 @section('content')
@@ -14,7 +14,7 @@
                         <p><strong>Numéro : </strong> {{ $departement->id }}</p>
                         <p><strong>Nom : </strong> {{ $departement->nom }}</p>
                         <p><strong>Longitude : </strong> {{ $departement->longitude }}°C</p>
-                        <p><strong>Lattitude : </strong> {{ $departement->lattitude }}</p>
+                        <p><strong>Lattitude : </strong> {{ $departement->lattitude }}°C</p>
                     </div>
                     <div class="col">
                         <p><strong>Crée le : </strong> {{ $departement->created_at->format('d-m-Y') }} à {{ $departement->created_at->format('H:i:s') }}</p>
