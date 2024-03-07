@@ -7,6 +7,7 @@
     <div class="col-12 mt-5">
         <div class="row ml-2">
             <a class="btn btn-success mb-3" style="color: white;" x-show="reservationsChecked.length > 0" x-on:click="$wire.confirmReservations(reservationsChecked)" x-cloak><i class="fa-duotone fa-square-check"></i> Confirmer</a>
+            <a class="btn btn-danger mb-3 mx-2" style="color: white;" x-show="reservationsChecked.length > 0" x-on:click="$wire.cancelReservations(reservationsChecked)" x-cloak><i class="fa fa-trash"></i> Annuler</a>
             <a href="{{ route('reception-personnal.reservations.create') }}" class="btn btn-primary mb-3 ml-1"><i class="fa fa-plus"></i> Créer une Réservation</a>
         </div>
         @if (session('success'))
@@ -31,9 +32,15 @@
                                         <strong>{{  $reservation->statut }}</strong>
                                         <span class="badge bg-primary rounded-pill">{{ number_format($reservation->getMontant(), 0, ',', '.')}}$</span>
                                     </li>
-                                    <a href="" class="btn btn-primary btn-sm" data-target="#modal{{ $reservation->id }}" data-toggle="modal">Valider</a>
-                                    <a href="{{ route('reception-personnal.reservations.edit', ['reservation' => $reservation->id]) }}" class="btn btn-success btn-sm">Éditer</a>
-                                    <a href="" class="btn btn-danger btn-sm">Annuler</a>
+                                    <div class="d-flex">
+                                        <form action="{{ route('reception-personnal.reservation.confirm', ['reservation' => $reservation->id]) }}" method="POST" class="mx-1">
+                                            @csrf
+                                            @method('patch')
+                                            <button class="btn btn-primary btn-sm">Confirmer</button>
+                                        </form>
+                                        <a href="{{ route('reception-personnal.reservations.edit', ['reservation' => $reservation->id]) }}" class="btn btn-success btn-sm mx-1">Éditer</a>
+                                        <a href="" class="btn btn-danger btn-sm mx-1"  data-target="#modal{{ $reservation->id }}" data-toggle="modal">Annuler</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -41,17 +48,17 @@
                             <div class="modal-dialog modal-dialog-centered">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title">Confirmation de validation</h5>
+                                  <h5 class="modal-title">Confirmation d'annulation</h5>
                                 </div>
                                 <div class="modal-body">
-                                  <p>Souhaitez-vous vraiment valider cette réservation ?</p>
+                                  <p>Souhaitez-vous vraiment annuler cette réservation ? Cette opération est irréversible.</p>
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
-                                  <form action="{{ route('reception-personnal.reservation.confirm', ['reservation' => $reservation->id]) }}" method="POST">
+                                  <form action="{{ route('reception-personnal.reservations.destroy', ['reservation' => $reservation->id]) }}" method="POST">
                                     @csrf
-                                    @method('patch')
-                                    <button class="btn btn-primary">Valider</button>
+                                    @method('delete')
+                                    <button class="btn btn-primary">Continuer</button>
                                   </form>
                                 </div>
                               </div>

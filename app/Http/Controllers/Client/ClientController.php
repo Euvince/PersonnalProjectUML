@@ -83,6 +83,7 @@ class ClientController extends Controller
         $paiement = Paiement::create([
             'montant' => $montant,
             'user_id' => Auth::user()->id,
+            'reservation_id' => $reservation->id,
             'nom_client' => $reservation->nom_client,
             'prenoms_client' => $reservation->prenoms_client,
             'email_client' => $reservation->email_client,

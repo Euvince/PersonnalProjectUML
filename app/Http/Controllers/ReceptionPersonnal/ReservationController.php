@@ -88,6 +88,7 @@ class ReservationController extends Controller
         $paiement = Paiement::create([
             'montant' => $montant,
             'user_id' => Auth::user()->id,
+            'reservation_id' => $reservation->id,
             'nom_client' => $reservation->nom_client,
             'prenoms_client' => $reservation->prenoms_client,
             'email_client' => $reservation->email_client,
@@ -138,12 +139,6 @@ class ReservationController extends Controller
      */
     public function update(ReservationFormRequest $request, Reservation $reservation) : RedirectResponse
     {
-        $paiement = Paiement::find($reservation->paiement->id);
-        $paiement->delete();
-        foreach ($paiement->factures as $facture) {
-            $facture->delete();
-        }
-
         $chambre = Chambre::find(request()->chambre_id);
         if ($chambre->reservations
             ->where('id', '!=', $reservation->id)
@@ -155,6 +150,12 @@ class ReservationController extends Controller
             back()
             ->with('error', 'La chambre est déjà réservée pour la période que vous indiquez.');
 
+        $paiement = Paiement::find($reservation->paiement->id);
+        $paiement->delete();
+        foreach ($paiement->factures as $facture) {
+            $facture->delete();
+        }
+
         $reservation->update($request->validated());
 
         $period = Carbon::parse($request->fin_sejour)->diffInDays(Carbon::parse($request->debut_sejour));
@@ -165,6 +166,7 @@ class ReservationController extends Controller
         $paiement = Paiement::create([
             'montant' => $montant,
             'user_id' => Auth::user()->id,
+            'reservation_id' => $reservation->id,
             'nom_client' => $reservation->nom_client,
             'prenoms_client' => $reservation->prenoms_client,
             'email_client' => $reservation->email_client,

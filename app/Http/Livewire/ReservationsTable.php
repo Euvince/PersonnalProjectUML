@@ -2,12 +2,14 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Reservation;
 use DateTime;
+use Livewire\Component;
+use App\Models\Paiement;
+use App\Models\Reservation;
+use Livewire\WithPagination;
+use App\Jobs\CancelReservationJob;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Component;
-use Livewire\WithPagination;
 
 class ReservationsTable extends Component
 {
@@ -57,6 +59,22 @@ class ReservationsTable extends Component
         } */
         foreach ($ids as $id) {
             Reservation::find($id)->chambre()->update(['statut' => 'Occupé']);
+        }
+        $this->reservationsChecked = [];
+        session()->flash('success', 'Le(s) Réservation(s) ont bien été confirmé');
+    }
+
+    public function cancelReservations(array $ids) : void
+    {
+        foreach ($ids as $id) {
+            $reservation = Reservation::find($id);
+            $reservation->delete();
+            $paiement = Paiement::find($reservation->paiement->id);
+            $paiement->delete();
+            foreach ($paiement->factures as $facture) {
+                $facture->delete();
+            }
+            CancelReservationJob::dispatch($reservation);
         }
         $this->reservationsChecked = [];
         session()->flash('success', 'Le(s) Réservation(s) ont bien été confirmé');

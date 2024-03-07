@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Reservation extends Model
 {
@@ -65,8 +66,8 @@ class Reservation extends Model
         return $this->belongsTo(Chambre::class);
     }
 
-    public function paiement() : BelongsTo {
-        return $this->belongsTo(Paiement::class);
+    public function paiement() : HasOne {
+        return $this->hasOne(Paiement::class, 'reservation_id', 'id');
     }
 
 }

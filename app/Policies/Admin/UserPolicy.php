@@ -74,6 +74,22 @@ class UserPolicy
     }
 
 
+    public function sendReservation(User $user): bool
+    {
+
+    }
+
+    public function downloadFacture(User $user): bool
+    {
+
+    }
+
+    public function sendDemandeService(User $user): bool
+    {
+
+    }
+
+
     public function editProfile(User $user): bool
     {
         return $user->id === Auth::user()->id;

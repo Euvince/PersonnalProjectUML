@@ -26,6 +26,7 @@ class Paiement extends Model
         'date_paiement',
         'moyen_paiement',
         'prenoms_client',
+        'reservation_id',
         'telephone_client',
         'moyen_paiement_id',
     ];
@@ -63,8 +64,8 @@ class Paiement extends Model
         return $this->hasMany(Facture::class);
     }
 
-    public function reservation() : HasOne {
-        return $this->hasOne(Reservation::class);
+    public function reservation() : BelongsTo {
+        return $this->belongsTo(Reservation::class, 'reservation_id', 'id');
     }
 
 }

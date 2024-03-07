@@ -48,7 +48,7 @@ Route::post('chambres/{chambre}/reservation', [ClientController::class, 'sendRes
 ])
 ->middleware(['auth', 'verified', 'permission:Réserver une Chambre']); */
 
-Route::post('facture-download/{facture}/{chambre}', [ClientController::class, 'downloadFacture'])
+Route::get('facture-download/{facture}/{chambre}', [ClientController::class, 'downloadFacture'])
 ->name('clients.facture-download')
 ->where([
     'facture' => $idRegex,
