@@ -47,6 +47,14 @@ class TypeChambreController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show(TypeChambre $typeChambre) : View
+    {
+        return view('SuperAdmin.TypeChambre.type-chambre', compact('typeChambre'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(TypeChambre $typeChambre) : View

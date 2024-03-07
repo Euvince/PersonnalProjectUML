@@ -23,19 +23,19 @@ use App\Http\Controllers\SuperAdmin\TypeServiceController;
 */
 
 Route::group(['middleware' => ['auth', 'permission:Gérer les Départements'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
-    Route::resource('departements', DepartementController::class)->except(['show']);
+    Route::resource('departements', DepartementController::class);
 });
 
 Route::group(['middleware' => ['auth', 'permission:Gérer les Communes'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
-    Route::resource('communes', CommuneController::class)->except(['show']);
+    Route::resource('communes', CommuneController::class);
 });
 
 Route::group(['middleware' => ['auth', 'permission:Gérer les Arrondissements'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
-    Route::resource('arrondissements', ArrondissementController::class)->except(['show']);
+    Route::resource('arrondissements', ArrondissementController::class);
 });
 
 Route::group(['middleware' => ['auth', 'permission:Gérer les Quartiers'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
-    Route::resource('quartiers', QuartierController::class)->except(['show']);
+    Route::resource('quartiers', QuartierController::class);
 });
 
 Route::group(['middleware' => ['auth', 'permission:Gérer les Hôtels'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
@@ -43,17 +43,17 @@ Route::group(['middleware' => ['auth', 'permission:Gérer les Hôtels'], 'prefix
 });
 
 Route::group(['middleware' => ['auth', 'permission:Gérer les Types de Chambres'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
-    Route::resource('type-chambre', TypeChambreController::class)->except(['show']);
+    Route::resource('type-chambre', TypeChambreController::class);
 });
 
 Route::group(['middleware' => ['auth', 'permission:Gérer les Types de Services'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
-    Route::resource('type-service', TypeServiceController::class)->except(['show']);
+    Route::resource('type-service', TypeServiceController::class);
 });
 
 Route::group(['middleware' => ['auth', 'permission:Gérer les Moyens de Paiement'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
-    Route::resource('moyen-paiement', MoyenPaiementController::class)->except(['show']);
+    Route::resource('moyen-paiement', MoyenPaiementController::class);
 });
 
 Route::group(['middleware' => ['auth', 'permission:Gérer les Rôles'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
-    Route::resource('roles', RoleController::class)->except(['show']);
+    Route::resource('roles', RoleController::class);
 });

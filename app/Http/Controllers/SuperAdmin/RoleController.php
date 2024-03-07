@@ -62,6 +62,14 @@ class RoleController extends Controller
             ->with('success', 'Le Rôle a bien été crée');
     }
 
+    /**
+     * Display the specified resource.
+     */
+    public function show(Role $role) : View
+    {
+        return view('SuperAdmin.Role.role', compact('role'));
+    }
+
      /**
       * Show the form for editing the specified resource.
       */

@@ -49,6 +49,14 @@ class DepartementController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show(Departement $departement) : View
+    {
+        return view('SuperAdmin.Departement.departement', compact('departement'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Departement $departement) : View

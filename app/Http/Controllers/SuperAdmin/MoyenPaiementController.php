@@ -47,6 +47,14 @@ class MoyenPaiementController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show(MoyenPaiement $moyenPaiement) : View
+    {
+        return view('SuperAdmin.MoyenPaiement.moyen-paiement', compact('moyenPaiement'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(MoyenPaiement $moyenPaiement) : View

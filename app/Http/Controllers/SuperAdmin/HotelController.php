@@ -87,6 +87,14 @@ class HotelController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show(Hotel $hotel) : View
+    {
+        return view('SuperAdmin.Hotel.hotel', compact('hotel'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Hotel $hotel) : View

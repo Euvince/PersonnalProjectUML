@@ -66,6 +66,14 @@ class QuartierController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show(Quartier $quartier) : View
+    {
+        return view('SuperAdmin.Quartier.quartier', compact('quartier'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Quartier $quartier) : View

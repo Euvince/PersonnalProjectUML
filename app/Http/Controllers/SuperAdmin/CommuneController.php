@@ -50,6 +50,14 @@ class CommuneController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show(Commune $commune) : View
+    {
+        return view('SuperAdmin.Commune.commune', compact('commune'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Commune $commune) : View

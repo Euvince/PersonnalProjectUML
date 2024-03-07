@@ -58,6 +58,14 @@ class ArrondissementController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show(Arrondissement $arrondissement) : View
+    {
+        return view('SuperAdmin.Arrondissement.arrondissement', compact('arrondissement'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Arrondissement $arrondissement) : View
