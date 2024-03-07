@@ -35,7 +35,7 @@ class DepartementsTable extends Component
     {
         Departement::destroy($ids);
         $this->departementsChecked = [];
-        session()->flash('success', 'Le(s) Départment(s) ont bien été supprimé');
+        session()->flash('success', 'Le(s) Départment(s) a/ont bien été supprimé(s)');
     }
 
     public function setOrderField(string | int | DateTime  $field)

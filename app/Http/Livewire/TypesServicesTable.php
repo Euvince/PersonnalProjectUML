@@ -43,7 +43,7 @@ class TypesServicesTable extends Component
     {
         TypeService::destroy($ids);
         $this->typesChecked = [];
-        session()->flash('success', 'Le(s) Type(s) de Service(s) ont bien été supprimé');
+        session()->flash('success', 'Le(s) Type(s) de Service(s) a/ont bien été supprimé(s)');
     }
 
     public function setOrderField(string | int | DateTime  $field) : void

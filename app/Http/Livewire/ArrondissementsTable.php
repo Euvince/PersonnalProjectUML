@@ -38,7 +38,7 @@ class ArrondissementsTable extends Component
     {
         Arrondissement::destroy($ids);
         $this->arrondissementsChecked = [];
-        session()->flash('success', 'Le(s) Arrondissement(s) ont bien été supprimé');
+        session()->flash('success', "L'/Les Arrondissement(s) a/ont bien été supprimé(s)");
     }
 
     public function setOrderField(string | int | DateTime  $field) : void

@@ -39,7 +39,7 @@ class AdminChambresTable extends Component
     {
         Chambre::destroy($ids);
         $this->chambresChecked = [];
-        session()->flash('success', 'Le(s) Chambre(s) ont bien été supprimé');
+        session()->flash('success', 'La/Les Chambre(s) a/ont bien été supprimée(s)');
     }
 
     public function setOrderField(string | int | DateTime  $field) : void

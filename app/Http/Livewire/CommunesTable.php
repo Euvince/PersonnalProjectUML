@@ -38,7 +38,7 @@ class CommunesTable extends Component
     {
         Commune::destroy($ids);
         $this->communesChecked = [];
-        session()->flash('success', 'Le(s) Commune(s) ont bien été supprimé');
+        session()->flash('success', 'Le/Les Commune(s) a/ont bien été supprimée(s)');
     }
 
     public function setOrderField(string | int | DateTime  $field) : void

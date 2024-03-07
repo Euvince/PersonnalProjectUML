@@ -38,7 +38,7 @@ class QuartiersTable extends Component
     {
         Quartier::destroy($ids);
         $this->quartiersChecked = [];
-        session()->flash('success', 'Le(s) Quartier(s) ont bien été supprimé');
+        session()->flash('success', 'Le(s) Quartier(s) ont bien été supprimé(s)');
     }
 
     public function setOrderField(string | int | DateTime  $field) : void

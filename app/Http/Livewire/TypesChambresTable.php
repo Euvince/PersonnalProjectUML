@@ -43,7 +43,7 @@ class TypesChambresTable extends Component
     {
         TypeChambre::destroy($ids);
         $this->typesChecked = [];
-        session()->flash('success', 'Le(s) Type(s) de Chambre(s) ont bien été supprimé');
+        session()->flash('success', 'Le(s) Type(s) de Chambre(s) a/ont bien été supprimé(s)');
     }
 
     public function setOrderField(string | int | DateTime  $field) : void

@@ -44,7 +44,7 @@ class UsersTable extends Component
     {
         User::destroy($ids);
         $this->usersChecked = [];
-        session()->flash('success', 'Le(s) Utilisateurs(s) ont bien été supprimé');
+        session()->flash('success', "L'/Les Utilisateurs(s) a/ont bien été supprimé(s)");
     }
 
     public function setOrderField(string | int | DateTime  $field) : void

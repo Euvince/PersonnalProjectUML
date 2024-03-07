@@ -35,7 +35,7 @@ class MoyensPaiementsTable extends Component
     {
         MoyenPaiement::destroy($ids);
         $this->moyensChecked = [];
-        session()->flash('success', 'Le(s) Moyen(s) de Paiement(s) ont bien été supprimé');
+        session()->flash('success', 'Le(s) Moyen(s) de Paiement(s) a/ont bien été supprimé');
     }
 
     public function setOrderField(string | int | DateTime  $field) : void

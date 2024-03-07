@@ -38,7 +38,7 @@ class HotelsTable extends Component
     {
         Hotel::destroy($ids);
         $this->hotelsChecked = [];
-        session()->flash('success', 'Le(s) Hôtel(s) ont bien été supprimé');
+        session()->flash('success', 'Le(s) Hôtel(s) a/ont bien été supprimé(s)');
     }
 
     public function setOrderField(string | int | DateTime  $field) : void

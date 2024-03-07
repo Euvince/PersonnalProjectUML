@@ -35,7 +35,7 @@ class RolesTable extends Component
     {
         Role::destroy($ids);
         $this->rolesChecked = [];
-        session()->flash('success', 'Le(s) Rôle(s) ont bien été supprimé');
+        session()->flash('success', 'Le(s) Rôle(s) a/ont bien été supprimé(s)');
     }
 
     public function setOrderField(string | int | DateTime  $field) : void

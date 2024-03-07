@@ -61,7 +61,7 @@ class ReservationsTable extends Component
             Reservation::find($id)->chambre()->update(['statut' => 'Occupé']);
         }
         $this->reservationsChecked = [];
-        session()->flash('success', 'Le(s) Réservation(s) ont bien été confirmé');
+        session()->flash('success', 'La/Les Réservation(s) a/ont bien été confirmée(s)');
     }
 
     public function cancelReservations(array $ids) : void
@@ -77,7 +77,7 @@ class ReservationsTable extends Component
             CancelReservationJob::dispatch($reservation);
         }
         $this->reservationsChecked = [];
-        session()->flash('success', 'Le(s) Réservation(s) ont bien été confirmé');
+        session()->flash('success', 'Le(s) Réservation(s) a/ont bien été annulée(s)');
     }
 
     public function setOrderField(string | int | DateTime  $field) : void
