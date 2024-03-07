@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use App\Models\Service;
+use App\Models\Paiement;
 use App\Models\Reservation;
 use Illuminate\Support\Str;
+use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
@@ -17,7 +19,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Laravel\Cashier\Billable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -104,6 +105,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function services() : HasMany {
         return $this->hasMany(Service::class);
+    }
+
+    public function paiements() : HasMany {
+        return $this->hasMany(Paiement::class);
     }
 
 }

@@ -15,10 +15,10 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Menu</a>
                 <div class="dropdown-menu">
-                <a class="dropdown-item" href="{{ route('client-profile.edit', ['user' => auth()->user()->id]) }}">Profile</a>
-                <a class="dropdown-item" href="#">Demander un service</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Paramètres</a>
+                    <a class="dropdown-item" href="{{ route('client-profile.edit', ['user' => auth()->user()->id]) }}">Profile</a>
+                    <a class="dropdown-item" href="#">Demander un service</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ route('parametres') }}">Paramètres</a>
                 </div>
             </li>
           @endauth
@@ -27,6 +27,7 @@
           <input class="form-control me-sm-2" type="search" placeholder="Search" readonly>
           <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
         </form> --}}
+        <a class="nav-link active" href="" style="color: white;">Nous-contacter</a>
         <li class="nav-item dropdown d-flex mx-5" style="color: white;">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Autres options</a>
             <div class="dropdown-menu">
@@ -45,4 +46,4 @@
         </li>
       </div>
     </div>
-  </nav>
+</nav>

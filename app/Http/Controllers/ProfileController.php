@@ -21,7 +21,8 @@ class ProfileController extends Controller
             :  view('personnal-profile-form', ['user' => $user]);
         }
         else {
-            if (Auth::user()->hasRole('Client')) return redirect()->route('clients.hotels.index');
+            if (auth()->check() && Auth::user()->hasRole('Client'))
+            return redirect()->route('clients.hotels.index');
             else  return to_route('statistiques');
         }
     }

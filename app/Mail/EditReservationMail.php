@@ -2,15 +2,17 @@
 
 namespace App\Mail;
 
+use App\Models\Chambre;
+use App\Models\Facture;
 use App\Models\Reservation;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class CancelReservationMail extends Mailable
+class EditReservationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -18,7 +20,10 @@ class CancelReservationMail extends Mailable
      * Create a new message instance.
      */
     public function __construct(
-        public Reservation $reservation
+        public Facture $facture,
+        public Chambre $chambre,
+        public Reservation $reservation,
+        public String $downloadFactureRoute
     )
     {
         //
@@ -30,8 +35,8 @@ class CancelReservationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            to: $this->reservation->email_client,
-            subject: 'Annulation de réservation',
+            to: $this->facture->email_client,
+            subject: 'Modification de réservation de chambre',
         );
     }
 
@@ -41,9 +46,12 @@ class CancelReservationMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'mail.cancel-reservation-mail',
+            markdown: 'mail.edit-reservation-mail',
             with: [
-                'reservation' => $this->reservation
+                'facture' => $this->facture,
+                'chambre' => $this->chambre,
+                'reservation' => $this->reservation,
+                'url' => $this->downloadFactureRoute,
             ]
         );
     }

@@ -24,6 +24,9 @@
                     <li @class(['active' => str_contains($routeName, 'statistiques')])>
                         <a href="{{ route('statistiques') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Statistiques</span></a>
                     </li>
+                    <li @class(['active' => str_contains($routeName, 'profile')])>
+                        <a href="{{ route('personnal-profile.edit', ['user' => auth()->user()->id]) }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Mon Profile</span></a>
+                    </li>
                 @endcan
                 @can('Gérer les Départements')
                     <li @class(['active' => str_contains($routeName, 'departements')])>
@@ -81,8 +84,18 @@
                     </li>
                 @endcan
                 @can('Gérer les Réservations')
+                    <li @class(['active' => str_contains($routeName, 'chambres')])>
+                        <a href="" aria-expanded="true"><i class="ti-dashboard"></i><span>Chambres</span></a>
+                    </li>
+                @endcan
+                @can('Gérer les Réservations')
                     <li @class(['active' => str_contains($routeName, 'reservations')])>
                         <a href="{{ route('reception-personnal.reservations.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Réservations</span></a>
+                    </li>
+                @endcan
+                @can('Gérer les Réservations')
+                    <li @class(['active' => str_contains($routeName, 'factures')])>
+                        <a href="" aria-expanded="true"><i class="ti-dashboard"></i><span>Factures</span></a>
                     </li>
                 @endcan
                 @can('Gérer les Demandes de Services')
@@ -90,16 +103,9 @@
                         <a href="" aria-expanded="true"><i class="ti-dashboard"></i><span>Demandes de services</span></a>
                     </li>
                 @endcan
-                <li @class(['active' => str_contains($routeName, 'profile')])>
-                    <a href="{{ route('personnal-profile.edit', ['user' => auth()->user()->id]) }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Mon Profile</span></a>
-                </li>
-
-                <li>
-                    <a href="" aria-expanded="true"><span></span></a>
-                </li>
 
                 @can('Gérer les Utilisateurs')
-                    <li @class(['active' => str_contains($routeName, 'clients')])>
+                    <li @class(['active' => str_contains($routeName, 'clients')]) style="margin-top: 15px;">
                         <a href="{{ route('admin.clients.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Tous les Clients</span></a>
                     </li>
                 @endcan

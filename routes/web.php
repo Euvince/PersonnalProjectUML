@@ -21,9 +21,10 @@ $idRegex = '[0-9]+';
 $slugRegex = '[0-9a-z\-]+';
 $mailRegex = '[^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$]';
 
-/* Route::get('/parametres', function () {
+Route::get('/parametres', function () {
     return view ('parametres');
-})->middleware(['auth', 'verified']); */
+})/* ->middleware(['auth', 'verified']) */
+->name('parametres');
 
 Route::group(['middleware' => ['auth', 'permission:Gérer les Départements|Gérer les Communes|Gérer les Arrondissements|Gérer les Quartiers|Gérer les Hôtels|Gérer les Types de Chambres|Gérer les Types de Services|Gérer les Rôles|Gestion des Utilisateurs|Gérer les Utilisateurs|Gérer les Chambres|Gérer les Réservations|Gérer les Demandes de Services']], function () {
     Route::get('statistiques', [StatistiquesController::class, 'index'])->name('statistiques');

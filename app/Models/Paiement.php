@@ -4,10 +4,12 @@ namespace App\Models;
 
 use App\Models\User;
 use App\Models\Facture;
+use App\Models\Reservation;
 use App\Models\MoyenPaiement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -59,6 +61,10 @@ class Paiement extends Model
 
     public function factures() : HasMany {
         return $this->hasMany(Facture::class);
+    }
+
+    public function reservation() : HasOne {
+        return $this->hasOne(Reservation::class);
     }
 
 }

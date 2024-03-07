@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Chambre;
+use App\Models\Paiement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -62,6 +63,10 @@ class Reservation extends Model
 
     public function chambre() : BelongsTo {
         return $this->belongsTo(Chambre::class);
+    }
+
+    public function paiement() : BelongsTo {
+        return $this->belongsTo(Paiement::class);
     }
 
 }

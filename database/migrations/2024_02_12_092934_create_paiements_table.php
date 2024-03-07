@@ -16,6 +16,8 @@ return new class extends Migration
             $table->float('montant');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('reservation_id');
+            $table->foreign('reservation_id')->references('id')->on('reservations');
             $table->string('nom_client');
             $table->string('prenoms_client');
             $table->string('email_client');

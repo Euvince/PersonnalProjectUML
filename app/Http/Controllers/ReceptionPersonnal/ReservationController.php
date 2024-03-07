@@ -15,6 +15,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ReceptionPersonnal\ReservationFormRequest;
+use App\Jobs\CancelReservationJob;
+use App\Jobs\EditReservationJob;
 
 class ReservationController extends Controller
 {
@@ -91,7 +93,7 @@ class ReservationController extends Controller
             'email_client' => $reservation->email_client,
             'telephone_client' => $reservation->telephone_client,
             'date_paiement' => Carbon::now()->format('Y-m-d'),
-            'moyen_paiement_id' =>MoyenPaiement::where('moyen', 'STRIPE')->first()->id
+            'moyen_paiement_id' => MoyenPaiement::where('moyen', 'STRIPE')->first()->id
         ]);
 
         $chambre->update([
@@ -134,17 +136,79 @@ class ReservationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ReservationFormRequest $request, Reservation $reservation) /* : RedirectResponse */
+    public function update(ReservationFormRequest $request, Reservation $reservation) : RedirectResponse
     {
-        //
+        $paiement = Paiement::find($reservation->paiement->id);
+        $paiement->delete();
+        foreach ($paiement->factures as $facture) {
+            $facture->delete();
+        }
+
+        $chambre = Chambre::find(request()->chambre_id);
+        if ($chambre->reservations
+            ->where('id', '!=', $reservation->id)
+            ->where('debut_sejour', '<=', $request->fin_sejour)
+            ->where('fin_sejour', '>=', $request->debut_sejour)
+            ->count() > 0
+        )
+        return
+            back()
+            ->with('error', 'La chambre est déjà réservée pour la période que vous indiquez.');
+
+        $reservation->update($request->validated());
+
+        $period = Carbon::parse($request->fin_sejour)->diffInDays(Carbon::parse($request->debut_sejour));
+        $montant = $chambre->TypeChambre->prix_par_nuit * $period;
+
+        /* auth()->user()->charge($montant, $request->payment_method, User::stripeOptions()); */
+
+        $paiement = Paiement::create([
+            'montant' => $montant,
+            'user_id' => Auth::user()->id,
+            'nom_client' => $reservation->nom_client,
+            'prenoms_client' => $reservation->prenoms_client,
+            'email_client' => $reservation->email_client,
+            'telephone_client' => $reservation->telephone_client,
+            'date_paiement' => Carbon::now()->format('Y-m-d'),
+            'moyen_paiement_id' => MoyenPaiement::where('moyen', 'STRIPE')->first()->id
+        ]);
+
+        $facture = Facture::create([
+            'type' => 'départ',
+            'paiement_id' => $paiement->id,
+            'montant_total' => $paiement->montant,
+            'nom_client' => $reservation->nom_client,
+            'prenoms_client' => $reservation->prenoms_client,
+            'email_client' => $reservation->email_client,
+            'telephone_client' => $reservation->telephone_client,
+        ]);
+
+        $downloadFactureRoute = route('clients.facture-download', ['facture' => $facture, 'chambre' => $chambre]);
+        EditReservationJob::dispatch($facture, $chambre, $reservation, $downloadFactureRoute);
+
+        return
+            redirect()
+            ->route('reception-personnal.reservations.index')
+            ->with('success', 'La réservation a été éditée avec succès.');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Reservation $reservation) /* : RedirectResponse */
+    public function destroy(Reservation $reservation) : RedirectResponse
     {
-        //
+        $reservation->delete();
+        $paiement = Paiement::find($reservation->paiement->id);
+        $paiement->delete();
+        foreach ($paiement->factures as $facture) {
+            $facture->delete();
+        }
+        CancelReservationJob::dispatch($reservation);
+        return
+            redirect()
+            ->route('reception-personnal.reservations.index')
+            ->with('success', 'La réservation a été annulée avec succès.');
     }
 
     public function confirmReservation(Reservation $reservation) : RedirectResponse
