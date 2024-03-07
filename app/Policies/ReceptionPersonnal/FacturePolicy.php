@@ -13,7 +13,7 @@ class FacturePolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return $user->can('Gérer les Réservations');
     }
 
     /**
@@ -21,7 +21,7 @@ class FacturePolicy
      */
     public function view(User $user, Facture $facture): bool
     {
-        //
+        return $user->can('Gérer les Réservations');
     }
 
     /**
@@ -29,7 +29,7 @@ class FacturePolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->can('Gérer les Réservations');
     }
 
     /**
@@ -37,7 +37,7 @@ class FacturePolicy
      */
     public function update(User $user, Facture $facture): bool
     {
-        //
+        return $user->can('Gérer les Réservations');
     }
 
     /**
@@ -45,7 +45,7 @@ class FacturePolicy
      */
     public function delete(User $user, Facture $facture): bool
     {
-        //
+        return $user->can('Gérer les Réservations');
     }
 
     /**
@@ -53,7 +53,7 @@ class FacturePolicy
      */
     public function restore(User $user, Facture $facture): bool
     {
-        //
+        return $user->can('Gérer les Réservations');
     }
 
     /**
@@ -61,6 +61,6 @@ class FacturePolicy
      */
     public function forceDelete(User $user, Facture $facture): bool
     {
-        //
+        return $user->can('Gérer les Réservations');
     }
 }

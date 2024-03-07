@@ -95,7 +95,7 @@
                 @endcan
                 @can('Gérer les Réservations')
                     <li @class(['active' => str_contains($routeName, 'factures')])>
-                        <a href="" aria-expanded="true"><i class="ti-dashboard"></i><span>Factures</span></a>
+                        <a href="{{ route('reception-personnal.factures.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Factures</span></a>
                     </li>
                 @endcan
                 @can('Gérer les Demandes de Services')

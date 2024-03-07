@@ -124,6 +124,14 @@ class ReservationController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show(Reservation $reservation) : View
+    {
+        return view('ReceptionPersonnal.Reservation.reservation', compact('reservation'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Reservation $reservation) : View

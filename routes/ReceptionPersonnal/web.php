@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ReceptionPersonnal\ChambreController;
+use App\Http\Controllers\ReceptionPersonnal\FactureController;
 use App\Http\Controllers\ReceptionPersonnal\ReservationController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,5 +27,6 @@ Route::group(['middleware' => ['auth', 'permission:Gérer les Réservations'], '
     ->where(['id' => $idRegex])
     ->name('reservation.confirm');
 
-    /* Route::get('factures', [::class, 'index'])->name('chambres.index'); */
+    Route::get('factures', [FactureController::class, 'index'])->name('factures.index');
+    Route::get('factures/{facture}', [FactureController::class, 'show'])->name('factures.show');
 });
