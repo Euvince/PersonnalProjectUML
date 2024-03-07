@@ -16,8 +16,15 @@ class ClientController extends Controller
         return view('Admin.Client.clients');
     }
 
+    public function show(User $user) : View
+    {
+        $this->authorize('showClient', $user);
+        return view('Admin.Client.client', compact('user'));
+    }
+
     public function recruter(User $user) : RedirectResponse
     {
+        $this->authorize('recruter', $user);
         $user->update([
             'hotel_id' => Auth::user()->hotel_id
         ]);

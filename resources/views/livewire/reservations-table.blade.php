@@ -6,7 +6,7 @@
     </div>
     <div class="col-12 mt-5">
         <div class="row ml-2">
-            <a class="btn btn-success mb-3" style="color: white;" x-show="reservationsChecked.length > 0" x-on:click="$wire.confirmReservations(reservationsChecked)" x-cloak><i class="fa-duotone fa-square-check"></i> Confirmer</a>
+            <a class="btn btn-success mb-3" style="color: white;" x-show="reservationsChecked.length > 0" x-on:click="$wire.confirmReservations(reservationsChecked)" x-cloak><i class="fa-solid fa-circle-check"></i> Confirmer</a>
             <a class="btn btn-danger mb-3 mx-2" style="color: white;" x-show="reservationsChecked.length > 0" x-on:click="$wire.cancelReservations(reservationsChecked)" x-cloak><i class="fa fa-trash"></i> Annuler</a>
             <a href="{{ route('reception-personnal.reservations.create') }}" class="btn btn-primary mb-3 ml-1"><i class="fa fa-plus"></i> Créer une Réservation</a>
         </div>
@@ -32,14 +32,15 @@
                                         <strong>{{  $reservation->statut }}</strong>
                                         <span class="badge bg-primary rounded-pill">{{ number_format($reservation->getMontant(), 0, ',', '.')}}$</span>
                                     </li>
-                                    <div class="d-flex">
+                                    <div class="d-flex mx-3">
                                         <form action="{{ route('reception-personnal.reservation.confirm', ['reservation' => $reservation->id]) }}" method="POST" class="mx-1">
                                             @csrf
                                             @method('patch')
-                                            <button class="btn btn-primary btn-sm">Confirmer</button>
+                                            <button class="btn btn-success btn-sm"><i class="fa-solid fa-circle-check"></i> </button>
                                         </form>
-                                        <a href="{{ route('reception-personnal.reservations.edit', ['reservation' => $reservation->id]) }}" class="btn btn-success btn-sm mx-1">Éditer</a>
-                                        <a href="" class="btn btn-danger btn-sm mx-1"  data-target="#modal{{ $reservation->id }}" data-toggle="modal">Annuler</a>
+                                        <a href="" class="btn btn-primary btn-sm mx-1"><i class="fa-solid fa-eye"></i></a>
+                                        <a href="{{ route('reception-personnal.reservations.edit', ['reservation' => $reservation->id]) }}" class="btn btn-warning btn-sm mx-1"><i class="fa fa-edit"></i></a>
+                                        <a href="" class="btn btn-danger btn-sm mx-1"  data-target="#modal{{ $reservation->id }}" data-toggle="modal"><i class="fa fa-trash"></i></a>
                                     </div>
                                 </div>
                             </div>

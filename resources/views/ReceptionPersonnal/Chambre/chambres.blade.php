@@ -5,6 +5,6 @@
 
 @section('content')
 
-    @livewire('admin-chambres-table')
+    @livewire('reception-personnal-chambres-table')
 
 @endsection

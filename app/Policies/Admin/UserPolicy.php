@@ -73,6 +73,18 @@ class UserPolicy
             && !$model->hasRole('Super Admin');
     }
 
+    public function showClient(User $user, User $model): bool
+    {
+        return $user->can('Gérer les Utilisateurs')
+            && $model->hasRole('Client');
+    }
+
+    public function recruter(User $user, User $model): bool
+    {
+        return $user->can('Gérer les Utilisateurs')
+            && $model->hasRole('Client');
+    }
+
 
     public function sendReservation(User $user): bool
     {

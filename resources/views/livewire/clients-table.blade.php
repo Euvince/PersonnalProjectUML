@@ -39,6 +39,7 @@
                                         </td>
                                         <td>
                                             <ul class="d-flex justify-content-center">
+                                                <li class="mr-3"><a href="{{ route('admin.clients.show', ['user' => $client->id]) }}" class="text-success">Détails</a></li>
                                                 <li><a href="" class="text-primary" data-target="#modal{{ $client->id }}" data-toggle="modal">Recruter</a></li>
                                             </ul>
                                         </td>

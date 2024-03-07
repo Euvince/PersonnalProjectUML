@@ -10,7 +10,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
 
-class ChambresTable extends Component
+class AdminChambresTable extends Component
 {
     use WithPagination;
 
@@ -67,7 +67,7 @@ class ChambresTable extends Component
             $chambres = $chambres->where('type_chambre_id', $this->selectedTypeChambre);
         }
 
-        return view('livewire.chambres-table', [
+        return view('livewire.admin-chambres-table', [
             'chambres' => $chambres
                 ->where('hotel_id', Auth::user()->hotel_id)
                 ->orderBy($this->orderField, $this->orderDirection)

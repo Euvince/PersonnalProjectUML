@@ -48,6 +48,7 @@
                                         </td>
                                         <td>
                                             <ul class="d-flex justify-content-center">
+                                                <li class="mr-3"><a href="{{ route('admin.users.show', ['user' => $user->id]) }}" class="text-primary"><i class="fa-solid fa-eye"></i></a></li>
                                                 <li class="mr-3"><a href="{{ route('admin.users.edit', ['user' => $user->id]) }}" class="text-secondary"><i class="fa fa-edit"></i></a></li>
                                                 <li><a href="" class="text-danger" data-target="#modal{{ $user->id }}" data-toggle="modal"><i class="ti-trash"></i></a></li>
                                             </ul>
