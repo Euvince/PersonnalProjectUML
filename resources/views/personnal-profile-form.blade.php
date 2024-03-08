@@ -29,7 +29,7 @@
         <div class="row">
             <div class="col row">
                 <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="nationnalite" label="Nationnalité" type="text" name="nationnalite" placeholder="Nationnalité"  readonly="" value="{{ $user->nationnalite }}" />
-                <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="date_naissance" label="Date de Naissance" type="text" name="date_naissance" placeholder="Date de Naissance"  readonly="" value="{{ $user->date_naissance }}" />
+                <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="date_naissance" label="Date de Naissance" type="text" name="date_naissance" placeholder="Date de Naissance"  readonly="" value="{{ $user->date_naissance->format('Y-m-d') }}" />
                 <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="telephone" label="Téléphone" type="text" name="telephone" placeholder="Téléphone"  readonly="" value="{{ $user->telephone }}" />
             </div>
         </div>

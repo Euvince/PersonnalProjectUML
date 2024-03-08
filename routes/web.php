@@ -30,12 +30,20 @@ Route::group(['middleware' => ['auth', 'permission:Gérer les Départements|Gér
     Route::get('statistiques', [StatistiquesController::class, 'index'])->name('statistiques');
 });
 
+Route::get('client-show-profile/{user}', [ProfileController::class, 'show'])
+->name('client-profile.show')
+->where(['user' => $idRegex]);
+
 Route::get('client-update-profile/{user}', [ProfileController::class, 'edit'])
 ->name('client-profile.edit')
 ->where(['user' => $idRegex]);
 
 Route::put('client-update-profile/{user}', [ProfileController::class, 'update'])
 ->name('client-profile.update')
+->where(['user' => $idRegex]);
+
+Route::get('personnal-show-profile/{user}', [ProfileController::class, 'show'])
+->name('personnal-profile.show')
 ->where(['user' => $idRegex]);
 
 Route::get('personnal-update-profile/{user}', [ProfileController::class, 'edit'])

@@ -63,7 +63,7 @@
                             <div class="dropdown-menu">
                                 {{-- <a class="dropdown-item" href="#">Message</a>
                                 <a class="dropdown-item" href="#">Settings</a> --}}
-                                <a class="dropdown-item" href="{{ route('personnal-profile.edit', ['user' => auth()->user()->id]) }}" style="font-weight: bold;">Profile</a>
+                                <a class="dropdown-item" href="{{ route('personnal-profile.show', ['user' => auth()->user()->id]) }}" style="font-weight: bold;">Profile</a>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
                                     @method('post')

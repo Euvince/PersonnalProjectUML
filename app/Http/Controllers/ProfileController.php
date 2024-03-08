@@ -13,22 +13,25 @@ use Illuminate\Support\Facades\Hash;
 class ProfileController extends Controller
 {
 
+    public function show (User $user) : View
+    {
+        $this->authorize('showProfile', $user);
+        return Auth::user()->hasRole('Client')
+            ? view('Client.Profile.profile', compact('user'))
+            : view('personnal-profile', compact('user'));
+    }
+
     public function edit(User $user) : View | RedirectResponse
     {
-        if (auth()->check() && $user->id === Auth::user()->id) {
-            return Auth::user()->hasRole('Client')
-            ?  view('Client.profile-form', ['user' => $user])
+        $this->authorize('editProfile', $user);
+        return Auth::user()->hasRole('Client')
+            ?  view('Client.Profile.profile-form', ['user' => $user])
             :  view('personnal-profile-form', ['user' => $user]);
-        }
-        else {
-            if (auth()->check() && Auth::user()->hasRole('Client'))
-            return redirect()->route('clients.hotels.index');
-            else  return to_route('statistiques');
-        }
     }
 
     public function update(ProfileFormRequest $request, User $user) : RedirectResponse
     {
+        $this->authorize('updateProfile', $user);
         $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
         $user->update($data);

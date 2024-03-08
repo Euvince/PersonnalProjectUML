@@ -25,7 +25,7 @@
                         <a href="{{ route('statistiques') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Statistiques</span></a>
                     </li>
                     <li @class(['active' => str_contains($routeName, 'profile')])>
-                        <a href="{{ route('personnal-profile.edit', ['user' => auth()->user()->id]) }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Mon Profile</span></a>
+                        <a href="{{ route('personnal-profile.show', ['user' => auth()->user()->id]) }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Mon Profile</span></a>
                     </li>
                 @endcan
                 @can('Gérer les Départements')

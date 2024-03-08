@@ -15,5 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => ['auth', 'permission:Gérer les Demandes de Services'], 'prefix' => 'service-personnal', 'as' => 'service-personnal.'], function () {
-    Route::resource('demande-service', DemandeServiceController::class)->except(['show']);
+    Route::resource('demande-service', DemandeServiceController::class);
 });

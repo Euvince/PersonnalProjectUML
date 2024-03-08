@@ -102,14 +102,19 @@ class UserPolicy
     }
 
 
-    public function editProfile(User $user): bool
+    public function showProfile(User $user, User $model): bool
     {
-        return $user->id === Auth::user()->id;
+        return $user->id === $model->id;
     }
 
-    public function updateProfile(User $user) : bool
+    public function editProfile(User $user, User $model): bool
     {
-        return $user->id === Auth::user()->id;
+        return $user->id === $model->id;
+    }
+
+    public function updateProfile(User $user, User $model) : bool
+    {
+        return $user->id === $model->id;
     }
 
 }
