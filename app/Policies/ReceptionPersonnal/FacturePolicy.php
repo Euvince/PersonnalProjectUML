@@ -5,6 +5,7 @@ namespace App\Policies\ReceptionPersonnal;
 use App\Models\Facture;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
 
 class FacturePolicy
 {
@@ -21,7 +22,8 @@ class FacturePolicy
      */
     public function view(User $user, Facture $facture): bool
     {
-        return $user->can('Gérer les Réservations');
+        return $user->can('Gérer les Réservations')
+            && $facture->paiement->reservation->chambre->hotel_id === Auth::user()->hotel_id;
     }
 
     /**
@@ -37,7 +39,8 @@ class FacturePolicy
      */
     public function update(User $user, Facture $facture): bool
     {
-        return $user->can('Gérer les Réservations');
+        return $user->can('Gérer les Réservations')
+            && $facture->paiement->reservation->chambre->hotel_id === Auth::user()->hotel_id;
     }
 
     /**
@@ -45,7 +48,8 @@ class FacturePolicy
      */
     public function delete(User $user, Facture $facture): bool
     {
-        return $user->can('Gérer les Réservations');
+        return $user->can('Gérer les Réservations')
+            && $facture->paiement->reservation->chambre->hotel_id === Auth::user()->hotel_id;
     }
 
     /**
@@ -53,7 +57,8 @@ class FacturePolicy
      */
     public function restore(User $user, Facture $facture): bool
     {
-        return $user->can('Gérer les Réservations');
+        return $user->can('Gérer les Réservations')
+            && $facture->paiement->reservation->chambre->hotel_id === Auth::user()->hotel_id;
     }
 
     /**
@@ -61,6 +66,7 @@ class FacturePolicy
      */
     public function forceDelete(User $user, Facture $facture): bool
     {
-        return $user->can('Gérer les Réservations');
+        return $user->can('Gérer les Réservations')
+            && $facture->paiement->reservation->chambre->hotel_id === Auth::user()->hotel_id;
     }
 }

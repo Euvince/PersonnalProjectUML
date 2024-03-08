@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 
 class ChambrePolicy
 {
+
+    /* FOR ADMINS */
+
     /**
      * Determine whether the user can view any models.
      */
@@ -69,4 +72,18 @@ class ChambrePolicy
         return $user->can('Gérer les Chambres')
             && $chambre->hotel_id === Auth::user()->hotel_id;
     }
+
+    /* FOR RECEPTIONNISTS */
+
+    public function index(User $user): bool
+    {
+        return $user->can('Gérer les Réservations');
+    }
+
+    public function show(User $user, Chambre $chambre): bool
+    {
+        return $user->can('Gérer les Réservations')
+            && $chambre->hotel_id === Auth::user()->hotel_id;
+    }
+
 }

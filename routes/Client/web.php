@@ -53,8 +53,7 @@ Route::get('facture-download/{facture}/{chambre}', [ClientController::class, 'do
 ->where([
     'facture' => $idRegex,
     'chambre' => $idRegex
-])
-->middleware(['auth'/* , 'verified' */, 'permission:Réserver une Chambre']);
+]);
 
 
 Route::get('api', [HotelController::class, 'index']);

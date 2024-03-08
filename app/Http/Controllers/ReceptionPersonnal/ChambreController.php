@@ -23,6 +23,7 @@ class ChambreController extends Controller
      */
     public function show(Chambre $chambre) : View
     {
+        $this->authorize('show', $chambre);
         return view('ReceptionPersonnal.Chambre.chambre', compact('chambre'));
     }
 
