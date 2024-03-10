@@ -234,13 +234,20 @@ class ReservationController extends Controller
                 ->route('reception-personnal.reservations.index')
                 ->with('error', 'Une réservation existait pour cette chambre(actuellement disponible) avant celle ci et doit être confirmée d\'abord.');
         }
-        if ($reservation->chambre->isOccupied()) {
+        if ($reservation->isConfirmed()) {
+            return
+                redirect()
+                ->route('reception-personnal.reservations.index')
+                ->with('error', 'La réservation est déjà confirmée.');
+        }
+        if (!$reservation->isConfirmed() && $reservation->chambre->isOccupied()) {
             return
                 redirect()
                 ->route('reception-personnal.reservations.index')
                 ->with('error', 'La chambre concernée par cette réservation est occupée actuellement.');
         }
         if ($reservation->chambre->isReserved() && $reservation->chambre->isAvailable()) {
+            $reservation->markAsConfirmed();
             $reservation->chambre()->update(['occupe' => 1, 'disponible' => 0]);
         }
         return

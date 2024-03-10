@@ -19,8 +19,8 @@ class Reservation extends Model
 
     const STATUS_PAID = 'Payé';
     const STATUS_UNPAID = 'Impayé';
-    const STATUS_WITHDRAW = 'Retiré';
-    const STATUS_CONFIRM = 'Confirmé';
+    const STATUS_WITHDRAW = 1;
+    const STATUS_CONFIRM = 1;
 
     protected $fillable = [
         'prix',
@@ -71,15 +71,15 @@ class Reservation extends Model
         $this->update(['statut' => self::STATUS_PAID]);
     }
 
-    public function withdraw() : bool {
+    public function isWithdrawed() : bool {
         return $this->retire === self::STATUS_WITHDRAW;
     }
 
-    public function markAsWithdraw() : void {
+    public function markAsWithdrawed() : void {
         $this->update(['retire' => self::STATUS_WITHDRAW]);
     }
 
-    public function confirm() : bool {
+    public function isConfirmed() : bool {
         return $this->confirm === self::STATUS_CONFIRM;
     }
 
