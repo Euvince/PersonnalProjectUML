@@ -11,7 +11,7 @@
             <div class="single-table">
                 <div class="row">
                     <div class="col">
-                        <p><strong>Chambre : </strong> {{ $reservation->chambre->libelle }}</p>
+                        <p><strong>Chambre : </strong> {{ $reservation->chambre->numero }}</p>
                         <p><strong>Type de la chambre : </strong> {{ $reservation->chambre->TypeChambre->type }}</p>
                         <p><strong>Prix par nuit : </strong> {{ $reservation->chambre->TypeChambre->prix_par_nuit }}$</p>
                         <p><strong>Prix total : </strong> {{ $reservation->getMontant() }}$</p>

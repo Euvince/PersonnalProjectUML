@@ -17,7 +17,7 @@
                         <p><strong>Téléphone du client : </strong> {{ $facture->telephone_client }}</p>
                     </div>
                     <div class="col">
-                        <p><strong>Chambre : </strong> {{ $facture->paiement->reservation->chambre->libelle }}</p>
+                        <p><strong>Chambre : </strong> {{ $facture->paiement->reservation->chambre->numero }}</p>
                         <p><strong>Numéro de chambre : </strong> {{ $facture->paiement->reservation->chambre->numero }}</p>
                         <p><strong>Montant total : </strong> {{ number_format($facture->montant_total, 0, ',', '.')}}$</p>
                         <p><strong>Montant payé : </strong> {{ number_format($facture->montant_total, 0, ',', '.')}}$</p>

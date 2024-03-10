@@ -76,13 +76,15 @@ class UserPolicy
     public function showClient(User $user, User $model): bool
     {
         return $user->can('Gérer les Utilisateurs')
-            && $model->hasRole('Client');
+            && $model->hasRole('Client')
+            && $model->hotel_id === NULL;
     }
 
     public function recruter(User $user, User $model): bool
     {
         return $user->can('Gérer les Utilisateurs')
-            && $model->hasRole('Client');
+            && $model->hasRole('Client')
+            && $model->hotel_id === NULL;
     }
 
 
