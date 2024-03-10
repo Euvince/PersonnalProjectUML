@@ -18,7 +18,10 @@ return new class extends Migration
             $table->integer('etage');
             $table->text('description');
             $table->string('capacite');
-            $table->string('statut')->default('Disponible');
+            /* $table->string('statut')->default('Disponible'); */
+            $table->boolean('disponible')->default(1);
+            $table->boolean('reserve')->default(0);
+            $table->boolean('occupe')->default(0);
             $table->string('photo')->nullable();
             $table->unsignedBigInteger('type_chambre_id')->nullable();
             $table->foreign('type_chambre_id')->references('id')->on('types_chambres');

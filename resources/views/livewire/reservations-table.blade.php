@@ -10,11 +10,19 @@
             <a class="btn btn-danger mb-3 mx-2" style="color: white;" x-show="reservationsChecked.length > 0" x-on:click="$wire.cancelReservations(reservationsChecked)" x-cloak><i class="fa fa-trash"></i> Annuler</a>
             <a href="{{ route('reception-personnal.reservations.create') }}" class="btn btn-primary mb-3 ml-1"><i class="fa fa-plus"></i> Créer une Réservation</a>
         </div>
+
         @if (session('success'))
             <div class="alert alert-success" role="alert">
                 <strong>{{ session('success') }}</strong>
             </div>
         @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger" role="alert">
+                <strong>{{ session('error') }}</strong>
+            </div>
+        @endif
+
         <div class="card">
             <div class="card-body">
                 <h4 class="header-title">Réservations</h4>

@@ -63,7 +63,8 @@ class ClientController extends Controller
         return
             redirect()
             ->route('clients.chambres.show', ['slug' => Str::slug($chambre->libelle), 'chambre' => $chambre->id])
-            ->with('error', 'La chambre est déjà réservée pour la période que vous indiquez.');
+            ->withErrors(['error' => 'La chambre est déjà réservée pour la période que vous indiquez.'])
+            ->withInput();
 
         $reservation = Reservation::create(array_merge(
             $request->validated(),
@@ -92,12 +93,9 @@ class ClientController extends Controller
             'moyen_paiement_id' =>MoyenPaiement::where('moyen', 'STRIPE')->first()->id
         ]);
 
-        $chambre->update([
-            'statut' => 'Réservé'
-        ]);
-        $reservation->update([
-            'statut' => 'Payé'
-        ]);
+        $chambre->markAsReserved();
+
+        $reservation->markAsPaid();
 
         $facture = Facture::create([
             'type' => 'départ',

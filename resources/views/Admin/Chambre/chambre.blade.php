@@ -15,7 +15,10 @@
                         <p><strong>Libellé : </strong> {{ $chambre->libelle }}</p>
                         <p><strong>Étage : </strong> {{ $chambre->etage }}</p>
                         <p><strong>Description : </strong> {{ $chambre->description }}</p>
-                        <p><strong>Statut : </strong> {{ $chambre->statut }}</p>
+                        {{-- <p><strong>Statut : </strong> {{ $chambre->statut }}</p> --}}
+                        <p><strong>Disponible : </strong> {{ $chambre->disponible ? 'Oui' : 'Non' }}</p>
+                        <p><strong>Réservée : </strong> {{ $chambre->reserve ? 'Oui' : 'Non' }}</p>
+                        <p><strong>Occupée : </strong> {{ $chambre->occupe ? 'Oui' : 'Non' }}</p>
                     </div>
                     <div class="col">
                         <p><strong>Type de chambre : </strong> {{ $chambre->TypeChambre->type }}</p>

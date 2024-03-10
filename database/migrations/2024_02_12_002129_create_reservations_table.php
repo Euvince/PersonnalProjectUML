@@ -27,6 +27,7 @@ return new class extends Migration
             $table->date('fin_sejour');
             $table->date('date_reservation');
             $table->boolean('retire')->default(0);
+            $table->boolean('confirme')->default(0);
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->string('deleted_by')->nullable();

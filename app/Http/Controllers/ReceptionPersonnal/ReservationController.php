@@ -52,7 +52,7 @@ class ReservationController extends Controller
 
         return view('ReceptionPersonnal.Reservation.reservation-form', [
             'reservation' => $reservation,
-            'chambres' => Auth::user()->hotel->chambres->sortBy('libelle')->pluck('libelle', 'id'),
+            'chambres' => Auth::user()->hotel->chambres/* ->sortBy('libelle') */->pluck('libelle', 'id'),
         ]);
     }
 
@@ -69,7 +69,8 @@ class ReservationController extends Controller
         )
         return
             back()
-            ->with('error', 'La chambre est déjà réservée pour la période que vous indiquez.');
+            ->with('error', 'La chambre est déjà réservée pour la période que vous indiquez.')
+            ->withInput();
 
         $reservation = Reservation::create(array_merge(
             $request->validated(),
@@ -97,12 +98,9 @@ class ReservationController extends Controller
             'moyen_paiement_id' => MoyenPaiement::where('moyen', 'STRIPE')->first()->id
         ]);
 
-        $chambre->update([
-            'statut' => 'Réservé'
-        ]);
-        $reservation->update([
-            'statut' => 'Payé'
-        ]);
+        $chambre->markAsReserved();
+
+        $reservation->markAsPaid();
 
         $facture = Facture::create([
             'type' => 'départ',
@@ -156,7 +154,8 @@ class ReservationController extends Controller
         )
         return
             back()
-            ->with('error', 'La chambre est déjà réservée pour la période que vous indiquez.');
+            ->with('error', 'La chambre est déjà réservée pour la période que vous indiquez.')
+            ->withInput();
 
         $paiement = Paiement::find($reservation->paiement->id);
         $paiement->delete();
@@ -224,7 +223,26 @@ class ReservationController extends Controller
     public function confirmReservation(Reservation $reservation) : RedirectResponse
     {
         $this->authorize('confirmReservation', $reservation);
-        $reservation->chambre()->update(['statut' => 'Occupé']);
+        if (Reservation::query()
+            ->where('debut_sejour', '<=', $reservation->debut_sejour)
+            ->where('chambre_id', $reservation->chambre_id)
+            ->where('id', '!=', $reservation->id)
+            ->get()->count() > 0 && !$reservation->chambre->isOccupied()
+            ) {
+            return
+                redirect()
+                ->route('reception-personnal.reservations.index')
+                ->with('error', 'Une réservation existait pour cette chambre(actuellement disponible) avant celle ci et doit être confirmée d\'abord.');
+        }
+        if ($reservation->chambre->isOccupied()) {
+            return
+                redirect()
+                ->route('reception-personnal.reservations.index')
+                ->with('error', 'La chambre concernée par cette réservation est occupée actuellement.');
+        }
+        if ($reservation->chambre->isReserved() && $reservation->chambre->isAvailable()) {
+            $reservation->chambre()->update(['occupe' => 1, 'disponible' => 0]);
+        }
         return
             redirect()
             ->route('reception-personnal.reservations.index')

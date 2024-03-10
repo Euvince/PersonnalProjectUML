@@ -18,9 +18,22 @@ class Chambre extends Model
 {
     use HasFactory, SoftDeletes;
 
+    /*
+        const STATUS_OCCUPIED = 'Occupé';
+        const STATUS_RESERVED = 'Réservé';
+        const STATUS_AVAILABLE = 'Disponible';
+    */
+
+    const STATUS_OCCUPIED = 1;
+    const STATUS_RESERVED = 1;
+    const STATUS_AVAILABLE = 1;
+
     protected $fillable = [
         'etage',
-        'statut',
+        /* 'statut', */
+        'disponible',
+        'reserve',
+        'occupe',
         'numero',
         'capacite',
         'libelle',
@@ -48,6 +61,30 @@ class Chambre extends Model
                 $chambre->save();
             });
         }
+    }
+
+    public function isAvailable() : bool {
+        return $this->disponible === self::STATUS_AVAILABLE;
+    }
+
+    public function markAsAvailable() : void {
+        $this->update(['disponible' => self::STATUS_AVAILABLE]);
+    }
+
+    public function isReserved() : bool {
+        return $this->reserve === self::STATUS_RESERVED;
+    }
+
+    public function markAsReserved() : void {
+        $this->update(['reserve' => self::STATUS_RESERVED]);
+    }
+
+    public function isOccupied() : bool {
+        return $this->occupe === self::STATUS_OCCUPIED;
+    }
+
+    public function markAsOccupied() : void {
+        $this->update(['occupe' => self::STATUS_OCCUPIED]);
     }
 
     public function getSlug() : string {

@@ -35,9 +35,9 @@
         </div>
     @endif
 
-    @if (session('error'))
+    @if ($errors->has('error'))
         <div class="alert alert-danger" role="alert">
-            <strong>{{ session('error') }}</strong>
+            <strong>{{ $errors->first('error') }}</strong>
         </div>
     @endif
 

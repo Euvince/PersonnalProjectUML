@@ -22,7 +22,7 @@ class ChambreFactory extends Factory
             'etage' => fake()->numberBetween(1, 6),
             'description' => fake()->paragraph(rand(1, 4)),
             'capacite' => fake()->randomElement([1, 2, 3, 4, 5, 6, 7, 8, 9]),
-            'statut' => fake()->randomElement(['Libre', 'Occupé', 'Réservé'])
+            /* 'statut' => fake()->randomElement(['Libre', 'Occupé', 'Réservé']) */
         ];
     }
 }

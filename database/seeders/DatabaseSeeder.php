@@ -108,6 +108,7 @@ class DatabaseSeeder extends Seeder
             'telephone' => fake()->phoneNumber(),
             'nationnalite' => fake()->country(),
             'date_naissance' => fake()->date(),
+            'hotel_id' => Hotel::find(15)->id,
         ])->assignRole(['Administrateur'])->permissions()->sync([
             /* Permission::where('type_role_id', TypeRole::where('type', 'Administrateur')->first()->id)->get() */
             /* Permission::where('name', 'Modifier Profil')->first()->id, */
@@ -123,7 +124,8 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123456789'),
             'telephone' => fake()->phoneNumber(),
             'nationnalite' => fake()->country(),
-            'date_naissance' => fake()->date()
+            'date_naissance' => fake()->date(),
+            'hotel_id' => Hotel::find(15)->id,
         ])->assignRole(['Personnel de Réception'])->permissions()->sync([
             /* Permission::where('name', 'Modifier Profil')->first()->id, */
             Permission::where('name', 'Gérer les Réservations')->first()->id

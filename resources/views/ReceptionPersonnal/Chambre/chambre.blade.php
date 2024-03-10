@@ -15,9 +15,11 @@
                         <p><strong>Libellé : </strong> {{ $chambre->libelle }}</p>
                         <p><strong>Étage : </strong> {{ $chambre->etage }}</p>
                         <p><strong>Description : </strong> {{ $chambre->description }}</p>
+                        <p><strong>Disponible : </strong> {{ $chambre->disponible ? 'Oui' : 'Non' }}</p>
+                        <p><strong>Réservée : </strong> {{ $chambre->reserve ? 'Oui' : 'Non' }}</p>
+                        <p><strong>Occupée : </strong> {{ $chambre->occupe ? 'Oui' : 'Non' }}</p>
                     </div>
                     <div class="col">
-                        <p><strong>Statut : </strong> {{ $chambre->statut }}</p>
                         <p><strong>Type de chambre : </strong> {{ $chambre->TypeChambre->type }}</p>
                         <p><strong>Crée le : </strong> {{ $chambre->created_at->format('d-m-Y') }} à {{ $chambre->created_at->format('H:i:s') }}</p>
                         <p><strong>Crée par : </strong> {{ $chambre->created_by != NULL ? $chambre->created_by : 'Système Hôteliers' }}</p>

@@ -17,6 +17,11 @@ class Reservation extends Model
 {
     use HasFactory, SoftDeletes;
 
+    const STATUS_PAID = 'Payé';
+    const STATUS_UNPAID = 'Impayé';
+    const STATUS_WITHDRAW = 'Retiré';
+    const STATUS_CONFIRM = 'Confirmé';
+
     protected $fillable = [
         'prix',
         'statut',
@@ -56,6 +61,30 @@ class Reservation extends Model
     public function getMontant () : float {
         $period = Carbon::parse($this->fin_sejour)->diffInDays(Carbon::parse($this->debut_sejour));
         return $this->prix_par_nuit * $period;
+    }
+
+    public function paid() : bool {
+        return $this->statut === self::STATUS_PAID;
+    }
+
+    public function markAsPaid() : void {
+        $this->update(['statut' => self::STATUS_PAID]);
+    }
+
+    public function withdraw() : bool {
+        return $this->retire === self::STATUS_WITHDRAW;
+    }
+
+    public function markAsWithdraw() : void {
+        $this->update(['retire' => self::STATUS_WITHDRAW]);
+    }
+
+    public function confirm() : bool {
+        return $this->confirm === self::STATUS_CONFIRM;
+    }
+
+    public function markAsConfirmed() : void {
+        $this->update(['confirm' => self::STATUS_CONFIRM]);
     }
 
     public function user() : BelongsTo {

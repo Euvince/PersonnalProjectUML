@@ -21,7 +21,7 @@ class ReservationsTable extends Component
 
     public $userFirstName = '';
 
-    public $orderField = 'chambre_id';
+    public $orderField = 'debut_sejour';
 
     public $orderDirection = 'ASC';
 
@@ -52,11 +52,6 @@ class ReservationsTable extends Component
 
     public function confirmReservations(array $ids) : void
     {
-        /* foreach ($ids as $id) {
-            Reservation::find($id)->update([
-                'retire' => 1
-            ]);
-        } */
         foreach ($ids as $id) {
             Reservation::find($id)->chambre()->update(['statut' => 'Occupé']);
         }

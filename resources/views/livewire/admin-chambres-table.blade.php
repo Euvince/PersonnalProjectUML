@@ -30,7 +30,7 @@
                                     <x-table-header label="ID" :direction="$orderDirection" name="id" :field="$orderField"></x-table-header>
                                     <x-table-header label="Libellé" :direction="$orderDirection" name="libelle" :field="$orderField"></x-table-header>
                                     <x-table-header label="Numéro" :direction="$orderDirection" name="numrero" :field="$orderField"></x-table-header>
-                                    <x-table-header label="Statut" :direction="$orderDirection" name="statut" :field="$orderField"></x-table-header>
+                                    <x-table-header label="Étage" :direction="$orderDirection" name="etage" :field="$orderField"></x-table-header>
                                     <x-table-header label="Capacité" :direction="$orderDirection" name="capacite" :field="$orderField"></x-table-header>
                                     <x-table-header label="Type de chambre" :direction="$orderDirection" name="type_chambre_id" :field="$orderField"></x-table-header>
                                     <th scope="col">Actions</th>
@@ -45,7 +45,7 @@
                                         <th scope="row">{{ $chambre->id }}</th>
                                         <td>{{ $chambre->libelle }}</td>
                                         <td>{{ $chambre->numero }}</td>
-                                        <td>{{ $chambre->statut }}</td>
+                                        <td>{{ $chambre->etage }}</td>
                                         <td>{{ $chambre->capacite }}</td>
                                         <td>{{ $chambre?->typeChambre?->type }}</td>
                                         <td>
