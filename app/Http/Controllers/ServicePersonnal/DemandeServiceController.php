@@ -46,7 +46,7 @@ class DemandeServiceController extends Controller
        return view('ServicePersonnal.DemandeService.demande-service-form', [
             'demandeService' =>  $demandeService,
             'typesServices' => TypeService::all()->pluck('type', 'id'),
-            'chambres' => Auth::user()->hotel->chambres/* ->sortBy('libelle') */->pluck('libelle', 'id'),
+            'chambres' => Auth::user()->hotel->chambres->where('occupe', 1)/* ->sortBy('libelle') */->pluck('libelle', 'id'),
        ]);
     }
 
@@ -82,7 +82,7 @@ class DemandeServiceController extends Controller
         return view('ServicePersonnal.DemandeService.demande-service-form', [
             'demandeService' => $demandeService,
             'typesServices' => TypeService::all()->pluck('type', 'id'),
-            'chambres' => Auth::user()->hotel->chambres/* ->sortBy('libelle') */->pluck('libelle', 'id'),
+            'chambres' => Auth::user()->hotel->chambres->where('occupe', 1)/* ->sortBy('libelle') */->pluck('libelle', 'id'),
         ]);
     }
 
@@ -111,4 +111,15 @@ class DemandeServiceController extends Controller
             ->route('service-personnal.demande-service.index')
             ->with('success', 'La demande de service a été supprimée avec succès.');
     }
+
+    public function confirmDemandeService(Service $demandeService) : RedirectResponse
+    {
+        $this->authorize('confirmDemandeService', $demandeService);
+    }
+
+    public function cannotRenderedDemandeService(Service $demandeService) : RedirectResponse
+    {
+        $this->authorize('cannotRenderedDemandeService', $demandeService);
+    }
+
 }

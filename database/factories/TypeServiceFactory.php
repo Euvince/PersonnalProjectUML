@@ -17,7 +17,7 @@ class TypeServiceFactory extends Factory
     public function definition(): array
     {
         return [
-            'type' => $this->faker->unique()->randomElement(['Néttoyage', 'Lingerie', 'Restauration']),
+            'type' => $this->faker->unique()->randomElement(['Néttoyage', 'Lingerie', 'Restauration', 'Autre']),
             'prix' => $this->faker->numberBetween(444, 1200)
         ];
     }

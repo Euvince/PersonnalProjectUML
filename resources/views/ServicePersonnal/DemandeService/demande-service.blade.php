@@ -14,6 +14,7 @@
                         <p><strong>Chambre : </strong> {{ $demandeService->chambre->numero }}</p>
                         <p><strong>Type de service : </strong> {{ $demandeService->TypeService->type }}</p>
                         <p><strong>Prix : </strong> {{ $demandeService->TypeService->prix }}$</p>
+                        <p><strong>Description : </strong> {{ $demandeService->description }}</p>
                         <p><strong>Nom du client : </strong> {{ $demandeService->nom_client }}</p>
                         <p><strong>Prénoms du client : </strong> {{ $demandeService->prenoms_client }}</p>
                         <p><strong>Email du client : </strong> {{ $demandeService->email_client }}</p>

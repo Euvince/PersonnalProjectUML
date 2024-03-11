@@ -59,6 +59,15 @@ class DemandesServicesTable extends Component
         session()->flash('success', 'La/Les Réservation(s) a/ont bien été confirmée(s)');
     }
 
+    public function cannotRanderedServices(array $ids) : void
+    {
+        foreach ($ids as $id) {
+
+        }
+        $this->servicesChecked = [];
+        session()->flash('success', 'Le(s) clients ont bien été informé(s) n\'est pas dispobible.');
+    }
+
     public function cancelDemandes(array $ids) : void
     {
         foreach ($ids as $id) {

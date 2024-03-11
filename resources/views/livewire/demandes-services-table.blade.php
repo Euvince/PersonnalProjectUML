@@ -6,7 +6,7 @@
     </div>
     <div class="col-12 mt-5">
         <div class="row ml-2">
-            <a class="btn btn-danger mb-3 mx-2" style="color: white;" x-show="servicesChecked.length > 0" x-on:click="$wire.cancelServices(servicesChecked)" x-cloak><i class="fa fa-x"></i></a>
+            <a class="btn btn-danger mb-3 mx-2" style="color: white;" x-show="servicesChecked.length > 0" x-on:click="$wire.cannotRanderedServices(servicesChecked)" x-cloak><i class="fa fa-x"></i></a>
             <a class="btn btn-success mb-3" style="color: white;" x-show="servicesChecked.length > 0" x-on:click="$wire.confirmServices(servicesChecked)" x-cloak><i class="fa-solid fa-circle-check"></i></a>
             <a class="btn btn-danger mb-3 mx-2" style="color: white;" x-show="servicesChecked.length > 0" x-on:click="$wire.cancelServices(servicesChecked)" x-cloak><i class="fa fa-trash"></i></a>
             <a href="{{ route('service-personnal.demande-service.create') }}" class="btn btn-primary mb-3 ml-1"><i class="fa fa-plus"></i> Créer une demande de service</a>
@@ -45,12 +45,12 @@
                                         <span class="badge bg-primary rounded-pill">{{ number_format($service->TypeService->prix, 0, ',', '.')}}$</span>
                                     </li>
                                     <div class="d-flex">
-                                        <form action="{{-- {{ route('reception-personnal.reservation.confirm', ['demande_service' => $service->id]) }} --}}" method="POST" class="mx-1">
+                                        <form action="{{ route('service-personnal.demande.confirm', ['demande_service' => $service->id]) }}" method="POST" class="mx-1">
                                             @csrf
                                             @method('patch')
                                             <button class="btn btn-success btn-sm"><i class="fa-solid fa-circle-check"></i> </button>
                                         </form>
-                                        <a href="{{-- {{ route('reception-personnal.reservations.show', ['demande_service' => $service->id]) }} --}}" class="btn btn-danger btn-sm mx-1"><i class="fa-solid fa-x"></i></a>
+                                        <a href="{{ route('service-personnal.demande.cannotrendered', ['demande_service' => $service->id]) }}" class="btn btn-danger btn-sm mx-1"><i class="fa-solid fa-x"></i></a>
                                         <a href="{{ route('service-personnal.demande-service.show', ['demande_service' => $service->id]) }}" class="btn btn-primary btn-sm mx-1"><i class="fa-solid fa-eye"></i></a>
                                         <a href="{{ route('service-personnal.demande-service.edit', ['demande_service' => $service->id]) }}" class="btn btn-warning btn-sm mx-1"><i class="fa fa-edit"></i></a>
                                         <a href="" class="btn btn-danger btn-sm mx-1"  data-target="#modal{{ $service->id }}" data-toggle="modal"><i class="fa fa-trash"></i></a>

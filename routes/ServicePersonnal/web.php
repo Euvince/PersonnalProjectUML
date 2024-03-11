@@ -16,4 +16,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth', 'permission:Gérer les Demandes de Services'], 'prefix' => 'service-personnal', 'as' => 'service-personnal.'], function () {
     Route::resource('demande-service', DemandeServiceController::class);
+
+    $idRegex = '[0-9]+';
+    Route::patch('confirm-demande-service/{demande_service}', [DemandeServiceController::class, 'confirmDemandeService'])
+    ->where(['demande_service' => $idRegex])
+    ->name('demande.confirm');
+
+    Route::patch('cannot-rendered-demande-service/{demande_service}', [DemandeServiceController::class, 'cannotRenderedDemandeService'])
+    ->where(['demande_service' => $idRegex])
+    ->name('demande.cannotrendered');
 });

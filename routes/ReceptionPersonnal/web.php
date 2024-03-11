@@ -17,14 +17,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => ['auth', 'permission:Gérer les Réservations'], 'prefix' => 'reception-personnal', 'as' => 'reception-personnal.'], function () {
-    Route::get('chambres', [ChambreController::class, 'index'])->name('chambres.index');
-    Route::get('chambres/{chambre}', [ChambreController::class, 'show'])->name('chambres.show');
-
     Route::resource('reservations', ReservationController::class);
 
     $idRegex = '[0-9]+';
     Route::patch('confirm-reservation/{reservation}', [ReservationController::class, 'confirmReservation'])
-    ->where(['id' => $idRegex])
+    ->where(['reservation' => $idRegex])
     ->name('reservation.confirm');
 
     Route::get('factures', [FactureController::class, 'index'])->name('factures.index');
