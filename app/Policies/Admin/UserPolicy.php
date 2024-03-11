@@ -90,7 +90,7 @@ class UserPolicy
 
     public function sendReservation(User $user): bool
     {
-
+        return $user->can('Réserver une chambre');
     }
 
     public function downloadFacture(User $user): bool
@@ -100,7 +100,7 @@ class UserPolicy
 
     public function sendDemandeService(User $user): bool
     {
-
+        return $user->can('Demander un service');
     }
 
 

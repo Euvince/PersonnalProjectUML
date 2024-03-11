@@ -16,6 +16,7 @@ class Input extends Component
         public $class1,
         public $class2,
         public $class3,
+        /* public $class4 = "", */
         public $id,
         public $label,
         public $type,

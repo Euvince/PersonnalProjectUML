@@ -14,12 +14,16 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string('description');
+            $table->unsignedBigInteger('type_service_id');
+            $table->foreign('type_service_id')->references('id')->on('types_services');
             $table->unsignedBigInteger('chambre_id')->nullable();
             $table->foreign('chambre_id')->references('id')->on('chambres');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('type_service_id');
-            $table->foreign('type_service_id')->references('id')->on('types_services');
+            $table->string('nom_client');
+            $table->string('prenoms_client');
+            $table->string('email_client');
+            $table->string('telephone_client');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->string('deleted_by')->nullable();

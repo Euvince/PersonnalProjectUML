@@ -26,6 +26,8 @@ class Reservation extends Model
         'prix',
         'statut',
         'user_id',
+        'retire',
+        'confirme',
         'chambre_id',
         'nom_client',
         'fin_sejour',
@@ -80,11 +82,11 @@ class Reservation extends Model
     }
 
     public function isConfirmed() : bool {
-        return $this->confirm === self::STATUS_CONFIRM;
+        return $this->confirme === self::STATUS_CONFIRM;
     }
 
     public function markAsConfirmed() : void {
-        $this->update(['confirm' => self::STATUS_CONFIRM]);
+        $this->update(['confirme' => self::STATUS_CONFIRM]);
     }
 
     public function user() : BelongsTo {

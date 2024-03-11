@@ -25,14 +25,15 @@
                 <x-select class1="form-group w-100" class2="col-form-label mt-4" class3="form-control" id="type_chambre_id" label="Type de chambre" name="type_chambre_id" :value="$typesChambres" elementIdOnEntite="{{ $chambre->type_chambre_id }}"/>
             </div>
             <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="etage" label="Étage" type="text" name="etage" placeholder="Étage"  readonly="" value="{{ $chambre->etage }}" />
-            <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="description" label="Description" type="text" name="description" placeholder="Description"  readonly="" value="{{ $chambre->description }}" />
+            <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="photo" label="Photo" type="file" name="photo" placeholder="Photo"  readonly="" value="{{ $chambre->photo }}" />
         </div>
 
         <div class="row">
-            <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="photo" label="Photo" type="file" name="photo" placeholder="Photo"  readonly="" value="{{ $chambre->photo }}" />
             <div class="col row mx-1">
-            </div>
-            <div class="col row mx-1">
+                <div class="w-100">
+                    <label for="description" class="form-label mt-4">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="3">{{ $chambre->description }}</textarea>
+                </div>
             </div>
         </div>
 

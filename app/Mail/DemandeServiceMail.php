@@ -2,12 +2,14 @@
 
 namespace App\Mail;
 
+use App\Models\User;
+use App\Models\Service;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class DemandeServiceMail extends Mailable
 {
@@ -16,7 +18,9 @@ class DemandeServiceMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(
+        public Service $service
+    )
     {
         //
     }
@@ -26,8 +30,19 @@ class DemandeServiceMail extends Mailable
      */
     public function envelope(): Envelope
     {
+        $personnalServiceEmail = User::query()
+            ->where('hotel_id', $this->service->chambre->hotel_id)
+            ->whereHas('roles', function ($query) {
+                $query->where('name', 'Personnel de Service');
+            })
+        ->get()->first()->email;
+
+        dd($personnalServiceEmail);
+
         return new Envelope(
-            subject: 'Demande Service Mail',
+            to: $personnalServiceEmail,
+            replyTo: $this->service->email_client,
+            subject: 'Demande de Service',
         );
     }
 
@@ -38,6 +53,7 @@ class DemandeServiceMail extends Mailable
     {
         return new Content(
             markdown: 'mail.demande-service-mail',
+            with: ['service' => $this->service]
         );
     }
 

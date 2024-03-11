@@ -65,11 +65,11 @@ class DatabaseSeeder extends Seeder
 
         MoyenPaiement::factory()->count(4)->create();
 
-        TypeService::factory()->count(3)->create()->each(function ($typeService) {
+        TypeService::factory()->count(3)->create()/* ->each(function ($typeService) {
             Service::factory()->count(10)->create([
                 'type_service_id' => $typeService->id
             ]);
-        });
+        }) */;
 
         TypeRole::factory()->count(5)->create();
 

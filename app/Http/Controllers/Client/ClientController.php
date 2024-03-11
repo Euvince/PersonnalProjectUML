@@ -15,11 +15,15 @@ use Illuminate\Http\Request;
 use App\Models\MoyenPaiement;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Client\DemandeServiceFormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Jobs\ReservationPaymentJob;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use App\Http\Requests\Client\ReservationFormRequest;
+use App\Jobs\DemandeServiceJob;
+use App\Models\Service;
+use App\Models\TypeService;
 
 class ClientController extends Controller
 {
@@ -65,6 +69,10 @@ class ClientController extends Controller
             ->route('clients.chambres.show', ['slug' => Str::slug($chambre->libelle), 'chambre' => $chambre->id])
             ->withErrors(['error' => 'La chambre est déjà réservée pour la période que vous indiquez.'])
             ->withInput();
+
+        $newTable = array_diff($request->validated(),
+            ['nom_client', 'prenoms_client', 'email_client', 'telephone_client']
+        );
 
         $reservation = Reservation::create(array_merge(
             $request->validated(),
@@ -134,6 +142,41 @@ class ClientController extends Controller
         ->setPaper('A4', 'portrait');
         /* $pdf->save(public_path("storage/factures/")); */
         return $pdf->download('facture.pdf');
+    }
+
+    public function showFormToAskService(Chambre $chambre) : RedirectResponse | View
+    {
+        if ($chambre->isOccupied() &&
+            $chambre->reservations->where('confirme', 1)
+            ->where('user_id', Auth::user()->id)
+            ->count() > 0
+        ) {
+            return view('Client.DemandeService.demande-service-form', [
+                'chambre' => $chambre,
+                'typesServices' => TypeService::all()->pluck('type', 'id')
+            ]);
+        }
+        return
+            redirect()
+            ->route('clients.hotels.index')
+            ->withErrors(['error' => 'Vous ne pouvez pas éffectuer de demande de service dans cette chambre.']);
+    }
+
+    public function sendDemandeService(DemandeServiceFormRequest $request, Chambre $chambre) : RedirectResponse
+    {
+        $service = Service::create(array_merge($request->validated(), [
+            'user_id' => Auth::user()->id,
+            'chambre_id' => $chambre->id,
+            'nom_client' => Auth::user()->nom,
+            'email_client' => Auth::user()->email,
+            'prenoms_client' => Auth::user()->prenoms,
+            'telephone_client' => Auth::user()->telephone,
+        ]));
+
+        DemandeServiceJob::dispatch($service);
+        return
+            back()
+            ->with('success', 'Votre demande de service a été envoyé avec succès.');
     }
 
 }

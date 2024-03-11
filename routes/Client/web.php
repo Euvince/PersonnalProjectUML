@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\API\HotelController;
-use App\Http\Controllers\ServicePersonnal\DemandeServiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,7 +55,15 @@ Route::get('facture-download/{facture}/{chambre}', [ClientController::class, 'do
     'chambre' => $idRegex
 ]);
 
-/* Route::get('demande-service', [DemandeServiceController::class, 'create']); */
+Route::get('chambres/{chambre}/demander-service', [ClientController::class, 'showFormToAskService'])
+->name('clients.chambres.ask-service')
+->where(['chambre' => $idRegex])
+->middleware(['auth'/* , 'verified' */, 'permission:Demander un Service']);
+
+Route::post('chambres/{chambre}/demander-service', [ClientController::class, 'sendDemandeService'])
+->name('clients.chambres.service-send')
+->where(['chambre' => $idRegex])
+->middleware(['auth'/* , 'verified' */, 'permission:Demander un Service']);
 
 
 Route::get('api', [HotelController::class, 'index']);

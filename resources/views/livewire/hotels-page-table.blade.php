@@ -13,6 +13,11 @@
     </div>
 
     <div class="container mt-4">
+        @if ($errors->has('error'))
+            <div class="alert alert-danger" role="alert">
+                <strong>{{ $errors->first('error') }}</strong>
+            </div>
+        @endif
         <div class="row">
             @foreach ($hotels as $hotel)
                 <div class="col-4">

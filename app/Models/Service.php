@@ -17,8 +17,12 @@ class Service extends Model
     protected $fillable = [
         'prix',
         'user_id',
+        'nom_client',
         'chambre_id',
         'description',
+        'email_client',
+        'prenoms_client',
+        'telephone_client',
         'type_service_id',
     ];
 
