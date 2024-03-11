@@ -27,6 +27,7 @@ class DemandeServiceFormRequest extends FormRequest
             'email_client' => ['required', 'email'],
             'prenoms_client' => ['required'],
             'telephone_client' => ['required'],
+            'chambre_id' => ['required', 'exists:chambres,id'],
             'type_service_id' => ['required', 'integer', 'exists:types_services,id']
         ];
     }

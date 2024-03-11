@@ -136,7 +136,7 @@ class ReservationController extends Controller
     {
         return view('ReceptionPersonnal.Reservation.reservation-form', [
             'reservation' => $reservation,
-            'chambres' => Auth::user()->hotel->chambres->sortBy('libelle')->pluck('libelle', 'id'),
+            'chambres' => Auth::user()->hotel->chambres/* ->sortBy('libelle') */->pluck('libelle', 'id'),
         ]);
     }
 

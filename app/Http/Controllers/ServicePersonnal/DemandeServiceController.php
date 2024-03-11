@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\ServicePersonnal;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ServicePersonnal\DemandeServiceFormRequest;
 use App\Models\Service;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
+use App\Models\TypeService;
 use Illuminate\Http\Request;
+use App\Jobs\DemandeServiceJob;
+use Illuminate\Contracts\View\View;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\ServicePersonnal\DemandeServiceFormRequest;
+use App\Jobs\CancelDemandeServiceJob;
 
 class DemandeServiceController extends Controller
 {
@@ -22,7 +26,7 @@ class DemandeServiceController extends Controller
      */
     public function index() : View
     {
-        return view('ServicePersonnal.demandes-services.demandes-services');
+        return view('ServicePersonnal.DemandeService.demandes-services');
     }
 
     /**
@@ -30,7 +34,20 @@ class DemandeServiceController extends Controller
      */
     public function create() : View
     {
-       return view('ServicePersonnal.demandes-services.demande-service-form');
+        $demandeService = new Service();
+
+        $demandeService->fill([
+            'nom_client' => "AGOSSOU",
+            'prenoms_client' => "Gilles",
+            'email_client' => "gilles@gmail.com",
+            'telephone_client' => "+229 65141420",
+        ]);
+
+       return view('ServicePersonnal.DemandeService.demande-service-form', [
+            'demandeService' =>  $demandeService,
+            'typesServices' => TypeService::all()->pluck('type', 'id'),
+            'chambres' => Auth::user()->hotel->chambres/* ->sortBy('libelle') */->pluck('libelle', 'id'),
+       ]);
     }
 
     /**
@@ -38,7 +55,23 @@ class DemandeServiceController extends Controller
      */
     public function store(DemandeServiceFormRequest $request) : RedirectResponse
     {
-        //
+        $service = Service::create(array_merge($request->validated(), [
+            'user_id' => Auth::user()->id,
+        ]));
+
+        DemandeServiceJob::dispatch($service);
+        return
+            redirect()
+            ->route('service-personnal.demande-service.index')
+            ->with('success', 'Votre demande de service a bien été crée.');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Service $demandeService) : View
+    {
+        return view('ServicePersonnal.DemandeService.demande-service', compact('demandeService'));
     }
 
     /**
@@ -46,7 +79,11 @@ class DemandeServiceController extends Controller
      */
     public function edit(Service $demandeService) : View
     {
-        return view();
+        return view('ServicePersonnal.DemandeService.demande-service-form', [
+            'demandeService' => $demandeService,
+            'typesServices' => TypeService::all()->pluck('type', 'id'),
+            'chambres' => Auth::user()->hotel->chambres/* ->sortBy('libelle') */->pluck('libelle', 'id'),
+        ]);
     }
 
     /**
@@ -54,7 +91,12 @@ class DemandeServiceController extends Controller
      */
     public function update(DemandeServiceFormRequest $request, Service $demandeService) : RedirectResponse
     {
-        //
+        $demandeService->update($request->validated());
+        /* DemandeServiceJob::dispatch($demandeService); */
+        return
+            redirect()
+            ->route('service-personnal.demande-service.index')
+            ->with('success', 'La demande de service a été éditée avec succès.');
     }
 
     /**
@@ -62,6 +104,11 @@ class DemandeServiceController extends Controller
      */
     public function destroy(Service $demandeService) : RedirectResponse
     {
-        //
+        $demandeService->delete();
+        CancelDemandeServiceJob::dispatch($demandeService);
+        return
+            redirect()
+            ->route('service-personnal.demande-service.index')
+            ->with('success', 'La demande de service a été supprimée avec succès.');
     }
 }

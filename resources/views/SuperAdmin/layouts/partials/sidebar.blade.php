@@ -83,9 +83,9 @@
                         <a href="{{ route('admin.chambres.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Chambres</span></a>
                     </li>
                 @endcan
-                @can('Gérer les Réservations')
+                @canAny(['Gérer les Réservations', 'Gérer les Demandes de Services'])
                     <li @class(['active' => str_contains($routeName, 'chambres')])>
-                        <a href="{{ route('reception-personnal.chambres.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Chambres</span></a>
+                        <a href="{{ route('personnal.chambres.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Chambres</span></a>
                     </li>
                 @endcan
                 @can('Gérer les Réservations')

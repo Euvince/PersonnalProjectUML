@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('email_client');
             $table->string('telephone_client');
             $table->date('date_demande_service');
+            $table->string('statut')->default('Impayé');
+            $table->boolean('rendu')->default(0);
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->string('deleted_by')->nullable();

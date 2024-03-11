@@ -2,12 +2,12 @@
 
 namespace App\Http\Livewire;
 
+use App\Jobs\CancelDemandeServiceJob;
 use DateTime;
 use Livewire\Component;
-use App\Models\Paiement;
 use App\Models\Reservation;
 use Livewire\WithPagination;
-use App\Jobs\CancelReservationJob;
+use App\Models\Service;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,7 +25,7 @@ class DemandesServicesTable extends Component
 
     public $orderDirection = 'ASC';
 
-    public array $reservationsChecked = [];
+    public array $servicesChecked = [];
 
     protected $paginationTheme = 'bootstrap';
 
@@ -53,26 +53,21 @@ class DemandesServicesTable extends Component
     public function confirmDemandes(array $ids) : void
     {
         foreach ($ids as $id) {
-            Reservation::find($id)->chambre()->update(['statut' => 'Occupé']);
+
         }
-        $this->reservationsChecked = [];
+        $this->servicesChecked = [];
         session()->flash('success', 'La/Les Réservation(s) a/ont bien été confirmée(s)');
     }
 
-    public function cancelReservations(array $ids) : void
+    public function cancelDemandes(array $ids) : void
     {
         foreach ($ids as $id) {
-            $reservation = Reservation::find($id);
-            $reservation->delete();
-            $paiement = Paiement::find($reservation->paiement->id);
-            $paiement->delete();
-            foreach ($paiement->factures as $facture) {
-                $facture->delete();
-            }
-            CancelReservationJob::dispatch($reservation);
+            $service = Service::find($id);
+            $service->delete();
+            CancelDemandeServiceJob::dispatch($service);
         }
-        $this->reservationsChecked = [];
-        session()->flash('success', 'Le(s) Réservation(s) a/ont bien été annulée(s)');
+        $this->servicesChecked = [];
+        session()->flash('success', 'Le(s) Demandes(s) de service(s) a/ont bien été annulée(s)');
     }
 
     public function setOrderField(string | int | DateTime  $field) : void
@@ -90,24 +85,24 @@ class DemandesServicesTable extends Component
     {
         $this->validate();
 
-        $reservations = Reservation::query();
-        $reservations = $reservations->whereHas('chambre', function ($query) {
+        $services = Service::query();
+        $services = $services->whereHas('chambre', function ($query) {
             $query->where('hotel_id', '=', Auth::user()->hotel_id);
         });
         if(!empty($this->numChambre)){
-            $reservations = $reservations->where('chambre_id', 'LIKE', "%{$this->numChambre}%");
+            $services = $services->where('chambre_id', 'LIKE', "%{$this->numChambre}%");
         }
 
         if(!empty($this->userLastName)){
-            $reservations = $reservations->where('prenoms_client', 'LIKE', "%{$this->userLastName}%");
+            $services = $services->where('prenoms_client', 'LIKE', "%{$this->userLastName}%");
         }
 
         if(!empty($this->userFirstName)){
-            $reservations = $reservations->where('nom_client', 'LIKE', "%{$this->userFirstName}%");
+            $services = $services->where('nom_client', 'LIKE', "%{$this->userFirstName}%");
         }
 
         return view('livewire.demandes-services-table', [
-            'reservations' => $reservations
+            'services' => $services
                 ->orderBy($this->orderField, $this->orderDirection)
                 ->paginate(15)
         ]);

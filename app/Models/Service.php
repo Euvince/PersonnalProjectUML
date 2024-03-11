@@ -14,8 +14,14 @@ class Service extends Model
 {
     use HasFactory, SoftDeletes;
 
+    const STATUS_PAID = 'Payé';
+    const STATUS_UNPAID = 'Impayé';
+    const STATUS_RENDERED = 1;
+
     protected $fillable = [
         'prix',
+        'rendu',
+        'statut',
         'user_id',
         'nom_client',
         'chambre_id',
@@ -45,6 +51,22 @@ class Service extends Model
                 $service->save();
             });
         }
+    }
+
+    public function paid() : bool {
+        return $this->statut === self::STATUS_PAID;
+    }
+
+    public function markAsPaid() : void {
+        $this->update(['statut' => self::STATUS_PAID]);
+    }
+
+    public function isRendered() : bool {
+        return $this->rendu === self::STATUS_RENDERED;
+    }
+
+    public function markAsRendered() : void {
+        $this->update(['rendu' => self::STATUS_RENDERED]);
     }
 
     public function TypeService() : BelongsTo {

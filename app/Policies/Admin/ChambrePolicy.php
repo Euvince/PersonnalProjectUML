@@ -77,12 +77,12 @@ class ChambrePolicy
 
     public function index(User $user): bool
     {
-        return $user->can('Gérer les Réservations');
+        return $user->canAny(['Gérer les Réservations', 'Gérer les Demandes de Services']);
     }
 
     public function show(User $user, Chambre $chambre): bool
     {
-        return $user->can('Gérer les Réservations')
+        return $user->canAny(['Gérer les Réservations', 'Gérer les Demandes de Services'])
             && $chambre->hotel_id === Auth::user()->hotel_id;
     }
 

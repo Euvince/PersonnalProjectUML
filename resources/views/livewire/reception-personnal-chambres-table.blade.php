@@ -39,7 +39,7 @@
                                         <td>{{ $chambre?->typeChambre?->type }}</td>
                                         <td>
                                             <ul class="d-flex justify-content-center">
-                                                <li class="mr-3"><a href="{{ route('reception-personnal.chambres.show', ['chambre' => $chambre->id]) }}" class="text-primary"> Détails</a></li>
+                                                <li class="mr-3"><a href="{{ route('personnal.chambres.show', ['chambre' => $chambre->id]) }}" class="text-primary"> Détails</a></li>
                                             </ul>
                                         </td>
                                     </tr>

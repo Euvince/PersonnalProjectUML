@@ -30,3 +30,8 @@ Route::group(['middleware' => ['auth', 'permission:Gérer les Réservations'], '
     Route::get('factures', [FactureController::class, 'index'])->name('factures.index');
     Route::get('factures/{facture}', [FactureController::class, 'show'])->name('factures.show');
 });
+
+Route::group(['middleware' => ['auth', 'permission:Gérer les Réservations|Gérer les Demandes de Services'], 'prefix' => 'personnal', 'as' => 'personnal.'], function () {
+    Route::get('chambres', [ChambreController::class, 'index'])->name('chambres.index');
+    Route::get('chambres/{chambre}', [ChambreController::class, 'show'])->name('chambres.show');
+});
