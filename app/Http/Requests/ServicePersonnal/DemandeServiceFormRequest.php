@@ -22,7 +22,12 @@ class DemandeServiceFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'description' => ['required'],
+            'nom_client' => ['required'],
+            'email_client' => ['required', 'email'],
+            'prenoms_client' => ['required'],
+            'telephone_client' => ['required'],
+            'type_service_id' => ['required', 'integer', 'exists:types_services,id']
         ];
     }
 }

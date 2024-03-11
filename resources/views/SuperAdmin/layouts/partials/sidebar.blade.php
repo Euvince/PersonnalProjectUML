@@ -100,7 +100,7 @@
                 @endcan
                 @can('Gérer les Demandes de Services')
                     <li @class(['active' => str_contains($routeName, 'demande-service')])>
-                        <a href="" aria-expanded="true"><i class="ti-dashboard"></i><span>Demandes de services</span></a>
+                        <a href="{{ route('service-personnal.demande-service.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Demandes de services</span></a>
                     </li>
                 @endcan
 

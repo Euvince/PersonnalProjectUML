@@ -39,7 +39,7 @@
                                     <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center mb-3">
                                         <strong>{{  $reservation->statut }}</strong>
                                         @if ($reservation->isConfirmed())
-                                            <span class="badge bg-primary rounded-pill" style="color: white;">Confirmée</span>
+                                            <span class="badge bg-primary rounded-pill" style="color: white;">Confirmé</span>
                                         @endif
                                         <span class="badge bg-primary rounded-pill">{{ number_format($reservation->getMontant(), 0, ',', '.')}}$</span>
                                     </li>

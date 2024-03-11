@@ -30,17 +30,15 @@ class DemandeServiceMail extends Mailable
      */
     public function envelope(): Envelope
     {
-        $personnalServiceEmail = User::query()
+        /* $personnalServiceEmail = User::query()
             ->where('hotel_id', $this->service->chambre->hotel_id)
             ->whereHas('roles', function ($query) {
                 $query->where('name', 'Personnel de Service');
             })
-        ->get()->first()->email;
-
-        dd($personnalServiceEmail);
+        ->get()->first()->email; */
 
         return new Envelope(
-            to: $personnalServiceEmail,
+            to: $this->service->chambre->hotel->email,
             replyTo: $this->service->email_client,
             subject: 'Demande de Service',
         );

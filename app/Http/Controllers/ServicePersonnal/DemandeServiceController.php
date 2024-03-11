@@ -22,7 +22,7 @@ class DemandeServiceController extends Controller
      */
     public function index() : View
     {
-        return view();
+        return view('ServicePersonnal.demandes-services.demandes-services');
     }
 
     /**
@@ -30,7 +30,7 @@ class DemandeServiceController extends Controller
      */
     public function create() : View
     {
-        return view();
+       return view('ServicePersonnal.demandes-services.demande-service-form');
     }
 
     /**

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('prenoms_client');
             $table->string('email_client');
             $table->string('telephone_client');
+            $table->date('date_demande_service');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->string('deleted_by')->nullable();
