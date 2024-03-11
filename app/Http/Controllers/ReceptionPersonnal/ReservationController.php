@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ReceptionPersonnal\ReservationFormRequest;
 use App\Jobs\CancelReservationJob;
+use App\Jobs\ConfirmReservationJob;
 use App\Jobs\EditReservationJob;
 
 class ReservationController extends Controller
@@ -249,6 +250,7 @@ class ReservationController extends Controller
         if ($reservation->chambre->isReserved() && $reservation->chambre->isAvailable()) {
             $reservation->markAsConfirmed();
             $reservation->chambre()->update(['occupe' => 1, 'disponible' => 0]);
+            ConfirmReservationJob::dispatch($reservation);
         }
         return
             redirect()

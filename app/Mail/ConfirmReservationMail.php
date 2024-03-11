@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Reservation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -16,7 +17,9 @@ class ConfirmReservationMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(
+        public Reservation $reservation
+    )
     {
         //
     }
@@ -27,7 +30,8 @@ class ConfirmReservationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Confirm Reservation Mail',
+            to: $this->reservation->email_client,
+            subject: 'Confirmation de Check-out',
         );
     }
 
@@ -38,6 +42,7 @@ class ConfirmReservationMail extends Mailable
     {
         return new Content(
             markdown: 'mail.confirm-reservation-mail',
+            with: ['reservation' => $this->reservation]
         );
     }
 

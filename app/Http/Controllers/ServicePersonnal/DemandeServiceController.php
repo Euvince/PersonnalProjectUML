@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ServicePersonnal\DemandeServiceFormRequest;
 use App\Jobs\CancelDemandeServiceJob;
+use App\Jobs\EditDemandeServiceJob;
 
 class DemandeServiceController extends Controller
 {
@@ -59,7 +60,7 @@ class DemandeServiceController extends Controller
             'user_id' => Auth::user()->id,
         ]));
 
-        DemandeServiceJob::dispatch($service);
+        /* DemandeServiceJob::dispatch($service); */
         return
             redirect()
             ->route('service-personnal.demande-service.index')
@@ -92,7 +93,7 @@ class DemandeServiceController extends Controller
     public function update(DemandeServiceFormRequest $request, Service $demandeService) : RedirectResponse
     {
         $demandeService->update($request->validated());
-        /* DemandeServiceJob::dispatch($demandeService); */
+        EditDemandeServiceJob::dispatch($demandeService);
         return
             redirect()
             ->route('service-personnal.demande-service.index')

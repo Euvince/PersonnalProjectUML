@@ -8,6 +8,7 @@ use App\Models\Paiement;
 use App\Models\Reservation;
 use Livewire\WithPagination;
 use App\Jobs\CancelReservationJob;
+use App\Jobs\ConfirmReservationJob;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
@@ -53,7 +54,9 @@ class ReservationsTable extends Component
     public function confirmReservations(array $ids) : void
     {
         foreach ($ids as $id) {
-            Reservation::find($id)->chambre()->update(['statut' => 'Occupé']);
+            $reservation = Reservation::find($id)->chambre()->update(['statut' => 'Occupé']);
+            $reservation->markAsConfirmed();
+            ConfirmReservationJob::dispatch($reservation);
         }
         $this->reservationsChecked = [];
         session()->flash('success', 'La/Les Réservation(s) a/ont bien été confirmée(s)');
