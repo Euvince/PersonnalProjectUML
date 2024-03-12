@@ -1,12 +1,11 @@
 <x-mail::message>
-# Introduction
+# Nouveau contact reçu
 
-The body of your message.
+Vous avez reçu un nouveau message de contact de la part de {{ $infos['nom'] }}. <br>
+**Email du contact : {{ $infos['email'] }} <br>
+**Téléphone du contact : {{ $infos['telephone'] }} <br>
+**Contenu : {{ $infos['description'] }} <br>
 
-<x-mail::button :url="''">
-Button Text
-</x-mail::button>
-
-Thanks,<br>
+Merci,<br>
 {{ config('app.name') }}
 </x-mail::message>

@@ -47,14 +47,54 @@ class ClientController extends Controller
         ]);
     }
 
+    public function infosHotel (String $slug, Hotel $hotel) : View | RedirectResponse
+    {
+        if ($slug !== Str::slug($hotel->nom)) {
+            return to_route('clients.hotels.infos', ['slug' => Str::slug($hotel->nom), 'hotel' => $hotel->id]);
+        }
+        return view('Client.Hotels.infos', [
+            'hotel' => $hotel
+        ]);
+    }
+
+    public function downloadInfosHotel(Hotel $hotel)
+    {
+        $pdf = FacadePdf::loadView('Client.Hotels.infos-download', [
+            'hotel' => $hotel
+        ])
+        ->setOptions(['defaultFont' => 'sans-serif'])
+        ->setPaper('A4', 'portrait');
+        return $pdf->download("$hotel->nom.pdf");
+    }
+
     public function showChambre (String $slug, Chambre $chambre) : View | RedirectResponse
     {
         if ($slug !== Str::slug($chambre->libelle)) {
             return to_route('clients.chambres.show', ['slug' => Str::slug($chambre->libelle), 'chambre' => $chambre->id]);
         }
-        return view('Client.Chambre.Chambre', [
+        return view('Client.Chambre.chambre', [
             'chambre' => $chambre
         ]);
+    }
+
+    public function infosChambre (String $slug, Chambre $chambre) : View | RedirectResponse
+    {
+        if ($slug !== Str::slug($chambre->libelle)) {
+            return to_route('clients.chambres.infos', ['slug' => Str::slug($chambre->libelle), 'chambre' => $chambre->id]);
+        }
+        return view('Client.Chambre.infos', [
+            'chambre' => $chambre
+        ]);
+    }
+
+    public function downloadInfosChambre(Chambre $chambre)
+    {
+        $pdf = FacadePdf::loadView('Client.Chambre.infos-download', [
+            'chambre' => $chambre
+        ])
+        ->setOptions(['defaultFont' => 'sans-serif'])
+        ->setPaper('A4', 'portrait');
+        return $pdf->download("$chambre->numero.pdf");
     }
 
     public function sendReservation (ReservationFormRequest $request, Chambre $chambre) : RedirectResponse | View

@@ -6,6 +6,6 @@
         @endforeach
     </select>
     @error($name)
-        <span style="color: red;">{{ $message }}</span>
+        <span style="color: red; font-size: 0.7rem">{{ $message }}</span>
     @enderror
 </div>

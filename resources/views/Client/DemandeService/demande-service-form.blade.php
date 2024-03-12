@@ -25,9 +25,9 @@
         <div class="row">
             <div>
                 <label for="description" class="form-label mt-4">Description</label>
-                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                <textarea class="form-control" id="description" name="description" rows="3">{{ old('description', $chambre->) }}</textarea>
                 @error('description')
-                    <span style="color: red;">{{ $message }}</span>
+                    <span style="color: red; font-size: 0.7rem;">{{ $message }}</span>
                 @enderror
             </div>
             <x-select class1="form-group w-100" class2="col-form-label mt-4" class3="form-control" id="type_service_id" label="Type de service" name="type_service_id" :value="$typesServices" elementIdOnEntite="{{ $chambre->type_service_id }}"/>

@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="d-flex justify-content-between align-items-center">
-        <h1 class="fw-bold">{{ $demandeService->exists ? 'Éditer une Réservation' : 'Créer une Réservation' }}</h1>
+        <h1 class="fw-bold">{{ $demandeService->exists ? 'Éditer une demande de service' : 'Créer une demande de service' }}</h1>
     </div>
 
     @if (session('error'))
@@ -33,6 +33,16 @@
             </div>
             <div class="col row mx-1">
                 <x-select class1="form-group w-100" class2="col-form-label mt-4" class3="form-control" id="type_service_id" label="Type de service" name="type_service_id" :value="$typesServices" elementIdOnEntite="{{ $demandeService->chambre_id }}"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col row mx-1">
+                <label for="description" class="form-label mt-4">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="3">{{ old('description', $demandeService->description) }}</textarea>
+                @error('description')
+                    <span style="color: red; font-size: 0.7rem;">{{ $message }}</span>
+                @enderror
             </div>
         </div>
 

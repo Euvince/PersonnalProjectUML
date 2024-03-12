@@ -31,7 +31,8 @@
                             {{-- <p class="card-text" style="font-size: 13px;"><strong>{{ $hotel->adresse_postale }}</strong></p> --}}
                             <p class="card-text" style="font-size: 13px;">Directeur : <strong>{{ $hotel->directeur }}</strong></p>
                             <p class="card-text" style="font-size: 13px;"><strong>{{ $hotel->email }}</strong></p>
-                            <a href="{{ route('clients.hotels.show', ['slug' => Str::slug($hotel->nom), 'hotel' => $hotel->id]) }}" class="btn btn-sm btn-primary">Visiter</a>
+                            <a href="{{ route('clients.hotels.show', ['slug' => $hotel->getSlug(), 'hotel' => $hotel->id]) }}" class="btn btn-sm btn-primary mx-1"><i class="fa-solid fa-eye"></i> Visiter</a>
+                            <a href="{{ route('clients.hotels.infos', ['slug' => $hotel->getSlug(), 'hotel' => $hotel->id]) }}" class="btn btn-sm btn-primary"><i class="fa-solid fa-circle-info"></i> Informations</a>
                         </div>
                     </div>
                 </div>

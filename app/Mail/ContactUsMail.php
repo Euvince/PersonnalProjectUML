@@ -2,12 +2,13 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ContactUsMail extends Mailable
 {
@@ -16,7 +17,9 @@ class ContactUsMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(
+        public Array $contactInfos
+    )
     {
         //
     }
@@ -26,8 +29,14 @@ class ContactUsMail extends Mailable
      */
     public function envelope(): Envelope
     {
+        $superAdminEmail = User::query()
+            ->whereHas('roles', function ($query) {
+                $query->where('name', 'Super Admin');
+            })
+        ->get()->first()->email;
         return new Envelope(
-            subject: 'Contact Us Mail',
+            to: $superAdminEmail,
+            subject: 'Nouveau contact',
         );
     }
 
@@ -38,6 +47,7 @@ class ContactUsMail extends Mailable
     {
         return new Content(
             markdown: 'mail.contact-us-mail',
+            with: ['infos' => $this->contactInfos]
         );
     }
 

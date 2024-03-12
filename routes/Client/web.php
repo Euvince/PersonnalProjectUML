@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\API\HotelController;
+use App\Http\Controllers\ContactUsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,12 +22,26 @@ $mailRegex = '[^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$]';
 
 Route::get('/', [ClientController::class, 'index'])->name('clients.hotels.index');
 
-Route::get('hotels/{slug}/{hotel}', [ClientController::class, 'showHotel'])
+Route::get('hotels/{slug}/{hotel}/chambres', [ClientController::class, 'showHotel'])
 ->name('clients.hotels.show')
 ->where([
     'hotel' => $idRegex,
     'slug' => $slugRegex
 ]);
+
+Route::get('hotels/{slug}/{hotel}/infos', [ClientController::class, 'infosHotel'])
+->name('clients.hotels.infos')
+->where([
+    'hotel' => $idRegex,
+    'slug' => $slugRegex
+]);
+
+Route::get('hotels-infos-download/{hotel}', [ClientController::class, 'downloadInfosHotel'])
+->name('clients.hotel-infos-download')
+->where([
+    'hotel' => $idRegex
+]);
+
 
 Route::get('chambres/{slug}/{chambre}', [ClientController::class, 'showChambre'])
 ->name('clients.chambres.show')
@@ -34,6 +49,14 @@ Route::get('chambres/{slug}/{chambre}', [ClientController::class, 'showChambre']
     'chambre' => $idRegex,
     'slug' => $slugRegex
 ]);
+
+Route::get('chambres/{slug}/{chambre}/infos', [ClientController::class, 'infosChambre'])
+->name('clients.chambres.infos')
+->where([
+    'chambre' => $idRegex,
+    'slug' => $slugRegex
+]);
+
 
 Route::post('chambres/{chambre}/reservation', [ClientController::class, 'sendReservation'])
 ->name('clients.chambres.reservation-send')
@@ -55,6 +78,7 @@ Route::get('facture-download/{facture}/{chambre}', [ClientController::class, 'do
     'chambre' => $idRegex
 ]);
 
+
 Route::get('chambres/{chambre}/demander-service', [ClientController::class, 'showFormToAskService'])
 ->name('clients.chambres.ask-service')
 ->where(['chambre' => $idRegex])
@@ -65,5 +89,8 @@ Route::post('chambres/{chambre}/demander-service', [ClientController::class, 'se
 ->where(['chambre' => $idRegex])
 ->middleware(['auth'/* , 'verified' */, 'permission:Demander un Service']);
 
+
+Route::get('nous-contacter-form', [ContactUsController::class, 'showContactForm'])->name('contact.us.form');
+Route::post('nous-contacter', [ContactUsController::class, 'contactUs'])->name('contact.us');
 
 Route::get('api', [HotelController::class, 'index']);

@@ -31,7 +31,7 @@ class AcceptDemandeServiceMail extends Mailable
     {
         return new Envelope(
             to: $this->service->email_client,
-            subject: 'Accept Demande Service Mail',
+            subject: 'Acceptation de demande de service',
         );
     }
 

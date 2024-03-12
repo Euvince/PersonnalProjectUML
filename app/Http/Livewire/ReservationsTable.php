@@ -54,7 +54,8 @@ class ReservationsTable extends Component
     public function confirmReservations(array $ids) : void
     {
         foreach ($ids as $id) {
-            $reservation = Reservation::find($id)->chambre()->update(['statut' => 'Occupé']);
+            $reservation = Reservation::find($id);
+            $reservation->chambre->markAsOccupied();
             $reservation->markAsConfirmed();
             ConfirmReservationJob::dispatch($reservation);
         }

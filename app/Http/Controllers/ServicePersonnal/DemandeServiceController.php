@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ServicePersonnal\DemandeServiceFormRequest;
+use App\Jobs\AcceptDemandeServiceJob;
 use App\Jobs\CancelDemandeServiceJob;
 use App\Jobs\EditDemandeServiceJob;
 
@@ -116,6 +117,18 @@ class DemandeServiceController extends Controller
     public function confirmDemandeService(Service $demandeService) : RedirectResponse
     {
         $this->authorize('confirmDemandeService', $demandeService);
+        if ($demandeService->isRendered()) {
+            return
+                redirect()
+                ->route('service-personnal.demande-service.index')
+                ->with('error', 'Le service est déjà marqué comme rendu.');
+        }
+        $demandeService->markAsRendered();
+        AcceptDemandeServiceJob::dispatch($demandeService);
+        return
+            redirect()
+            ->route('service-personnal.demande-service.index')
+            ->with('success', 'Le service a été marqué comme rendu avec succès.');
     }
 
     public function cannotRenderedService(Service $demandeService) : RedirectResponse

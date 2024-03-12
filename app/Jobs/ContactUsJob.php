@@ -2,12 +2,14 @@
 
 namespace App\Jobs;
 
+use App\Mail\ContactUsMail;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
+use Illuminate\Support\Facades\Mail;
 
 class ContactUsJob implements ShouldQueue
 {
@@ -16,7 +18,9 @@ class ContactUsJob implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct()
+    public function __construct(
+        public Array $contactInfos
+    )
     {
         //
     }
@@ -26,6 +30,6 @@ class ContactUsJob implements ShouldQueue
      */
     public function handle(): void
     {
-        //
+        Mail::send(new ContactUsMail($this->contactInfos));
     }
 }

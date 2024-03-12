@@ -214,6 +214,10 @@ class ReservationController extends Controller
         foreach ($paiement->factures as $facture) {
             $facture->delete();
         }
+        if ($reservation->chambre->isOccupied()) {
+            $reservation->chambre->markAsAvailable();
+        }
+        /* ÉCRIRE LE CODE POUR REMBOURSER LE CLIENT */
         CancelReservationJob::dispatch($reservation);
         return
             redirect()
@@ -249,7 +253,8 @@ class ReservationController extends Controller
         }
         if ($reservation->chambre->isReserved() && $reservation->chambre->isAvailable()) {
             $reservation->markAsConfirmed();
-            $reservation->chambre()->update(['occupe' => 1, 'disponible' => 0]);
+            $reservation->chambre->markAsOccupied();
+            /* $reservation->chambre()->update(['occupe' => 1, 'disponible' => 0]); */
             ConfirmReservationJob::dispatch($reservation);
         }
         return

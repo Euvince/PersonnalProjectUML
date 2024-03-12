@@ -139,7 +139,8 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123456789'),
             'telephone' => fake()->phoneNumber(),
             'nationnalite' => fake()->country(),
-            'date_naissance' => fake()->date()
+            'date_naissance' => fake()->date(),
+            'hotel_id' => Hotel::find(15)->id,
         ])->assignRole(['Personnel de Service'])->permissions()->sync([
             /* Permission::where('name', 'Modifier Profil')->first()->id, */
             Permission::where('name', 'Gérer les Demandes de Services')->first()->id

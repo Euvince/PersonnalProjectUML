@@ -68,7 +68,10 @@ class Chambre extends Model
     }
 
     public function markAsAvailable() : void {
-        $this->update(['disponible' => self::STATUS_AVAILABLE]);
+        $this->update([
+            'occupe' => 0,
+            'disponible' => self::STATUS_AVAILABLE
+        ]);
     }
 
     public function isReserved() : bool {
@@ -84,7 +87,10 @@ class Chambre extends Model
     }
 
     public function markAsOccupied() : void {
-        $this->update(['occupe' => self::STATUS_OCCUPIED]);
+        $this->update([
+            'disponible' => 0,
+            'occupe' => self::STATUS_OCCUPIED
+        ]);
     }
 
     public function getSlug() : string {

@@ -28,7 +28,8 @@
                             <h6 class="card-title">{{ Str::limit( $chambre->libelle, 20, '...') }}</h6>
                             <p class="card-text" style="font-size: 13px;">Statut : <strong>{{ $chambre->statut }}</strong></p>
                             <p class="card-text" style="font-size: 13px;">Niveau : <strong>{{ $chambre->TypeChambre->type }}</strong></p>
-                            <a href="{{ route('clients.chambres.show', ['slug' => Str::slug($chambre->libelle), 'chambre' => $chambre->id]) }}" class="btn btn-sm btn-primary">Voir plus...</a>
+                            <a href="{{ route('clients.chambres.show', ['slug' => $chambre->getSlug(), 'chambre' => $chambre->id]) }}" class="btn btn-sm btn-primary">Réserver</a>
+                            <a href="{{ route('clients.chambres.infos', ['slug' => $chambre->getSlug(), 'chambre' => $chambre->id]) }}" class="btn btn-sm btn-primary">Informations</a>
                         </div>
                     </div>
                 </div>

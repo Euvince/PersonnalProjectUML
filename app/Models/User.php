@@ -39,6 +39,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'nationnalite',
         'date_naissance',
         'hotel_id',
+        'numero_compte',
     ];
 
     /**
