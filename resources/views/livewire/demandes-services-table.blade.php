@@ -36,6 +36,7 @@
                                         <input class="form-check-input" type="checkbox" x-model="servicesChecked" value="{{ $service->id }}">
                                         <h6 class="card-title">{{-- {{ $service->nom_client }}  --}}{{ $service->prenoms_client }}</h6>
                                     </div>
+                                    <span>{{ $service->date_demande_service }}</span>
                                     <p class="card-text" style="font-size: 13px;"><strong>{{ Str::limit($service->chambre->libelle, 25, '...') }}</strong></p>
                                     <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center mb-3">
                                         <strong>{{  $service->statut }}</strong>

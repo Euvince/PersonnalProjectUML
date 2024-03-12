@@ -22,7 +22,7 @@ Route::group(['middleware' => ['auth', 'permission:Gérer les Demandes de Servic
     ->where(['demande_service' => $idRegex])
     ->name('demande.confirm');
 
-    Route::patch('cannot-rendered-demande-service/{demande_service}', [DemandeServiceController::class, 'cannotRenderedDemandeService'])
+    Route::patch('cannot-rendered-demande-service/{demande_service}', [DemandeServiceController::class, 'cannotRenderedService'])
     ->where(['demande_service' => $idRegex])
     ->name('demande.cannotrendered');
 });

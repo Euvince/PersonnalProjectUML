@@ -2,12 +2,13 @@
 
 namespace App\Mail;
 
+use App\Models\Service;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class AcceptDemandeServiceMail extends Mailable
 {
@@ -16,7 +17,9 @@ class AcceptDemandeServiceMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(
+        public Service $service
+    )
     {
         //
     }
@@ -27,6 +30,7 @@ class AcceptDemandeServiceMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
+            to: $this->service->email_client,
             subject: 'Accept Demande Service Mail',
         );
     }
@@ -38,6 +42,7 @@ class AcceptDemandeServiceMail extends Mailable
     {
         return new Content(
             markdown: 'mail.accept-demande-service-mail',
+            with: ['service' => $this->service]
         );
     }
 

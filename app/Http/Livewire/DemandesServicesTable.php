@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use App\Jobs\CancelDemandeServiceJob;
 use DateTime;
 use Livewire\Component;
-use App\Models\Reservation;
 use Livewire\WithPagination;
 use App\Models\Service;
 use Illuminate\Contracts\View\View;

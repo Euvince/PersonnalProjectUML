@@ -118,9 +118,9 @@ class DemandeServiceController extends Controller
         $this->authorize('confirmDemandeService', $demandeService);
     }
 
-    public function cannotRenderedDemandeService(Service $demandeService) : RedirectResponse
+    public function cannotRenderedService(Service $demandeService) : RedirectResponse
     {
-        $this->authorize('cannotRenderedDemandeService', $demandeService);
+        $this->authorize('cannotRenderedService', $demandeService);
     }
 
 }

@@ -35,6 +35,7 @@
                                         <input class="form-check-input" type="checkbox" x-model="reservationsChecked" value="{{ $reservation->id }}">
                                         <h6 class="card-title">{{-- {{ $reservation->nom_client }}  --}}{{ $reservation->prenoms_client }}</h6>
                                     </div>
+                                    <span>{{ $reservation->debut_sejour }}</span>
                                     <p class="card-text" style="font-size: 13px;"><strong>{{ Str::limit($reservation->chambre->libelle, 25, '...') }}</strong></p>
                                     <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center mb-3">
                                         <strong>{{  $reservation->statut }}</strong>

@@ -69,7 +69,7 @@ class DemandeServicePolicy
         return $user->can('Gérer les Demandes de Services');
     }
 
-    public function cannotRenderedDemandeService(User $user, Service $service): bool
+    public function cannotRenderedService(User $user, Service $service): bool
     {
         return $user->can('Gérer les Demandes de Services');
     }
