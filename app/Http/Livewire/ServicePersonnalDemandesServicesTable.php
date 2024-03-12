@@ -10,7 +10,7 @@ use App\Models\Service;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
-class DemandesServicesTable extends Component
+class ServicePersonnalDemandesServicesTable extends Component
 {
     use WithPagination;
 
@@ -109,7 +109,7 @@ class DemandesServicesTable extends Component
             $services = $services->where('nom_client', 'LIKE', "%{$this->userFirstName}%");
         }
 
-        return view('livewire.demandes-services-table', [
+        return view('livewire.service-personnal-demandes-services-table', [
             'services' => $services
                 ->orderBy($this->orderField, $this->orderDirection)
                 ->paginate(15)

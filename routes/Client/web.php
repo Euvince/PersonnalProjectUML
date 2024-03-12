@@ -89,6 +89,10 @@ Route::get('facture-download/{facture}/{chambre}', [ClientController::class, 'do
 ]);
 
 
+Route::get('services', [ClientController::class, 'services'])
+->name('clients.services')
+->middleware(['auth'/* , 'verified' */, 'permission:Demander un Service']);
+
 Route::get('chambres/{chambre}/demander-service', [ClientController::class, 'showFormToAskService'])
 ->name('clients.chambres.ask-service')
 ->where(['chambre' => $idRegex])

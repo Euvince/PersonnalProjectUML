@@ -5,6 +5,6 @@
 
 @section('content')
 
-    @livewire('demandes-services-table')
+    @livewire('service-personnal-demandes-services-table')
 
 @endsection

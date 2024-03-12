@@ -32,6 +32,10 @@ class Service extends Model
         'type_service_id',
     ];
 
+    protected $casts = [
+        'date_demande_service' => 'datetime',
+    ];
+
     protected static function boot() {
 
         parent::boot();

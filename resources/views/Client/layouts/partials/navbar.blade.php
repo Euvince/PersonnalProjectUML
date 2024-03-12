@@ -12,6 +12,13 @@
             </a>
           </li>
           @auth
+              @hasrole('Client')
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ route('clients.reservations') }}">Mes réservations</a>
+                </li>
+              @endhasrole
+          @endauth
+          @auth
             @hasrole('Client')
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Menu</a>

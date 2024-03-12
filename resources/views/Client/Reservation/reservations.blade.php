@@ -1,6 +1,6 @@
 @extends('Client.layouts.template')
 
-@section('title', 'Hôtels')
+@section('title', 'Réservations')
 
 @section('content')
 

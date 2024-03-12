@@ -40,6 +40,7 @@ class Reservation extends Model
     ];
 
     protected $casts = [
+        'date_reservation' => 'datetime',
         'debut_sejour' => 'datetime',
         'fin_sejour' => 'datetime',
     ];

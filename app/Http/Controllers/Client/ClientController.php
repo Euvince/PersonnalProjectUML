@@ -191,6 +191,11 @@ class ClientController extends Controller
         return $pdf->download('facture.pdf');
     }
 
+    public function services() : View
+    {
+        return view('Client.DemandeService.demandes-services');
+    }
+
     public function showFormToAskService(Chambre $chambre) : RedirectResponse | View
     {
         if ($chambre->isOccupied() &&
