@@ -12,7 +12,7 @@ use App\Jobs\ConfirmReservationJob;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
-class ReservationsTable extends Component
+class ReceptionPersonnalReservationsTable extends Component
 {
     use WithPagination;
 
@@ -110,7 +110,7 @@ class ReservationsTable extends Component
             $reservations = $reservations->where('nom_client', 'LIKE', "%{$this->userFirstName}%");
         }
 
-        return view('livewire.reservations-table', [
+        return view('livewire.reception-personnal-reservations-table', [
             'reservations' => $reservations
                 ->orderBy($this->orderField, $this->orderDirection)
                 ->paginate(15)

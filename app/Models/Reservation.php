@@ -39,6 +39,11 @@ class Reservation extends Model
         'date_reservation',
     ];
 
+    protected $casts = [
+        'debut_sejour' => 'datetime',
+        'fin_sejour' => 'datetime',
+    ];
+
     protected static function boot() {
 
         parent::boot();

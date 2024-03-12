@@ -25,7 +25,7 @@
         <div class="row">
             <div>
                 <label for="description" class="form-label mt-4">Description</label>
-                <textarea class="form-control" id="description" name="description" rows="3">{{ old('description', $chambre->) }}</textarea>
+                <textarea class="form-control" id="description" name="description" rows="3">{{ old('description') }}</textarea>
                 @error('description')
                     <span style="color: red; font-size: 0.7rem;">{{ $message }}</span>
                 @enderror

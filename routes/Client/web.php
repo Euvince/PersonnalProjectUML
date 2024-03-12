@@ -37,7 +37,7 @@ Route::get('hotels/{slug}/{hotel}/infos', [ClientController::class, 'infosHotel'
 ]);
 
 Route::get('hotels-infos-download/{hotel}', [ClientController::class, 'downloadInfosHotel'])
-->name('clients.hotel-infos-download')
+->name('clients.hotels-infos-download')
 ->where([
     'hotel' => $idRegex
 ]);
@@ -57,6 +57,16 @@ Route::get('chambres/{slug}/{chambre}/infos', [ClientController::class, 'infosCh
     'slug' => $slugRegex
 ]);
 
+Route::get('chambres-infos-download/{chambre}', [ClientController::class, 'downloadInfosChambre'])
+->name('clients.chambres-infos-download')
+->where([
+    'chambre' => $idRegex
+]);
+
+
+Route::get('reservations', [ClientController::class, 'reservations'])
+->name('clients.reservations')
+->middleware(['auth'/* , 'verified' */, 'permission:Réserver une Chambre']);
 
 Route::post('chambres/{chambre}/reservation', [ClientController::class, 'sendReservation'])
 ->name('clients.chambres.reservation-send')

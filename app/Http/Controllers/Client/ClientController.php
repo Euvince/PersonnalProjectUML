@@ -83,18 +83,25 @@ class ClientController extends Controller
             return to_route('clients.chambres.infos', ['slug' => Str::slug($chambre->libelle), 'chambre' => $chambre->id]);
         }
         return view('Client.Chambre.infos', [
-            'chambre' => $chambre
+            'chambre' => $chambre,
+            'reservations' => $chambre->reservations->sortBy('debut_sejour')
         ]);
     }
 
     public function downloadInfosChambre(Chambre $chambre)
     {
         $pdf = FacadePdf::loadView('Client.Chambre.infos-download', [
-            'chambre' => $chambre
+            'chambre' => $chambre,
+            'reservations' => $chambre->reservations->sortBy('debut_sejour')
         ])
         ->setOptions(['defaultFont' => 'sans-serif'])
         ->setPaper('A4', 'portrait');
         return $pdf->download("$chambre->numero.pdf");
+    }
+
+    public function reservations() : View
+    {
+        return view('Client.Reservation.reservations');
     }
 
     public function sendReservation (ReservationFormRequest $request, Chambre $chambre) : RedirectResponse | View

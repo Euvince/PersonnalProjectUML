@@ -25,6 +25,16 @@
                         <p><strong>Modifié le : </strong> {{ $user->updated_at->format('d-m-Y') }} à {{ $user->updated_at->format('H:i:s') }}</p>
                         <p><strong>Modifié par : </strong> {{ $user->updated_by != NULL ? $user->updated_by : 'Système Hôteliers' }}</p>
                     </div>
+                    <div class="col">
+                        <p><strong>Les rôles accordés : </strong> <br>
+                            @foreach ($user->roles as $role)
+                                -{{ $role->name }}
+                                @if (!$loop->last)
+                                    , <br>
+                                @endif
+                            @endforeach
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

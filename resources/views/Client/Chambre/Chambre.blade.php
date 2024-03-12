@@ -15,12 +15,18 @@
                 <p><strong>Numéro : </strong> {{ $chambre->numero }}</p>
                 <p><strong>Libellé : </strong> {{ $chambre->libelle }}</p>
                 <p><strong>Capacité : </strong> {{ $chambre->capacite }}personnes</p>
-                <p><strong>Statut : </strong> {{ $chambre->statut }}</p>
+                <p><strong>Occupé : </strong> {{ $chambre->occupe ? 'Oui' : 'Non' }}</p>
+                <p><strong>Réservé : </strong> {{ $chambre->reserve ? 'Oui' : 'Non' }}</p>
                 <p><strong>Prix par nuit:</strong> {{ $chambre->TypeChambre->prix_par_nuit }}$</p>
                 <p>
                     <strong>Description : <br></strong>
                     {{ Str::limit($chambre->description , 200, '...') }}
                 </p>
+                @can('Demander un Service')
+                    @if ($chambre->isOccupied())
+                        <a style="text-decoration: none;" href="{{ route('clients.chambres.ask-service', ['chambre' => $chambre->id]) }}">Demander un service</a>
+                    @endif
+                @endcan
             </div>
         </div>
     </div>

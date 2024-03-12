@@ -5,6 +5,6 @@
 
 @section('content')
 
-    @livewire('reservations-table')
+    @livewire('reception-personnal-reservations-table')
 
 @endsection
