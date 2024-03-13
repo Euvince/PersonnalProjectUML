@@ -85,4 +85,9 @@ class Hotel extends Model
         return $this->belongsToMany(User::class);
     } */
 
+    public function getPicture() : void
+    {
+
+    }
+
 }

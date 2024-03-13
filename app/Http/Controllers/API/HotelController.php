@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Hotel;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
+use function Ramsey\Uuid\v1;
+
 class HotelController extends Controller
 {
-    public function index() : Collection
+    public function index()
     {
         /* $response = Http::get("https://jsonplaceholder.typicode.com/posts");
         dd($response->json()); */
@@ -22,9 +22,11 @@ class HotelController extends Controller
         ]);
         dd($response->json()); */
 
-        $unsplash = Http::get("https://api.unsplash.com/photos", [
+        $pictures = Http::get("https://api.unsplash.com/photos/random?query=Waldorf Astoria&client_id=um4ox2vMwBA5lMimLj2-TxNrD73blAkEkGv5nwo2nxs"/* , [
             'client_id' => 'QVsQlyIhL5Jf_snHhwU1OoCyuVnAQCFCp38aMWkoJtE',
-        ]);
-        dd($unsplash->json());
+            'count' => '15',
+        ] */)->json()/* ['urls']['regular'] */;
+        /* dd($pictures); */
+        return view('essais', compact('pictures'));
     }
 }
