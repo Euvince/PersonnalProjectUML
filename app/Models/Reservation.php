@@ -66,6 +66,10 @@ class Reservation extends Model
         }
     }
 
+    public function canBeConfirmed() : bool {
+        return Carbon::now()->between($this->debut_sejour, $this->fin_sejour);
+    }
+
     public function getMontant () : float {
         $period = Carbon::parse($this->fin_sejour)->diffInDays(Carbon::parse($this->debut_sejour));
         return $this->prix_par_nuit * $period;

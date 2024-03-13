@@ -4,6 +4,6 @@
 
 @section('content')
 
-    @livewire('client-demandes-services-table')
+    @livewire('client-demandes-services-table', ['reservation' => $reservation])
 
 @endsection

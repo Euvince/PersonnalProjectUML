@@ -13,7 +13,7 @@
     <div class="container mt-4">
         <div class="row">
             @forelse ($reservations as $k => $reservation)
-                <div class="col-4">
+                <div class="col-3">
                     <div class="card bg-light mb-3" style="max-width: 20rem; border-color: #73bad6;">
                         <div class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Réservation N°{{ $k + 1 }}</font></font></div>
                         <div class="card-body">
@@ -25,9 +25,9 @@
                         </p>
                         </div>
                         <div class="d-flex justify-content-end mx-4 mb-3">
-                            <span class="badge bg-primary rounded-pill">Confirmée</span>
-                            @if ($reservation->chambre->isOccupied())
-                                <a style="text-decoration: none; disabled;" href="{{ route('clients.services') }}">Services <i class="fa-solid fa-arrow-right"></i></a>
+                            <span class="badge bg-primary rounded-pill">{{ $reservation->isConfirmed() ? 'Confirmée' : 'Infirmée' }}</span>
+                            @if ($reservation->chambre->isOccupied() && $reservation->isConfirmed())
+                                <a style="text-decoration: none; font-size: 13.5px;" href="{{ route('clients.services', ['reservation' => $reservation->id]) }}" class="mx-2">Services <i class="fa-solid fa-arrow-right"></i></a>
                             @endif
                         </div>
                     </div>

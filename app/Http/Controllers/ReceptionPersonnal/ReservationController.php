@@ -228,6 +228,12 @@ class ReservationController extends Controller
     public function confirmReservation(Reservation $reservation) : RedirectResponse
     {
         $this->authorize('confirmReservation', $reservation);
+        if (!$reservation->canBeConfirmed()) {
+            return
+                redirect()
+                ->route('reception-personnal.reservations.index')
+                ->with('error', 'La période de réservation n\étant pas atteinte, vous ne pouvez donc pas confirmez cette réservation.');
+        }
         if (Reservation::query()
             ->where('debut_sejour', '<=', $reservation->debut_sejour)
             ->where('chambre_id', $reservation->chambre_id)
