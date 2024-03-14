@@ -37,7 +37,8 @@ class DemandeServicePolicy
      */
     public function update(User $user, Service $service): bool
     {
-        return $user->can('Gérer les Demandes de Services');
+        return $user->can('Gérer les Demandes de Services')
+            && !$service->isRendered();
     }
 
     /**
@@ -45,7 +46,8 @@ class DemandeServicePolicy
      */
     public function delete(User $user, Service $service): bool
     {
-        return $user->can('Gérer les Demandes de Services');
+        return $user->can('Gérer les Demandes de Services')
+            && !$service->isRendered();
     }
 
     /**
@@ -61,16 +63,19 @@ class DemandeServicePolicy
      */
     public function forceDelete(User $user, Service $service): bool
     {
-        return $user->can('Gérer les Demandes de Services');
+        return $user->can('Gérer les Demandes de Services')
+            && !$service->isRendered();
     }
 
     public function confirmDemandeService(User $user, Service $service): bool
     {
-        return $user->can('Gérer les Demandes de Services');
+        return $user->can('Gérer les Demandes de Services')
+            && !$service->isRendered();
     }
 
     public function cannotRenderedService(User $user, Service $service): bool
     {
-        return $user->can('Gérer les Demandes de Services');
+        return $user->can('Gérer les Demandes de Services')
+            && !$service->isRendered();
     }
 }

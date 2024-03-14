@@ -9,9 +9,10 @@ use App\Models\Paiement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Reservation extends Model
 {
@@ -68,13 +69,24 @@ class Reservation extends Model
         }
     }
 
-    public function canBeConfirmed() : bool {
-        return Carbon::now()->between($this->debut_sejour, $this->fin_sejour);
-    }
-
     public function getMontant () : float {
         $period = Carbon::parse($this->fin_sejour)->diffInDays(Carbon::parse($this->debut_sejour));
         return $this->prix_par_nuit * $period;
+    }
+
+    public function getServicesPrice() : float {
+        foreach($this->chambre->services->where('rendu', 1) as $service) {
+            $services_price = $service->TypeService->prix;
+        }
+        return $services_price;
+    }
+
+    public function getTotalPriceForCheckOut() : float {
+        return $this->getServicesPrice() + $this->getMontant();
+    }
+
+    public function canBeConfirmed() : bool {
+        return Carbon::now()->between($this->debut_sejour, $this->fin_sejour);
     }
 
     public function paid() : bool {
@@ -118,8 +130,8 @@ class Reservation extends Model
         return $this->belongsTo(Chambre::class);
     }
 
-    public function paiement() : HasOne {
-        return $this->hasOne(Paiement::class, 'reservation_id', 'id');
+    public function paiements() : HasMany {
+        return $this->hasMany(Paiement::class, 'reservation_id', 'id');
     }
 
 }

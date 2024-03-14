@@ -130,6 +130,17 @@ Route::delete('chambres/{demande_service}', [ClientController::class, 'cancelDde
 ->middleware(['auth'/* , 'verified' */, 'permission:Demander un Service']);
 
 
+/* LE CHECK-OUT********************************************************************************* */
+
+Route::get('check-out/{reservation}', [ClientController::class, 'checkOut'])
+->name('clients.check-out')
+->middleware(['auth'/* , 'verified' */, 'permission:Demander un Service']);
+
+Route::patch('check-out{reservation}', [ClientController::class, 'checkOutSubmitted'])
+->name('clients.check-out-submitted')
+->middleware(['auth'/* , 'verified' */, 'permission:Demander un Service']);
+
+
 /* NOUS-CONTACTER******************************************************************************* */
 
 Route::get('nous-contacter-form', [ContactUsController::class, 'showContactForm'])->name('contact.us.form');

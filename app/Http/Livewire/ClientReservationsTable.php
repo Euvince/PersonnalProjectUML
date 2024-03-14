@@ -10,7 +10,9 @@ class ClientReservationsTable extends Component
 {
     public function render()
     {
-        $reservations = Reservation::query()->where('user_id', Auth::user()->id);
+        $reservations = Reservation::query()
+            ->where('termine', 0)
+            ->where('user_id', Auth::user()->id);
 
         return view('livewire.client-reservations-table', [
             'reservations' => $reservations

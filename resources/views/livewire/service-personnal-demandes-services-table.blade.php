@@ -46,15 +46,19 @@
                                         <span class="badge bg-primary rounded-pill">{{ number_format($service->TypeService->prix, 0, ',', '.')}}$</span>
                                     </li>
                                     <div class="d-flex">
-                                        <form action="{{ route('service-personnal.demande.confirm', ['demande_service' => $service->id]) }}" method="POST" class="mx-1">
-                                            @csrf
-                                            @method('patch')
-                                            <button class="btn btn-success btn-sm"><i class="fa-solid fa-circle-check"></i> </button>
-                                        </form>
-                                        <a href="{{ route('service-personnal.demande.cannotrendered', ['demande_service' => $service->id]) }}" class="btn btn-danger btn-sm mx-1"><i class="fa-solid fa-x"></i></a>
+                                        @if (!$service->isRendered())
+                                            <form action="{{ route('service-personnal.demande.confirm', ['demande_service' => $service->id]) }}" method="POST" class="mx-1">
+                                                @csrf
+                                                @method('patch')
+                                                <button class="btn btn-success btn-sm"><i class="fa-solid fa-circle-check"></i> </button>
+                                            </form>
+                                            <a href="{{ route('service-personnal.demande.cannotrendered', ['demande_service' => $service->id]) }}" class="btn btn-danger btn-sm mx-1"><i class="fa-solid fa-x"></i></a>
+                                        @endif
                                         <a href="{{ route('service-personnal.demande-service.show', ['demande_service' => $service->id]) }}" class="btn btn-primary btn-sm mx-1"><i class="fa-solid fa-eye"></i></a>
-                                        <a href="{{ route('service-personnal.demande-service.edit', ['demande_service' => $service->id]) }}" class="btn btn-warning btn-sm mx-1"><i class="fa fa-edit"></i></a>
-                                        <a href="" class="btn btn-danger btn-sm mx-1"  data-target="#modal{{ $service->id }}" data-toggle="modal"><i class="fa fa-trash"></i></a>
+                                        @if (!$service->isRendered())
+                                            <a href="{{ route('service-personnal.demande-service.edit', ['demande_service' => $service->id]) }}" class="btn btn-warning btn-sm mx-1"><i class="fa fa-edit"></i></a>
+                                            <a href="" class="btn btn-danger btn-sm mx-1"  data-target="#modal{{ $service->id }}" data-toggle="modal"><i class="fa fa-trash"></i></a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

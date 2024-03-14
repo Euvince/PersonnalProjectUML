@@ -1,16 +1,29 @@
-<div>
+<div x-data = "{ servicesChecked : @entangle('servicesChecked').defer }">
     <h1 class="fw-bold">Les services de la chambre</h1>
 
     <div class="d-flex justify-content-between align-items-center">
-
         <div class="mt-2 mb-3 ml-5 d-flex">
-            <input type="text" class="form-control w-50 mx-2 w-100" placeholder="Type de service" wire:model="typeService">
+            <input type="text" class="form-control w-50 mx-2 w-100" placeholder="Type de service" wire:model="typeservice">
+            <input type="number" class="form-control w-50 mx-2 w-100" placeholder="Prix" wire:model="prix">
             <input type="text" class="form-control w-50 mx-2 w-100" placeholder="Description" wire:model="description">
         </div>
     </div>
 
+    @if (session('success'))
+        <div class="alert alert-success" role="alert">
+            <strong>{{ session('success') }}</strong>
+        </div>
+    @endif
+
+    @if ($errors->has('error'))
+        <div class="alert alert-danger" role="alert">
+            <strong>{{ $errors->first('error') }}</strong>
+        </div>
+    @endif
+
     <div class="container mt-4">
         <div class="">
+            <a class="btn btn-danger mb-3" style="color: white;" x-show="servicesChecked.length > 0" x-on:click="$wire.deletedServices(servicesChecked)" x-cloak><i class="fa fa-trash"></i> Annuler</a>
             <a href="{{ route('clients.chambres.ask-service', ['chambre' => $reservation->chambre->id]) }}" class="btn btn-primary mb-3 ml-1"><i class="fa fa-plus"></i> Demander un service</a>
         </div>
         <div class="row">
@@ -18,6 +31,7 @@
             <table class="table table-hover table-striped">
                 <thead>
                   <tr>
+                    <td></td>
                     <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Chambre N°</font></font></th>
                     <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Type de service</font></font></th>
                     <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Description</font></font></th>
@@ -29,14 +43,21 @@
                 <tbody>
                   @foreach ($services as $service)
                     <tr class="table-active">
+                        <td>
+                            @if (!$service->isRendered())
+                                <input type="checkbox" x-model="servicesChecked" value="{{ $service->id }}">
+                            @endif
+                        </td>
                         <th scope="row"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ $service->chambre->numero }}</font></font></th>
                         <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ $service->TypeService->type }}</font></font></td>
                         <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ $service->description }}</font></font></td>
                         <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ $service->TypeService->prix }}$</font></font></td>
                         <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ $service->isRendered() ? 'Oui' : 'Non' }}</font></font></td>
                         <td class="text-center">
-                            <a href="{{ route('clients.chambres.edit-service', ['demande_service' => $service]) }}" class="text-warning mx-2"><i class="fa fa-edit"></i></a>
-                            <a href="" class="text-danger" data-bs-target="#modal{{ $service->id }}" data-bs-toggle="modal"><i class="fa fa-trash"></i></a>
+                            @if (!$service->isRendered())
+                                <a href="{{ route('clients.chambres.edit-service', ['demande_service' => $service]) }}" class="text-warning mx-2"><i class="fa fa-edit"></i></a>
+                                <a href="" class="text-danger" data-bs-target="#modal{{ $service->id }}" data-bs-toggle="modal"><i class="fa fa-trash"></i></a>
+                            @endif
                         </td>
                     </tr>
 

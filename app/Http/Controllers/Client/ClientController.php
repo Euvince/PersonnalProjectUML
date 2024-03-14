@@ -24,6 +24,7 @@ use App\Http\Requests\Client\ReservationFormRequest;
 use App\Jobs\DemandeServiceJob;
 use App\Models\Service;
 use App\Models\TypeService;
+use Illuminate\Http\Response;
 
 class ClientController extends Controller
 {
@@ -107,6 +108,7 @@ class ClientController extends Controller
     public function sendReservation (ReservationFormRequest $request, Chambre $chambre) : RedirectResponse | View
     {
         if ($chambre->reservations
+            ->where('termine', 0)
             ->where('debut_sejour', '<=', $request->fin_sejour)
             ->where('fin_sejour', '>=', $request->debut_sejour)
             ->count() > 0
@@ -193,15 +195,20 @@ class ClientController extends Controller
 
     public function services(Reservation $reservation) : View
     {
-        return view('Client.DemandeService.demandes-services', [
-            'reservation' => $reservation
-        ]);
+        if (!$reservation->isFinished()) {
+            return view('Client.DemandeService.demandes-services', [
+                'reservation' => $reservation
+            ]);
+        }
+        return back();
     }
 
     public function showFormToAskService(Chambre $chambre) : RedirectResponse | View
     {
         if ($chambre->isOccupied() &&
-            $chambre->reservations->where('confirme', 1)
+            $chambre->reservations
+            ->where('confirme', 1)
+            ->where('termine', 0)
             ->where('user_id', Auth::user()->id)
             ->count() > 0
         ) {
@@ -230,12 +237,17 @@ class ClientController extends Controller
 
         DemandeServiceJob::dispatch($service);
         return
-            back()
+            redirect()
+            ->route('clients.services')
             ->with('success', 'Votre demande de service a été envoyé avec succès.');
     }
 
     public function showFormToEditService(Service $demande_service) : RedirectResponse | View
     {
+        if ($demande_service->isRendered())
+        return
+            back()
+            ->withErrors(['error' => 'La demande est déjà rendue.']);
         if ($demande_service->chambre->isOccupied() &&
             $demande_service->chambre->reservations->where('confirme', 1)
             ->where('user_id', Auth::user()->id)
@@ -254,10 +266,68 @@ class ClientController extends Controller
 
     public function cancelDdemandeService(Service $demande_service) : RedirectResponse
     {
+        if ($demande_service->isRendered())
+        return
+            back()
+            ->withErrors(['error' => 'La demande est déjà rendue.']);
         $demande_service->delete();
         return
             back()
             ->with('success', 'La demande de service a été annulée avec succès.');
+    }
+
+    public function checkOut(Reservation $reservation) : View | RedirectResponse
+    {
+        if (!$reservation->isFinished()) {
+            return view('Client.Reservation.chek-out-form', [
+                'reservation' => $reservation,
+                'total_price' => $reservation->getTotalPriceForCheckOut()
+            ]);
+        }
+        return back();
+    }
+
+    public function checkOutSubmitted(Request $request, Reservation $reservation) : RedirectResponse | Response
+    {
+        if (!$reservation->isFinished()) {
+            /* auth()->user()->charge($montant, $request->payment_method, User::stripeOptions()); */
+
+            $paiement = Paiement::create([
+                'montant' => $reservation->getTotalPriceForCheckOut(),
+                'user_id' => Auth::user()->id,
+                'reservation_id' => $reservation->id,
+                'nom_client' => $reservation->nom_client,
+                'prenoms_client' => $reservation->prenoms_client,
+                'email_client' => $reservation->email_client,
+                'telephone_client' => $reservation->telephone_client,
+                'date_paiement' => Carbon::now()->format('Y-m-d'),
+                'moyen_paiement_id' =>MoyenPaiement::where('moyen', 'STRIPE')->first()->id
+            ]);
+
+            $facture = Facture::create([
+                'type' => 'retour',
+                'paiement_id' => $paiement->id,
+                'montant_total' => $paiement->montant,
+                'nom_client' => $reservation->nom_client,
+                'prenoms_client' => $reservation->prenoms_client,
+                'email_client' => $reservation->email_client,
+                'telephone_client' => $reservation->telephone_client,
+            ]);
+
+            $reservation->markAsFinished();
+
+            $pdf = FacadePdf::loadView('Client.Reservation.check-out-facture', [
+                'facture' => $facture,
+                'chambre' => $reservation->chambre,
+            ])
+            ->setOptions(['defaultFont' => 'sans-serif'])
+            ->setPaper('A4', 'portrait');
+            return $pdf->download('facture.pdf');
+        }
+        return
+            redirect()
+            ->route('clients.reservations')
+            ->with('success', 'Le check-out a été effectué avec succès.');
     }
 
 }

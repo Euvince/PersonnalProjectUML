@@ -1,12 +1,24 @@
 <div>
     @if ($reservations->count() > 0)
         <h1 class="fw-bold">Toutes vos réservations</h1>
-        <div class="d-flex justify-content-between align-items-center">
+        {{-- <div class="d-flex justify-content-between align-items-center">
             <div class="mt-2 mb-3 ml-5 d-flex">
-                <input type="date" class="form-control w-50 mx-2 w-100" placeholder="Date de réservation" wire:model="dateReservation">
+                <input type="datetime" class="form-control w-50 mx-2 w-100" placeholder="Date de réservation" wire:model="dateReservation">
                 <input type="date" class="form-control w-50 mx-2 w-100" placeholder="Début de séjour" wire:model="debutSejour">
                 <input type="date" class="form-control w-50 mx-2 w-100" placeholder="Fin de Séjour" wire:model="finSejour">
             </div>
+        </div> --}}
+    @endif
+
+    @if (session('success'))
+        <div class="alert alert-success" role="alert">
+            <strong>{{ session('success') }}</strong>
+        </div>
+    @endif
+
+    @if ($errors->has('error'))
+        <div class="alert alert-danger" role="alert">
+            <strong>{{ $errors->first('error') }}</strong>
         </div>
     @endif
 
@@ -15,7 +27,12 @@
             @forelse ($reservations as $k => $reservation)
                 <div class="col-3">
                     <div class="card bg-light mb-3" style="max-width: 20rem; border-color: #73bad6;">
-                        <div class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Réservation N°{{ $k + 1 }}</font></font></div>
+                        <div class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Réservation N°{{ $k + 1 }}
+                            @if ($reservation->chambre->isOccupied() && $reservation->isConfirmed())
+                                <a style="text-decoration: none; font-size: 14px;" href="{{ route('clients.check-out', ['reservation' => $reservation->id]) }}" class="mx-2"><i class="fa-light fa-clipboard-list-check"></i> Mettre fin</a>
+                            @endif
+                            </font></font>
+                        </div>
                         <div class="card-body">
                         <h5 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><strong>Réservation du {{ $reservation->date_reservation->translatedFormat('d F Y') }}</strong></font></font></h5>
                         <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
@@ -27,7 +44,7 @@
                         <div class="d-flex justify-content-end mx-4 mb-3">
                             <span class="badge bg-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ $reservation->isConfirmed() ? 'Confirmée' : 'Infirmée' }}</font></font></span>
                             {{-- <span class="badge bg-primary rounded-pill">{{ $reservation->isConfirmed() ? 'Confirmée' : 'Infirmée' }}</span> --}}
-                            @if ($reservation->chambre->isOccupied() && $reservation->isConfirmed())
+                            @if ($reservation->chambre->isOccupied() && $reservation->isConfirmed() && !$reservation->isFinished())
                                 <a style="text-decoration: none; font-size: 13.5px;" href="{{ route('clients.services', ['reservation' => $reservation->id]) }}" class="mx-2">Services <i class="fa-solid fa-arrow-right"></i></a>
                             @endif
                         </div>

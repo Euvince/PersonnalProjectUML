@@ -32,7 +32,7 @@
 <body>
     <div class="container my-4">
         <div class="universite-details">
-            <h2 style="font-weight: bold;">Facture de Réservation</h2>
+            <h2 style="font-weight: bold;">Facture de Paiement final</h2>
             <div class="row">
                 <div class="col">
                     <p><strong>Nom du client : </strong> {{ $facture->nom_client }}</p>
@@ -49,6 +49,7 @@
                         Du {{ $facture->paiement->reservation->debut_sejour->translatedFormat('d F Y') }}
                         au {{ $facture->paiement->reservation->fin_sejour->translatedFormat('d F Y') }}
                     </p>
+                    <p><strong>Montant des services : {{ $facture->paiement->reservation->getServicesPrice() }}$</strong></p>
                     <p><strong>Montant payé:</strong> {{ $facture->montant_total }}$</p>
                 </div>
             </div>

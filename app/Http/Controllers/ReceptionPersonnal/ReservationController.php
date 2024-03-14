@@ -64,6 +64,7 @@ class ReservationController extends Controller
     {
         $chambre = Chambre::find(request()->chambre_id);
         if ($chambre->reservations
+            ->where('termine', 0)
             ->where('debut_sejour', '<=', $request->fin_sejour)
             ->where('fin_sejour', '>=', $request->debut_sejour)
             ->count() > 0
@@ -149,6 +150,7 @@ class ReservationController extends Controller
         $chambre = Chambre::find(request()->chambre_id);
         if ($chambre->reservations
             ->where('id', '!=', $reservation->id)
+            ->where('termine', 0)
             ->where('debut_sejour', '<=', $request->fin_sejour)
             ->where('fin_sejour', '>=', $request->debut_sejour)
             ->count() > 0
