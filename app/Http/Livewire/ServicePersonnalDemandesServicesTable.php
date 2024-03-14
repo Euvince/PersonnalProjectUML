@@ -2,13 +2,14 @@
 
 namespace App\Http\Livewire;
 
-use App\Jobs\CancelDemandeServiceJob;
 use DateTime;
+use App\Models\Service;
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\Service;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
+use App\Jobs\CancelDemandeServiceJob;
+use App\Jobs\CannotRenderedServiceJob;
 
 class ServicePersonnalDemandesServicesTable extends Component
 {
@@ -61,10 +62,11 @@ class ServicePersonnalDemandesServicesTable extends Component
     public function cannotRanderedServices(array $ids) : void
     {
         foreach ($ids as $id) {
-
+            $demandeService = Service::find($id);
+            CannotRenderedServiceJob::dispatch($demandeService);
         }
         $this->servicesChecked = [];
-        session()->flash('success', 'Le(s) clients ont bien été informé(s) n\'est pas dispobible.');
+        session()->flash('success', 'Le(s) clients ont bien été informé(s) que le service demandé n\'est pas dispobible.');
     }
 
     public function cancelDemandes(array $ids) : void

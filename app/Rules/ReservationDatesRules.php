@@ -15,7 +15,8 @@ class ReservationDatesRules implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (Carbon::parse(request()->debut_sejour)->isPast()) {
+        $debut_sejour = Carbon::parse(request()->debut_sejour);
+        if ($debut_sejour->isPast() && !$debut_sejour->isToday()) {
             $fail("La date de début de séjour ne peut être antérieure à aujourd'hui.");
         }
 

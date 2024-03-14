@@ -5,7 +5,12 @@
 @section('content')
 
     <div class="d-flex justify-content-between align-items-center">
-        <h1 class="fw-bold">Procéder à une demande de service</h1>
+        <h1 class="fw-bold">{{
+                request()->route()->getName() === 'clients.chambres.edit-service'
+                ? 'Éditer une demande de service' :
+                'Procéder à une demande de service'
+            }}
+        </h1>
     </div>
 
     @if (session('success'))
@@ -20,7 +25,7 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('clients.chambres.service-send', ['chambre' => $chambre->id]) }}">
+    <form method="POST" action="{{ request()->route()->getName() === 'clients.chambres.edit-service' ? route('clients.chambres.edit-service', ['demande_service' => $demande_service->id]) : route('clients.chambres.service-send', ['chambre' => $chambre->id]) }}">
         @csrf
         <div class="row">
             <div>
@@ -30,7 +35,7 @@
                     <span style="color: red; font-size: 0.7rem;">{{ $message }}</span>
                 @enderror
             </div>
-            <x-select class1="form-group w-100" class2="col-form-label mt-4" class3="form-control" id="type_service_id" label="Type de service" name="type_service_id" :value="$typesServices" elementIdOnEntite="{{ $chambre->type_service_id }}"/>
+            <x-select class1="form-group w-100" class2="col-form-label mt-4" class3="form-control" id="type_service_id" label="Type de service" name="type_service_id" :value="$typesServices" elementIdOnEntite="{{ request()->route()->getName() === 'clients.chambres.edit-service' ? $demande_service->type_service_id : '' }}"/>
         </div>
         <button type="submit" class="btn btn-primary my-4">Soumettre</button>
     </form>

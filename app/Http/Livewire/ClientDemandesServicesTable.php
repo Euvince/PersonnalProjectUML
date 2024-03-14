@@ -13,11 +13,20 @@ class ClientDemandesServicesTable extends Component
 
     public function render()
     {
-        $services = Service::query()
+        /* $services = Service::query()
             ->where('chambre_id', $this->reservation->chambre_id)
-            ->where('nom_client',$this->reservation->nom_client)
-        /* ->get() */;
-        /* dd($services); */
+            ->where('email_client',$this->reservation->email_client)
+        ->get(); */
+
+        $services = Service::query();
+        $services = $services->whereHas('chambre', function ($query) {
+            $query->where('chambre_id', $this->reservation->chambre_id);
+            $query->whereHas('reservations', function ($query) {
+                $query->where('termine', 0);
+                $query->where('confirme', 1);
+                $query->where('email_client', $this->reservation->email_client);
+            });
+        });
 
         return view('livewire.client-demandes-services-table', [
             'services' => $services

@@ -234,4 +234,30 @@ class ClientController extends Controller
             ->with('success', 'Votre demande de service a été envoyé avec succès.');
     }
 
+    public function showFormToEditService(Service $demande_service) : RedirectResponse | View
+    {
+        if ($demande_service->chambre->isOccupied() &&
+            $demande_service->chambre->reservations->where('confirme', 1)
+            ->where('user_id', Auth::user()->id)
+            ->count() > 0
+        ) {
+            return view('Client.DemandeService.demande-service-form', [
+                'demande_service' => $demande_service,
+                'typesServices' => TypeService::all()->pluck('type', 'id')
+            ]);
+        }
+        return
+            redirect()
+            ->route('clients.hotels.index')
+            ->withErrors(['error' => 'Vous ne pouvez pas éditer de demande de service dans cette chambre.']);
+    }
+
+    public function cancelDdemandeService(Service $demande_service) : RedirectResponse
+    {
+        $demande_service->delete();
+        return
+            back()
+            ->with('success', 'La demande de service a été annulée avec succès.');
+    }
+
 }

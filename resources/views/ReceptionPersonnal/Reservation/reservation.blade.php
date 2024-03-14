@@ -21,9 +21,9 @@
                         <p><strong>Téléphone du client : </strong> {{ $reservation->telephone_client }}</p>
                     </div>
                     <div class="col">
-                        <p><strong>Date de la réservation : </strong> {{ $reservation->date_reservation }}</p>
-                        <p><strong>Début du séjour : </strong> {{ $reservation->debut_sejour }}</p>
-                        <p><strong>Fin du séjour : </strong> {{ $reservation->fin_sejour }}</p>
+                        <p><strong>Date de la réservation : </strong> {{ $reservation->date_reservation->translatedFormat('d F Y') }}</p>
+                        <p><strong>Début du séjour : </strong> {{ $reservation->debut_sejour->translatedFormat('d F Y') }}</p>
+                        <p><strong>Fin du séjour : </strong> {{ $reservation->fin_sejour->translatedFormat('d F Y') }}</p>
                         <p><strong>Crée le : </strong> {{ $reservation->created_at->format('d-m-Y') }} à {{ $reservation->created_at->format('H:i:s') }}</p>
                         <p><strong>Crée par : </strong> {{ $reservation->created_by != NULL ? $reservation->created_by : 'Système Hôteliers' }}</p>
                         <p><strong>Modifié le : </strong> {{ $reservation->updated_at->format('d-m-Y') }} à {{ $reservation->updated_at->format('H:i:s') }}</p>

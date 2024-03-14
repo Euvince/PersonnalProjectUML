@@ -15,6 +15,8 @@ use App\Jobs\AcceptDemandeServiceJob;
 use App\Jobs\CancelDemandeServiceJob;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ServicePersonnal\DemandeServiceFormRequest;
+use App\Jobs\CannotRenderedServiceJob;
+use App\Models\Chambre;
 
 class DemandeServiceController extends Controller
 {
@@ -58,6 +60,22 @@ class DemandeServiceController extends Controller
      */
     public function store(DemandeServiceFormRequest $request) : RedirectResponse
     {
+        $reservation = Chambre::find($request->chambre_id)
+            ->reservations
+            ->where('confirme', 1)
+            ->where('termine', 0)
+        ->get();
+        if ($reservation->nom_client !== $request->nom_client ||
+            $reservation->email_client !== $request->email_client ||
+            $reservation->prenoms_client !== $request-> prenoms_client ||
+            $reservation->telephone_Client !== $request-> telephone_Client
+        ) {
+            return
+                back()
+                ->with('error', 'Revérifiez les informations du client occupant la chamnbre s\'il vous plaît.')
+                ->withInput();
+        }
+
         $service = Service::create(array_merge($request->validated(), [
             'user_id' => Auth::user()->id,
             'date_demande_service' => Carbon::now()
@@ -95,6 +113,22 @@ class DemandeServiceController extends Controller
      */
     public function update(DemandeServiceFormRequest $request, Service $demandeService) : RedirectResponse
     {
+        $reservation = Chambre::find($request->chambre_id)
+            ->reservations
+            ->where('confirme', 1)
+            ->where('termine', 0)
+        ->get();
+        if ($reservation->nom_client !== $request->nom_client ||
+            $reservation->email_client !== $request->email_client ||
+            $reservation->prenoms_client !== $request-> prenoms_client ||
+            $reservation->telephone_Client !== $request-> telephone_Client
+        ) {
+            return
+                back()
+                ->with('error', 'Revérifiez les informations du client occupant la chamnbre s\'il vous plaît.')
+                ->withInput();
+        }
+
         $demandeService->update($request->validated());
         EditDemandeServiceJob::dispatch($demandeService);
         return
@@ -136,6 +170,11 @@ class DemandeServiceController extends Controller
     public function cannotRenderedService(Service $demandeService) : RedirectResponse
     {
         $this->authorize('cannotRenderedService', $demandeService);
+        CannotRenderedServiceJob::dispatch($demandeService);
+        return
+            redirect()
+            ->route('service-personnal.demande-service.index')
+            ->with('success', 'Le client a bien été averti que le service ne pourra être rendu pour une raison.');
     }
 
 }

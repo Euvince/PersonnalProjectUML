@@ -20,6 +20,8 @@ $idRegex = '[0-9]+';
 $slugRegex = '[0-9a-z\-]+';
 $mailRegex = '[^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$]';
 
+/* LES HÔTELS******************************************************************************* */
+
 Route::get('/', [ClientController::class, 'index'])->name('clients.hotels.index');
 
 Route::get('hotels/{slug}/{hotel}/chambres', [ClientController::class, 'showHotel'])
@@ -43,6 +45,8 @@ Route::get('hotels-infos-download/{hotel}', [ClientController::class, 'downloadI
 ]);
 
 
+/* LES CHAMBRES******************************************************************************* */
+
 Route::get('chambres/{slug}/{chambre}', [ClientController::class, 'showChambre'])
 ->name('clients.chambres.show')
 ->where([
@@ -63,6 +67,8 @@ Route::get('chambres-infos-download/{chambre}', [ClientController::class, 'downl
     'chambre' => $idRegex
 ]);
 
+
+/* LES RÉSERVATIONS******************************************************************************* */
 
 Route::get('reservations', [ClientController::class, 'reservations'])
 ->name('clients.reservations')
@@ -89,6 +95,8 @@ Route::get('facture-download/{facture}/{chambre}', [ClientController::class, 'do
 ]);
 
 
+/* LES SERVIVES******************************************************************************* */
+
 Route::get('services/{reservation}', [ClientController::class, 'services'])
 ->name('clients.services')
 ->where([
@@ -106,8 +114,27 @@ Route::post('chambres/{chambre}/demander-service', [ClientController::class, 'se
 ->where(['chambre' => $idRegex])
 ->middleware(['auth'/* , 'verified' */, 'permission:Demander un Service']);
 
+Route::get('chambres/{demande_service}/edit', [ClientController::class, 'showFormToEditService'])
+->name('clients.chambres.edit-service')
+->where(['chambre' => $idRegex])
+->middleware(['auth'/* , 'verified' */, 'permission:Demander un Service']);
+
+Route::put('chambres/{demande_service}', [ClientController::class, 'updateDemandeService'])
+->name('clients.chambres.service-update')
+->where(['chambre' => $idRegex])
+->middleware(['auth'/* , 'verified' */, 'permission:Demander un Service']);
+
+Route::delete('chambres/{demande_service}', [ClientController::class, 'cancelDdemandeService'])
+->name('clients.chambres.service-cancel')
+->where(['chambre' => $idRegex])
+->middleware(['auth'/* , 'verified' */, 'permission:Demander un Service']);
+
+
+/* NOUS-CONTACTER******************************************************************************* */
 
 Route::get('nous-contacter-form', [ContactUsController::class, 'showContactForm'])->name('contact.us.form');
 Route::post('nous-contacter', [ContactUsController::class, 'contactUs'])->name('contact.us');
+
+/* LES APIs******************************************************************************* */
 
 Route::get('api', [HotelController::class, 'index']);

@@ -21,7 +21,7 @@
                     </div>
                     <div class="col">
                         <p><strong>Téléphone du client : </strong> {{ $demandeService->telephone_client }}</p>
-                        <p><strong>Date de la demande : </strong> {{ $demandeService->date_demande_service }}</p>
+                        <p><strong>Date de la demande : </strong> {{ $demandeService->date_demande_service->translatedFormat('d F Y') }}</p>
                         <p><strong>Crée le : </strong> {{ $demandeService->created_at->format('d-m-Y') }} à {{ $demandeService->created_at->format('H:i:s') }}</p>
                         <p><strong>Crée par : </strong> {{ $demandeService->created_by != NULL ? $demandeService->created_by : 'Système Hôteliers' }}</p>
                         <p><strong>Modifié le : </strong> {{ $demandeService->updated_at->format('d-m-Y') }} à {{ $demandeService->updated_at->format('H:i:s') }}</p>
