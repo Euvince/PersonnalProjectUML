@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\ServicePersonnal;
 
+use Carbon\Carbon;
 use App\Models\Service;
 use App\Models\TypeService;
 use Illuminate\Http\Request;
 use App\Jobs\DemandeServiceJob;
+use App\Jobs\EditDemandeServiceJob;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\ServicePersonnal\DemandeServiceFormRequest;
 use App\Jobs\AcceptDemandeServiceJob;
 use App\Jobs\CancelDemandeServiceJob;
-use App\Jobs\EditDemandeServiceJob;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\ServicePersonnal\DemandeServiceFormRequest;
 
 class DemandeServiceController extends Controller
 {
@@ -59,6 +60,7 @@ class DemandeServiceController extends Controller
     {
         $service = Service::create(array_merge($request->validated(), [
             'user_id' => Auth::user()->id,
+            'date_demande_service' => Carbon::now()
         ]));
 
         /* DemandeServiceJob::dispatch($service); */

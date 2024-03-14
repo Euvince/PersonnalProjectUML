@@ -73,6 +73,7 @@ class ReceptionPersonnalReservationsTable extends Component
             foreach ($paiement->factures as $facture) {
                 $facture->delete();
             }
+            /* ÉCRIRE LE CODE POUR REMBOURSER CHAQUE CLIENT */
             CancelReservationJob::dispatch($reservation);
         }
         $this->reservationsChecked = [];

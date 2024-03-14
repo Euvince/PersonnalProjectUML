@@ -225,6 +225,7 @@ class ClientController extends Controller
             'email_client' => Auth::user()->email,
             'prenoms_client' => Auth::user()->prenoms,
             'telephone_client' => Auth::user()->telephone,
+            'date_demande_service' => Carbon::now()
         ]));
 
         DemandeServiceJob::dispatch($service);

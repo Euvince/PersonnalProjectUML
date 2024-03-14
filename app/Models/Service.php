@@ -30,6 +30,7 @@ class Service extends Model
         'prenoms_client',
         'telephone_client',
         'type_service_id',
+        'date_demande_service'
     ];
 
     protected $casts = [

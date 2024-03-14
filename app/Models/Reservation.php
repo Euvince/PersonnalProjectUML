@@ -17,16 +17,18 @@ class Reservation extends Model
 {
     use HasFactory, SoftDeletes;
 
+    const STATUS_CONFIRM = 1;
+    const STATUS_FINISHED = 1;
+    const STATUS_WITHDRAW = 1;
     const STATUS_PAID = 'Payé';
     const STATUS_UNPAID = 'Impayé';
-    const STATUS_WITHDRAW = 1;
-    const STATUS_CONFIRM = 1;
 
     protected $fillable = [
         'prix',
         'statut',
         'user_id',
         'retire',
+        'termine',
         'confirme',
         'chambre_id',
         'nom_client',
@@ -97,6 +99,15 @@ class Reservation extends Model
 
     public function markAsConfirmed() : void {
         $this->update(['confirme' => self::STATUS_CONFIRM]);
+    }
+
+    public function isFinished() : bool {
+        return $this->termine === self::STATUS_FINISHED;
+    }
+
+    public function markAsFinished() : void {
+        $this->update(['termine' => self::STATUS_FINISHED]);
+        $this->chambre->markAsAvailable();
     }
 
     public function user() : BelongsTo {

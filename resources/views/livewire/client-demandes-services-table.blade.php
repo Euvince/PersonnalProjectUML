@@ -1,41 +1,57 @@
 <div>
-    <h1 class="fw-bold">Toutes vos réservations</h1>
+    <h1 class="fw-bold">Les services de la chambre</h1>
 
     <div class="d-flex justify-content-between align-items-center">
 
         <div class="mt-2 mb-3 ml-5 d-flex">
-            <input type="date" class="form-control w-50 mx-2 w-100" placeholder="Date de réservation" wire:model="dateReservation">
-            <input type="date" class="form-control w-50 mx-2 w-100" placeholder="Début de séjour" wire:model="debutSejour">
-            <input type="date" class="form-control w-50 mx-2 w-100" placeholder="Fin de Séjour" wire:model="finSejour">
+            <input type="text" class="form-control w-50 mx-2 w-100" placeholder="Type de service" wire:model="typeService">
+            <input type="text" class="form-control w-50 mx-2 w-100" placeholder="Description" wire:model="description">
         </div>
     </div>
 
     <div class="container mt-4">
+        <div class="">
+            <a href="" class="btn btn-primary mb-3 ml-1"><i class="fa fa-plus"></i> Demander un service</a>
+        </div>
         <div class="row">
-            @forelse ($reservations as $k => $reservation)
-                <div class="col-3">
-                    <div class="card bg-light mb-3" style="max-width: 20rem; border-color: #73bad6;">
-                        <div class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Réservation N°{{ $k + 1 }}</font></font></div>
-                        <div class="card-body">
-                        <h5 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><strong>Réservation du {{ $reservation->date_reservation->translatedFormat('d F Y') }}</strong></font></font></h5>
-                        <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-                            Démarre du {{ $reservation->debut_sejour->translatedFormat('d F Y') }} au {{ $reservation->fin_sejour->translatedFormat('d F Y') }}, pour un total de fonds de {{ $reservation->getMontant() }}$
-                            à l'hôtel <a style="text-decoration: none;" href="{{ route('clients.hotels.show', ['slug' => $reservation->chambre->hotel->getSlug(), 'hotel' => $reservation->chambre->hotel->id]) }}">{{ $reservation->chambre->hotel->nom }}</a>
-                            dans la chambre N° <a style="text-decoration: none;" href="{{ route('clients.chambres.show', ['slug' => $reservation->chambre->getSlug(), 'chambre' => $reservation->chambre->id]) }}">{{ $reservation->chambre->numero }}</a>.</font></font>
-                        </p>
-                        </div>
-                        <div class="d-flex justify-content-end mx-4 mb-3">
-                            <span class="badge bg-primary rounded-pill">{{ $reservation->isConfirmed() ? 'Confirmée' : 'Infirmée' }}</span>
-                            @if ($reservation->chambre->isOccupied() && $reservation->isConfirmed())
-                                <a style="text-decoration: none; font-size: 13.5px;" href="{{ route('clients.services', ['reservation' => $reservation->id]) }}" class="mx-2">Services <i class="fa-solid fa-arrow-right"></i></a>
-                            @endif
-                        </div>
-                    </div>
-                </div>
+            @forelse ($services as $k => $service)
+            <table class="table table-hover table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Taper</font></font></th>
+                    <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">En-tête de colonne</font></font></th>
+                    <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">En-tête de colonne</font></font></th>
+                    <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">En-tête de colonne</font></font></th>
+                    <th scope="col" class="text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Actions</font></font></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="table-active">
+                    <th scope="row"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Actif</font></font></th>
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Contenu de la colonne</font></font></td>
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Contenu de la colonne</font></font></td>
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Contenu de la colonne</font></font></td>
+                    <td class="text-center">
+                        <a href="" class="text-warning mx-2"><i class="fa fa-edit"></i></a>
+                        <a href="" class="text-danger"><i class="fa fa-trash"></i></a>
+                    </td>
+                  </tr>
+                  <tr class="table-active table-striped">
+                    <th scope="row"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Actif</font></font></th>
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Contenu de la colonne</font></font></td>
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Contenu de la colonne</font></font></td>
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Contenu de la colonne</font></font></td>
+                    <td class="text-center">
+                        <a href="" class="text-warning mx-2"><i class="fa fa-edit"></i></a>
+                        <a href="" class="text-danger"><i class="fa fa-trash"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             @empty
-                Vous ne possédez aucune réservation dans aucun hôtel.
+                Aucun service demandé dans cette chambre.
             @endforelse
         </div>
     </div>
-    {{ $reservations->links() }}
+    {{ $services->links() }}
 </div>

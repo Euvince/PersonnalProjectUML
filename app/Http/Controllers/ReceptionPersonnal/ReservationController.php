@@ -232,7 +232,7 @@ class ReservationController extends Controller
             return
                 redirect()
                 ->route('reception-personnal.reservations.index')
-                ->with('error', 'La période de réservation n\étant pas atteinte, vous ne pouvez donc pas confirmez cette réservation.');
+                ->with('error', 'La période de réservation n\'étant pas atteinte, vous ne pouvez donc pas confirmez cette réservation.');
         }
         if (Reservation::query()
             ->where('debut_sejour', '<=', $reservation->debut_sejour)
@@ -260,7 +260,6 @@ class ReservationController extends Controller
         if ($reservation->chambre->isReserved() && $reservation->chambre->isAvailable()) {
             $reservation->markAsConfirmed();
             $reservation->chambre->markAsOccupied();
-            /* $reservation->chambre()->update(['occupe' => 1, 'disponible' => 0]); */
             ConfirmReservationJob::dispatch($reservation);
         }
         return

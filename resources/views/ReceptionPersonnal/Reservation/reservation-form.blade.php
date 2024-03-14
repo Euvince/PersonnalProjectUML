@@ -22,14 +22,14 @@
             <div class="col row">
                 <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="nom_client" label="Nom du client" type="text" name="nom_client" placeholder="Nom"  readonly="" value="{{ $reservation->nom_client }}" />
                 <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="prenoms_client" label="Prénoms du client" type="text" name="prenoms_client" placeholder="Prénoms"  readonly="" value="{{ $reservation->prenoms_client }}" />
-                <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="email_client" label="Email du client" type="text" name="email_client" placeholder="Email"  readonly="" value="{{ $reservation->email_client }}" />
+                <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="email_client" label="Email du client" type="text" name="email_client" placeholder="Email" readonly="" value="{{ $reservation->email_client }}" />
             </div>
         </div>
 
         <div class="row">
             <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="telephone_client" label="Téléphone du client" type="text" name="telephone_client" placeholder="Téléphone"  readonly="" value="{{ $reservation->telephone_client }}" />
-            <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="debut_sejour" label="Début du séjour" type="date" name="debut_sejour" placeholder="Début du séjour"  readonly="" value="{{ $reservation->debut_sejour }}" />
-            <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="fin_sejour" label="Fin du séjour" type="date" name="fin_sejour" placeholder="Fin du séjour"  readonly="" value="{{ $reservation->fin_sejour }}" />
+            <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="debut_sejour" label="Début du séjour" type="date" name="debut_sejour" placeholder="Début du séjour"  readonly="" value="{{ $reservation->debut_sejour->format('Y-m-d') }}" />
+            <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="fin_sejour" label="Fin du séjour" type="date" name="fin_sejour" placeholder="Fin du séjour"  readonly="" value="{{ $reservation->fin_sejour->format('Y-m-d') }}" />
         </div>
 
         @livewire('reservation-dynamic-select', [

@@ -12,7 +12,7 @@ a été confirmée dans l'hôtel
 -Email : {{ $reservation->email_client }} <br>
 
 **Durée du séjour** <br>
-Du {{ $reservation->debut_sejour }} au {{ $reservation->fin_sejour }}
+Du {{ $reservation->debut_sejour->translatedFormat('d F Y') }} au {{ $reservation->fin_sejour->translatedFormat('d F Y') }}
 
 
 <x-mail::button :url="$url">Télécharger Facture</x-mail::button>

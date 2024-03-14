@@ -1,14 +1,14 @@
 <div>
-    <h1 class="fw-bold">Toutes vos réservations</h1>
-
-    <div class="d-flex justify-content-between align-items-center">
-
-        <div class="mt-2 mb-3 ml-5 d-flex">
-            <input type="date" class="form-control w-50 mx-2 w-100" placeholder="Date de réservation" wire:model="dateReservation">
-            <input type="date" class="form-control w-50 mx-2 w-100" placeholder="Début de séjour" wire:model="debutSejour">
-            <input type="date" class="form-control w-50 mx-2 w-100" placeholder="Fin de Séjour" wire:model="finSejour">
+    @if ($reservations->count() > 0)
+        <h1 class="fw-bold">Toutes vos réservations</h1>
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="mt-2 mb-3 ml-5 d-flex">
+                <input type="date" class="form-control w-50 mx-2 w-100" placeholder="Date de réservation" wire:model="dateReservation">
+                <input type="date" class="form-control w-50 mx-2 w-100" placeholder="Début de séjour" wire:model="debutSejour">
+                <input type="date" class="form-control w-50 mx-2 w-100" placeholder="Fin de Séjour" wire:model="finSejour">
+            </div>
         </div>
-    </div>
+    @endif
 
     <div class="container mt-4">
         <div class="row">
@@ -25,7 +25,8 @@
                         </p>
                         </div>
                         <div class="d-flex justify-content-end mx-4 mb-3">
-                            <span class="badge bg-primary rounded-pill">{{ $reservation->isConfirmed() ? 'Confirmée' : 'Infirmée' }}</span>
+                            <span class="badge bg-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ $reservation->isConfirmed() ? 'Confirmée' : 'Infirmée' }}</font></font></span>
+                            {{-- <span class="badge bg-primary rounded-pill">{{ $reservation->isConfirmed() ? 'Confirmée' : 'Infirmée' }}</span> --}}
                             @if ($reservation->chambre->isOccupied() && $reservation->isConfirmed())
                                 <a style="text-decoration: none; font-size: 13.5px;" href="{{ route('clients.services', ['reservation' => $reservation->id]) }}" class="mx-2">Services <i class="fa-solid fa-arrow-right"></i></a>
                             @endif
@@ -33,7 +34,7 @@
                     </div>
                 </div>
             @empty
-                Vous ne possédez aucune réservation dans aucun hôtel.
+            <h5><strong>Vous ne possédez aucune réservation dans aucun hôtel.</strong></h5>
             @endforelse
         </div>
     </div>

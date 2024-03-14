@@ -39,11 +39,16 @@
                     <p><strong>Prénoms du client : </strong> {{ $facture->prenoms_client }}</p>
                     <p><strong>Email du client : </strong> {{ $facture->email_client }}</p>
                     <p><strong>Téléphone du client : </strong> {{ $facture->telephone_client }}</p>
+                    <p><strong>Durée du séjour : </strong>
+                        Du {{ $facture->paiement->reservation->debut_sejour->translatedFormat('d F Y') }}
+                        au {{ $facture->paiement->reservation->fin_sejour->translatedFormat('d F Y') }}
+                    </p>
                 </div>
                 <div class="col">
                     <p><strong>Type : </strong> {{ $chambre->TypeChambre->type }}</p>
                     <p><strong>Numéro : </strong> {{ $chambre->numero }}</p>
                     <p><strong>Libellé : </strong> {{ $chambre->libelle }}</p>
+                    <p><strong>Prix par nuit : </strong> {{ $chambre->TypeChambre->prix_par_nuit }}</p>
                     <p><strong>Montant payé:</strong> {{ $facture->montant_total }}$</p>
                 </div>
             </div>

@@ -6,7 +6,7 @@
     </div>
     <div class="col-12 mt-5">
         <div class="row ml-2">
-            <a class="btn btn-success mb-3" style="color: white;" x-show="reservationsChecked.length > 0" x-on:click="$wire.confirmReservations(reservationsChecked)" x-cloak><i class="fa-solid fa-circle-check"></i> Confirmer</a>
+            {{-- <a class="btn btn-success mb-3" style="color: white;" x-show="reservationsChecked.length > 0" x-on:click="$wire.confirmReservations(reservationsChecked)" x-cloak><i class="fa-solid fa-circle-check"></i> Confirmer</a> --}}
             <a class="btn btn-danger mb-3 mx-2" style="color: white;" x-show="reservationsChecked.length > 0" x-on:click="$wire.cancelReservations(reservationsChecked)" x-cloak><i class="fa fa-trash"></i> Annuler</a>
             <a href="{{ route('reception-personnal.reservations.create') }}" class="btn btn-primary mb-3 ml-1"><i class="fa fa-plus"></i> Créer une Réservation</a>
         </div>
@@ -41,6 +41,8 @@
                                         <strong>{{  $reservation->statut }}</strong>
                                         @if ($reservation->isConfirmed())
                                             <span class="badge bg-primary rounded-pill" style="color: white;">Confirmée</span>
+                                        @elseif ($reservation->isFinished())
+                                            <span class="badge bg-primary rounded-pill" style="color: white;">Terminée</span>
                                         @endif
                                         <span class="badge bg-primary rounded-pill">{{ number_format($reservation->getMontant(), 0, ',', '.')}}$</span>
                                     </li>
