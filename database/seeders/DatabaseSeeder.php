@@ -37,23 +37,23 @@ class DatabaseSeeder extends Seeder
             $ids[] = $typeChambre->id;
         }
 
-        Departement::factory()->count(20)->create()->each(function ($departement) use ($ids) {
+        Departement::factory()->count(10)->create()->each(function ($departement) use ($ids) {
             Commune::factory()->count(2)->create([
                 'departement_id' => $departement->id
             ])->each(function ($commune) use ($ids, $departement) {
-                Arrondissement::factory()->count(1)->create([
+                Arrondissement::factory()->count(rand(1, 2))->create([
                     'commune_id' => $commune->id
                 ])->each(function ($arrondissement) use ($ids, $commune, $departement) {
                     Quartier::factory()->count(rand(1, 2))->create([
                         'arrondissement_id' => $arrondissement->id
                     ])->each(function ($quartier) use ($ids, $arrondissement, $commune, $departement) {
-                        Hotel::factory()->count(1)->create([
+                        Hotel::factory()->count(rand(0, 2))->create([
                             'quartier_id' => $quartier->id,
                             'arrondissement_id' => $arrondissement->id,
                             'commune_id' => $commune->id,
                             'departement_id' => $departement->id,
                         ])->each(function ($hotel) use ($ids) {
-                            Chambre::factory()->count(3)->create([
+                            Chambre::factory()->count(rand(1, 3))->create([
                                 'hotel_id' => $hotel->id,
                                 'type_chambre_id' => fake()->randomElement($ids),
                             ]);

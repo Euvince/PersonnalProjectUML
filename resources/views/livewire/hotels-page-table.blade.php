@@ -25,7 +25,7 @@
                         {{-- <div class="card-header">
                             <strong>{{ $hotel->nom }}</strong>
                         </div> --}}
-                        <img src="{{ asset('storage/images/image.png') }}" class="card-img-top" alt="...">
+                        <img src="storage/{{ $hotel->photo }}" class="card-img-top" alt="..." height="300px;">
                         <div class="card-body">
                             <h6 class="card-title">{{ Str::limit( $hotel->nom, 20, '...') }}</h6>
                             {{-- <p class="card-text" style="font-size: 13px;"><strong>{{ $hotel->adresse_postale }}</strong></p> --}}

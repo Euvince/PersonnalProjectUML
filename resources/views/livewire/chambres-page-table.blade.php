@@ -22,7 +22,7 @@
             @foreach ($chambres as $chambre)
                 <div class="col-3">
                     <div class="card bg-secondary mb-3" style="max-width: 25rem;">
-                        <img src="{{ asset('storage/images/image.png') }}" class="card-img-top" alt="...">
+                        <img src="{{ asset("storage/$chambre->photo") }}" class="card-img-top" alt="..." height="200px;">
                         <div class="card-body">
                             <p class="card-text" style="font-size: 13px;">Chambre N° : <strong>{{ $chambre->numero }}</strong></p>
                             <h6 class="card-title">{{ Str::limit( $chambre->libelle, 20, '...') }}</h6>

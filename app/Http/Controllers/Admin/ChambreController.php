@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Chambre;
+use App\Models\TypeChambre;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\ChambreFormRequest;
-use App\Models\Chambre;
-use App\Models\TypeChambre;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Admin\ChambreFormRequest;
 
 class ChambreController extends Controller
 {
@@ -38,13 +39,26 @@ class ChambreController extends Controller
         ]);
     }
 
+    private function withPicture(ChambreFormRequest $request, Chambre $chambre): array
+    {
+        $data = $request->validated();
+        if(array_key_exists('photo', $data))
+        {
+            $pictureCollection = $data['photo'];
+            $data['photo'] = $pictureCollection->storeAs('Chambres', $request->file('photo')->getClientOriginalName(), 'public');
+            $picturepath = 'public/' . $chambre->photo;
+            if(Storage::exists($picturepath)) Storage::delete('public/' . $chambre->photo);
+        }
+        return $data;
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(ChambreFormRequest $request) : RedirectResponse
     {
         Chambre::create(array_merge(
-            $request->validated(), [
+            $this->withPicture($request, new Chambre()), [
                 'hotel_id' => Auth::user()->hotel->id
             ]
         ));
@@ -78,7 +92,7 @@ class ChambreController extends Controller
      */
     public function update(ChambreFormRequest $request, Chambre $chambre) : RedirectResponse
     {
-        $chambre->update($request->validated());
+        $chambre->update($this->withPicture($request, $chambre));
         return
             redirect()
             ->route('admin.chambres.index')

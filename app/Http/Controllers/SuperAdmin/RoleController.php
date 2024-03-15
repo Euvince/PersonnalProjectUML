@@ -49,6 +49,7 @@ class RoleController extends Controller
     {
         $data = $request->validated();
         unset($data['permissions']);
+        dd($request);
         /* app()['cache']->forget('saptie.permission.cache'); */
         /* app()[\Saptie\Permission\PermissionRegistar::class]->forgetCachedPermissions(); */
         /* foreach ($request->permissions as $permission) {

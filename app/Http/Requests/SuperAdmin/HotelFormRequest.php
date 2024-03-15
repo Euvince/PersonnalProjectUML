@@ -22,6 +22,12 @@ class HotelFormRequest extends FormRequest
      */
     public function rules(): array
     {
+        if(request()->routeIs('super-admin.hotels.store')){
+            $pictureRule = 'required|image|max:5120';
+        }elseif(request()->routeIs('super-admin.hotels.update')){
+            $pictureRule = 'sometimes|image|max:5120';
+        }
+
         return [
             'nom' => ['required', 'string', new SameHotelForQuartier()],
             'longitude' => ['required'],
@@ -34,6 +40,7 @@ class HotelFormRequest extends FormRequest
             'arrondissement_id' => ['required', 'integer', 'exists:arrondissments,id'],
             'commune_id' => ['required', 'integer', 'exists:communes,id'],
             'departement_id' => ['required', 'integer', 'exists:departements,id'],
+            'photo' => $pictureRule
         ];
     }
 }

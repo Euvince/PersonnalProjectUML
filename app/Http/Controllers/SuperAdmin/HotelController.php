@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\SuperAdmin\HotelFormRequest;
 
 class HotelController extends Controller
@@ -73,13 +74,27 @@ class HotelController extends Controller
         ]);
     }
 
+
+    private function withPicture(HotelFormRequest $request, Hotel $hotel): array
+    {
+        $data = $request->validated();
+        if(array_key_exists('photo', $data))
+        {
+            $pictureCollection = $data['photo'];
+            $data['photo'] = $pictureCollection->storeAs('Hotels', $request->file('photo')->getClientOriginalName(), 'public');
+            $picturepath = 'public/' . $hotel->photo;
+            if(Storage::exists($picturepath)) Storage::delete('public/' . $hotel->photo);
+        }
+        return $data;
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(HotelFormRequest $request) : RedirectResponse
     {
         dd($request->validated());
-        Hotel::create($request->validated());
+        Hotel::create($this->withPicture($request, new Hotel()));
         return
             redirect()
             ->route('super-admin.hotels.index')
@@ -115,7 +130,7 @@ class HotelController extends Controller
      */
     public function update(HotelFormRequest $request, Hotel $hotel) : RedirectResponse
     {
-        $hotel->update($request->validated());
+        $hotel->update($this->withPicture($request, $hotel));
         return
             redirect()
             ->route('super-admin.hotels.index')

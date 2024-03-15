@@ -16,6 +16,10 @@ class HotelFactory extends Factory
      */
     public function definition(): array
     {
+        $hotels = [
+            '1.jpg','2.jpg','3.jpg','4.jpg','5.jpg','6.jpg','7.jpg','8.jpg','9.jpg','10.jpg',
+        ];
+
         return [
             'nom' => $this->faker->company(),
             'longitude' => $this->faker->numberBetween(100, 250),
@@ -24,6 +28,7 @@ class HotelFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'telephone' => $this->faker->phoneNumber(),
             'directeur' => $this->faker->name(),
+            'photo' => 'Hotels/' . $this->faker->randomElement($hotels)
         ];
     }
 }

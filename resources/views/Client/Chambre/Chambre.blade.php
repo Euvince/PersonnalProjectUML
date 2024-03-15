@@ -8,7 +8,7 @@
         <h2 style="font-weight: bold;">Détails de la chambre</h2>
         <div class="row">
             <div class="col">
-                <img src="{{ asset('storage/images/image.png') }}" class="card-img-top" alt="...">
+                <img src="{{ asset("storage/$chambre->photo") }}" class="card-img-top" alt="..." height="430px;">
             </div>
             <div class="col">
                 <p><strong>Type : </strong> {{ $chambre->TypeChambre->type }}</p>

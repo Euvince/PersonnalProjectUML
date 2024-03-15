@@ -22,6 +22,13 @@ class ChambreFormRequest extends FormRequest
      */
     public function rules(): array
     {
+
+        if(request()->routeIs('admin.chambres.store')){
+            $pictureRule = 'required|image|max:5120';
+        }elseif(request()->routeIs('manager.chambres.update')){
+            $pictureRule = 'sometimes|image|max:5120';
+        }
+
         return [
             'numero' => ['required',
                 Rule::unique('chambres')
@@ -32,7 +39,8 @@ class ChambreFormRequest extends FormRequest
             'etage' => ['required'],
             'description' => ['required', 'string'],
             'capacite' => ['required', 'string'],
-            'type_chambre_id' => ['required', 'integer', 'exists:types_chambres,id']
+            'type_chambre_id' => ['required', 'integer', 'exists:types_chambres,id'],
+            'photo' => $pictureRule
         ];
     }
 }

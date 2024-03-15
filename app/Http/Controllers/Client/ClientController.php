@@ -326,8 +326,7 @@ class ClientController extends Controller
         }
         return
             redirect()
-            ->route('clients.reservations')
-            ->with('success', 'Le check-out a été effectué avec succès.');
+            ->route('clients.reservations');
     }
 
 }
