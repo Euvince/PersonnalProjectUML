@@ -1,6 +1,6 @@
 @extends('Auth.layouts.template')
 
-@section('title', 'Mot de passe oublié')
+@section('title', 'Vérifcation de codes')
 
 @section('content')
 

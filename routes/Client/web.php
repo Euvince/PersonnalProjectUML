@@ -72,12 +72,12 @@ Route::get('chambres-infos-download/{chambre}', [ClientController::class, 'downl
 
 Route::get('reservations', [ClientController::class, 'reservations'])
 ->name('clients.reservations')
-->middleware(['auth'/* , 'verified' */, 'permission:Réserver une Chambre']);
+->middleware(['auth', 'verified', 'permission:Réserver une Chambre']);
 
 Route::post('chambres/{chambre}/reservation', [ClientController::class, 'sendReservation'])
 ->name('clients.chambres.reservation-send')
 ->where(['chambre' => $idRegex])
-->middleware(['auth'/* , 'verified' */, 'permission:Réserver une Chambre']);
+->middleware(['auth', 'verified', 'permission:Réserver une Chambre']);
 
 /* Route::get('facture-show/{facture}/{chambre}', [ClientController::class, 'showFacture'])
 ->name('clients.facture-show')
@@ -102,43 +102,43 @@ Route::get('services/{reservation}', [ClientController::class, 'services'])
 ->where([
     'reservation' => $idRegex,
 ])
-->middleware(['auth'/* , 'verified' */, 'permission:Demander un Service']);
+->middleware(['auth', 'verified', 'permission:Demander un Service']);
 
 Route::get('chambres/{chambre}/demander-service', [ClientController::class, 'showFormToAskService'])
 ->name('clients.chambres.ask-service')
 ->where(['chambre' => $idRegex])
-->middleware(['auth'/* , 'verified' */, 'permission:Demander un Service']);
+->middleware(['auth', 'verified', 'permission:Demander un Service']);
 
 Route::post('chambres/{chambre}/demander-service', [ClientController::class, 'sendDemandeService'])
 ->name('clients.chambres.service-send')
 ->where(['chambre' => $idRegex])
-->middleware(['auth'/* , 'verified' */, 'permission:Demander un Service']);
+->middleware(['auth', 'verified', 'permission:Demander un Service']);
 
 Route::get('chambres/{demande_service}/edit', [ClientController::class, 'showFormToEditService'])
 ->name('clients.chambres.edit-service')
 ->where(['chambre' => $idRegex])
-->middleware(['auth'/* , 'verified' */, 'permission:Demander un Service']);
+->middleware(['auth', 'verified', 'permission:Demander un Service']);
 
 Route::put('chambres/{demande_service}', [ClientController::class, 'updateDemandeService'])
 ->name('clients.chambres.service-update')
 ->where(['chambre' => $idRegex])
-->middleware(['auth'/* , 'verified' */, 'permission:Demander un Service']);
+->middleware(['auth', 'verified', 'permission:Demander un Service']);
 
 Route::delete('chambres/{demande_service}', [ClientController::class, 'cancelDdemandeService'])
 ->name('clients.chambres.service-cancel')
 ->where(['chambre' => $idRegex])
-->middleware(['auth'/* , 'verified' */, 'permission:Demander un Service']);
+->middleware(['auth', 'verified', 'permission:Demander un Service']);
 
 
 /* LE CHECK-OUT********************************************************************************* */
 
 Route::get('check-out/{reservation}', [ClientController::class, 'checkOut'])
 ->name('clients.check-out')
-->middleware(['auth'/* , 'verified' */, 'permission:Demander un Service']);
+->middleware(['auth', 'verified', 'permission:Demander un Service']);
 
 Route::patch('check-out{reservation}', [ClientController::class, 'checkOutSubmitted'])
 ->name('clients.check-out-submitted')
-->middleware(['auth'/* , 'verified' */, 'permission:Demander un Service']);
+->middleware(['auth', 'verified', 'permission:Demander un Service']);
 
 
 /* NOUS-CONTACTER******************************************************************************* */

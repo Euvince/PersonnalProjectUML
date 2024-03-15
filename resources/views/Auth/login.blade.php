@@ -19,7 +19,7 @@
                             <label for="email">Email</label>
                             <input type="text" id="email" name="email"  value="{{ old('email') }}">
                             <i class="ti-user"></i>
-                            <div class="text-danger">
+                            <div class="text-danger" style="font-size: 0.7rem;">
                                 @error('email')
                                     {{ $message }}
                                 @enderror
@@ -29,7 +29,7 @@
                             <label for="password">Mot de Passe</label>
                             <input type="password" id="password" name="password">
                             <i class="ti-user"></i>
-                            <div class="text-danger">
+                            <div class="text-danger" style="font-size: 0.7rem;">
                                 @error('password')
                                     {{ $message }}
                                 @enderror

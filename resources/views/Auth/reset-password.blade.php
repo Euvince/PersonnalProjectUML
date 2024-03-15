@@ -13,14 +13,14 @@
                     <input type="hidden" name="token" value="{{ $request->route('token') }}">
                     <div class="login-form-head">
                         <h4>Réinitialisez votre mot de passe.</h4>
-                        <p>Entrez un nouveau mot de passe pour modififer le précédent.</p>
+                        <p>Entrez un nouveau mot de passe pour modifier le précédent.</p>
                     </div>
                     <div class="login-form-body">
                         <div class="form-gp">
                             <label for="email">Email</label>
                             <input type="text" id="email" name="email"  value="{{ $request->email }}">
                             <i class="ti-user"></i>
-                            <div class="text-danger">
+                            <div class="text-danger" style="font-size: 0.7rem;">
                                 @error('email')
                                     {{ $message }}
                                 @enderror
@@ -30,7 +30,7 @@
                             <label for="password">Mot de Passe</label>
                             <input type="password" id="password" name="password">
                             <i class="ti-user"></i>
-                            <div class="text-danger">
+                            <div class="text-danger" style="font-size: 0.7rem;">
                                 @error('password')
                                     {{ $message }}
                                 @enderror
@@ -40,7 +40,7 @@
                             <label for="password_confirmation">Confirmer Mot de passe</label>
                             <input type="password" id="password_confirmation" name="password_confirmation">
                             <i class="ti-lock"></i>
-                            <div class="text-danger">
+                            <div class="text-danger" style="font-size: 0.7rem;">
                                 @error('password_confirmation')
                                     {{ $message }}
                                 @enderror

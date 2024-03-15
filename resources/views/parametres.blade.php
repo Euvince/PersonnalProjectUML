@@ -3,14 +3,14 @@
 @section('content')
 
     @if (!auth()->user()->two_factor_secret)
-        You have not enabled 2fa
+        <h5><strong>Vous n'avez pas activer la double authentification</strong></h5>
 
         <form action="{{ url('user/two-factor-authentication') }}" method="POST">
             @csrf
             <button type="submit" class="btn btn-primary">Activer</button>
         </form>
     @else
-        You have enabled 2fa
+        <h5><strong>Vous avez activer la double authentification</strong></h5>
         <form action="{{ url('user/two-factor-authentication') }}" method="POST">
             @csrf
             @method('DELETE')
@@ -19,11 +19,11 @@
     @endif
 
     @if (session('status') == 'two-factor-authentication-enabled')
-        You have now enabled 2fa,
-        please scan the following QR code into your phones authenticator application.
+        Vous avez maintenant activé la double authentification,
+        veuillez scanner le code QR suivant dans l'application d'authentification de votre téléphone.
         {{!! auth()->user()->twoFactorQrCodeSvg() !!}}
 
-        <p>Please store theses recovery codes in a secure location.</p>
+        <p>Veuillez conserver ces codes de récupération dans un endroit sécurisé.</p>
 
         @foreach (json_decode(decrypt(auth()->user()->two_factor_recovery_codes, true)) as $code)
             {{ trim($code) }} <br>

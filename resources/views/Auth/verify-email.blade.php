@@ -1,6 +1,6 @@
 @extends('Auth.layouts.template')
 
-@section('title', 'Connexion')
+@section('title', 'Vérification d\'email')
 
 @section('content')
 
@@ -12,7 +12,7 @@
                     @csrf
                     <div class="login-form-head">
                         <h4>Vérification d'adresse e-mail.</h4>
-                        <p>Un courrriel vous a été envoyé, Vous devez vérifier votre adresese email.</p>
+                        <p>Un courriel vous a été envoyé, vous devez vérifier votre adresese email.</p>
                     </div>
                     <div class="login-form-body">
                         @if (session('status'))

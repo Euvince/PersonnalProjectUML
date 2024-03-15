@@ -16,15 +16,15 @@ use App\Http\Controllers\Admin\UserController;
 |
 */
 
-Route::group(['middleware' => ['auth', 'permission:Gérer les Utilisateurs'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
+Route::group(['middleware' => ['auth', 'verified', 'permission:Gérer les Utilisateurs'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::resource('users', UserController::class)->except(['create', 'store']);
 });
 
-Route::group(['middleware' => ['auth', 'permission:Gérer les Chambres'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
+Route::group(['middleware' => ['auth', 'verified', 'permission:Gérer les Chambres'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::resource('chambres', ChambreController::class);
 });
 
-Route::group(['middleware' => ['auth', 'permission:Gérer les Utilisateurs'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
+Route::group(['middleware' => ['auth', 'verified', 'permission:Gérer les Utilisateurs'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('clients', [ClientController::class, 'index'])->name('clients.index');
     Route::get('clients/{user}', [ClientController::class, 'show'])->name('clients.show');
 

@@ -19,7 +19,7 @@
                             <label for="nom">Nom</label>
                             <input type="text" id="nom" name="nom" value="{{ old('nom') }}">
                             <i class="ti-user"></i>
-                            <div class="text-danger">
+                            <div class="text-danger" style="font-size: 0.7rem;">
                                 @error('nom')
                                     {{ $message }}
                                 @enderror
@@ -29,7 +29,7 @@
                             <label for="prenoms">Prénoms</label>
                             <input type="text" id="prenoms" name="prenoms"  value="{{ old('prenoms') }}">
                             <i class="ti-user"></i>
-                            <div class="text-danger">
+                            <div class="text-danger" style="font-size: 0.7rem;">
                                 @error('prenoms')
                                     {{ $message }}
                                 @enderror
@@ -39,7 +39,7 @@
                             <label for="date_naissance">Date de Naissance</label>
                             <input type="date" id="date_naissance" name="date_naissance"  value="{{ old('date_naissance') }}">
                             <i class="ti-user"></i>
-                            <div class="text-danger">
+                            <div class="text-danger" style="font-size: 0.7rem;">
                                 @error('date_naissance')
                                     {{ $message }}
                                 @enderror
@@ -49,7 +49,7 @@
                             <label for="sexe">Sexe</label>
                             <input type="text" id="sexe" name="sexe" value="{{ old('sexe') }}">
                             <i class="ti-user"></i>
-                            <div class="text-danger">
+                            <div class="text-danger" style="font-size: 0.7rem;">
                                 @error('sexe')
                                     {{ $message }}
                                 @enderror
@@ -59,7 +59,7 @@
                             <label for="nationnalite">Nationnalité</label>
                             <input type="text" id="nationnalite" name="nationnalite"  value="{{ old('nationnalite') }}">
                             <i class="ti-user"></i>
-                            <div class="text-danger">
+                            <div class="text-danger" style="font-size: 0.7rem;">
                                 @error('nationnalite')
                                     {{ $message }}
                                 @enderror
@@ -69,7 +69,7 @@
                             <label for="email">Email</label>
                             <input type="text" id="email" name="email"  value="{{ old('email') }}">
                             <i class="ti-user"></i>
-                            <div class="text-danger">
+                            <div class="text-danger" style="font-size: 0.7rem;">
                                 @error('email')
                                     {{ $message }}
                                 @enderror
@@ -79,7 +79,7 @@
                             <label for="telephone">Téléphone</label>
                             <input type="text" id="telephone" name="telephone"  value="{{ old('telephone') }}">
                             <i class="ti-user"></i>
-                            <div class="text-danger">
+                            <div class="text-danger" style="font-size: 0.7rem;">
                                 @error('telephone')
                                     {{ $message }}
                                 @enderror
@@ -89,7 +89,7 @@
                             <label for="password">Mot de Passe</label>
                             <input type="password" id="password" name="password">
                             <i class="ti-lock"></i>
-                            <div class="text-danger">
+                            <div class="text-danger" style="font-size: 0.7rem;">
                                 @error('password')
                                     {{ $message }}
                                 @enderror
@@ -99,7 +99,7 @@
                             <label for="password_confirmation">Confirmer Mot de passe</label>
                             <input type="password" id="password_confirmation" name="password_confirmation">
                             <i class="ti-lock"></i>
-                            <div class="text-danger">
+                            <div class="text-danger" style="font-size: 0.7rem;">
                                 @error('password_confirmation')
                                     {{ $message }}
                                 @enderror

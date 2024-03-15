@@ -1,6 +1,6 @@
 @extends('Auth.layouts.template')
 
-@section('title', 'Connexion')
+@section('title', 'Confirmer mot de passe')
 
 @section('content')
 
@@ -19,7 +19,7 @@
                             <label for="password">Mot de Passe</label>
                             <input type="password" id="password" name="password">
                             <i class="ti-user"></i>
-                            <div class="text-danger">
+                            <div class="text-danger" style="font-size: 0.7rem;">
                                 @error('password')
                                     {{ $message }}
                                 @enderror
