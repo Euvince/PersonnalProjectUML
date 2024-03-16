@@ -49,14 +49,17 @@ class RoleController extends Controller
     {
         $data = $request->validated();
         unset($data['permissions']);
-        dd($request);
+        /* dd($request); */
         /* app()['cache']->forget('saptie.permission.cache'); */
         /* app()[\Saptie\Permission\PermissionRegistar::class]->forgetCachedPermissions(); */
         /* foreach ($request->permissions as $permission) {
             $permission = (int)$permission;
         } */
-        Role::create($data)
-            ->givePermissionTo($request->permissions);
+        $role = Role::create($data)/* ->givePermissionTo($request->permissions) */;
+        foreach ($request->permissions as $id) {
+            $permission = Permission::findById($id);
+            $role->givePermissionTo($permission->name);
+        }
         return
             redirect()
             ->route('super-admin.roles.index')
@@ -89,14 +92,17 @@ class RoleController extends Controller
       */
      public function update(RoleFormRequest $request, Role $role): RedirectResponse
      {
-         $data = $request->validated();
-         unset($data['permissions']);
-         $role->update($data);
-         $role->syncPermissions($request->permissions);
-         return
-            redirect()
-            ->route('super-admin.roles.index')
-            ->with('success', 'Le Rôle a bien été modifié');
+        $data = $request->validated();
+        unset($data['permissions']);
+        $role->update($data);
+        foreach ($request->permissions as $id) {
+        $permission = Permission::findById($id);
+        $role->givePermissionTo($permission->name);
+    }
+        return
+        redirect()
+        ->route('super-admin.roles.index')
+        ->with('success', 'Le Rôle a bien été modifié');
      }
 
      /**

@@ -31,6 +31,6 @@ class NotifyTheUserThatTheyCanBeginTheirStayJob implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::send(new NotifyTheUserThatTheyCanBeginTheirStayMail());
+        Mail::send(new NotifyTheUserThatTheyCanBeginTheirStayMail($this->reservation));
     }
 }
