@@ -19,9 +19,15 @@
         </p>
     </div>
 
-    <form method="POST" action="{{ route('admin.users.update', ['user' => $user->id]) }}">
+    <form method="POST" action="{{ route('super-admin.users.update', ['user' => $user->id]) }}">
         @csrf
         @method('put')
+
+        <div class="row">
+            <div class="col row">
+                <x-select class1="form-group w-100" class2="col-form-label" class3="form-control" id="hotel_id" label="Hôtel" name="hotel_id" :value="$hotels" elementIdOnEntite="{{ $user->hotel_id }}"/>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col row">

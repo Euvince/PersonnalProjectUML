@@ -29,8 +29,14 @@ Route::group(['middleware' => ['auth', 'verified', 'permission:Gérer les Utilis
     Route::get('clients/{user}', [ClientController::class, 'show'])->name('clients.show');
 
     $idRegex = '[0-9]+';
-    Route::patch('clients/{user}', [ClientController::class, 'recruter'])
+    Route::patch('clients/{user}/recrutement', [ClientController::class, 'recruter'])
     ->name('clients.recrutement')
+    ->where([
+        'user' => $idRegex
+    ]);
+
+    Route::patch('clients/{user}/licenciement', [ClientController::class, 'licencier'])
+    ->name('clients.licenciement')
     ->where([
         'user' => $idRegex
     ]);

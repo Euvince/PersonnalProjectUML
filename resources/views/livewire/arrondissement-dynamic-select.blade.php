@@ -8,7 +8,7 @@
                 @endforeach
             </select>
             @error('departement_id')
-                <span style="color: red;">{{ $message }}</span>
+                <span style="color: red; type_role_id">{{ $message }}</span>
             @enderror
         </div>
     </div>
@@ -21,7 +21,7 @@
                 @endforeach
             </select>
             @error('commune_id')
-                <span style="color: red;">{{ $message }}</span>
+                <span style="color: red; type_role_id">{{ $message }}</span>
             @enderror
         </div>
     </div>

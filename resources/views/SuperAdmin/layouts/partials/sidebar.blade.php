@@ -28,6 +28,16 @@
                         <a href="{{ route('personnal-profile.show', ['user' => auth()->user()->id]) }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Mon Profile</span></a>
                     </li>
                 @endcan
+                @hasrole('Super Admin')
+                    <li @class(['active' => str_contains($routeName, 'users')])>
+                        <a href="{{ route('super-admin.users.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Utilisateurs</span></a>
+                    </li>
+                @endhasrole
+                @can('Gérer les Rôles')
+                    <li @class(['active' => str_contains($routeName, 'roles')])>
+                        <a href="{{ route('super-admin.roles.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Rôles</span></a>
+                    </li>
+                @endcan
                 @can('Gérer les Départements')
                     <li @class(['active' => str_contains($routeName, 'departements')])>
                         <a href="{{ route('super-admin.departements.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Départements</span></a>
@@ -66,11 +76,6 @@
                 @can('Gérer les Moyens de Paiement')
                     <li @class(['active' => str_contains($routeName, 'moyen-paiement')])>
                         <a href="{{ route('super-admin.moyen-paiement.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Moyens de Paiement</span></a>
-                    </li>
-                @endcan
-                @can('Gérer les Rôles')
-                    <li @class(['active' => str_contains($routeName, 'roles')])>
-                        <a href="{{ route('super-admin.roles.index') }}" aria-expanded="true"><i class="ti-dashboard"></i><span>Rôles</span></a>
                     </li>
                 @endcan
                 @can('Gérer les Utilisateurs')

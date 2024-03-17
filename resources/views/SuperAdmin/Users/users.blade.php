@@ -5,6 +5,6 @@
 
 @section('content')
 
-    @livewire('admin-users-table')
+    @livewire('super-admin-users-table')
 
 @endsection

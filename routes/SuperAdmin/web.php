@@ -10,6 +10,7 @@ use App\Http\Controllers\SuperAdmin\ArrondissementController;
 use App\Http\Controllers\SuperAdmin\MoyenPaiementController;
 use App\Http\Controllers\SuperAdmin\RoleController;
 use App\Http\Controllers\SuperAdmin\TypeServiceController;
+use App\Http\Controllers\SuperAdmin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,4 +57,28 @@ Route::group(['middleware' => ['auth', 'permission:Gérer les Moyens de Paiement
 
 Route::group(['middleware' => ['auth', 'permission:Gérer les Rôles'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
     Route::resource('roles', RoleController::class);
+});
+
+Route::group(['middleware' => ['auth', 'permission:Gérer les Rôles'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
+    Route::get('users', [UserController::class, 'index'])->name('users.index');
+    Route::get('users/{user}', [UserController::class, 'show'])->name('users.show');
+
+    $idRegex = '[0-9]+';
+    Route::get('users/{user}/edit', [UserController::class, 'edit'])
+    ->where(['user' => $idRegex])
+    ->name('users.edit');
+
+    Route::put('users/{user}', [UserController::class, 'update'])
+    ->where(['user' => $idRegex])
+    ->name('users.update');
+
+    Route::delete('users/{user}', [UserController::class, 'destroy'])
+    ->where(['user' => $idRegex])
+    ->name('users.destroy');
+
+    /* Route::patch('users/{user}/licenciement', [UserController::class, 'licencier'])
+    ->name('users.licenciement')
+    ->where([
+        'user' => $idRegex
+    ]); */
 });

@@ -19,7 +19,7 @@
                     <strong>Description : <br></strong>
                     {{ $chambre->description }}
                 </p>
-                <a style="text-decoration: none;" href="{{ route('clients.chambres-infos-download', ['chambre' => $chambre->id]) }}">Télécharger</a>
+                <a style="text-decoration: none;" href="{{ route('clients.chambres-infos-download', ['chambre' => $chambre->id]) }}"><i class="fa-solid fa-download"></i> Télécharger</a>
             </div>
             <div class="col">
                 @if ($reservations->count() > 0)

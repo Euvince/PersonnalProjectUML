@@ -5,11 +5,10 @@ namespace App\Http\Livewire;
 use App\Models\User;
 use DateTime;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class UsersTable extends Component
+class SuperAdminUsersTable extends Component
 {
     use WithPagination;
 
@@ -72,15 +71,12 @@ class UsersTable extends Component
             $users = $users->where('nationnalite', 'LIKE', "%{$this->nationnalite}%");
         }
 
-        return view('livewire.users-table', [
+        return view('livewire.super-admin-users-table', [
             'users' => $users
-                ->whereHas('roles', function ($query) {
-                    $query->where('name', '!=', 'Super Admin');
-                })
-                ->where('hotel_id', Auth::user()->hotel_id)
                 ->orderBy($this->orderField, $this->orderDirection)
                 ->paginate(20)
         ]);
     }
 
 }
+

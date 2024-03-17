@@ -21,7 +21,7 @@
                 <p><strong>Commune : </strong> {{ $hotel->commune->nom }}</p>
                 <p><strong>Arrondissement : </strong> {{ $hotel->arrondissement->nom }}</p>
                 <p><strong>Quartier : </strong> {{ $hotel->quartier->nom }}</p>
-                <a style="text-decoration: none;" href="{{ route('clients.hotels-infos-download', ['hotel' => $hotel->id]) }}">Télécharger</a>
+                <a style="text-decoration: none;" href="{{ route('clients.hotels-infos-download', ['hotel' => $hotel->id]) }}"><i class="fa-solid fa-download"></i> Télécharger</a>
             </div>
         </div>
     </div>

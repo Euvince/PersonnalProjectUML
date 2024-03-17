@@ -29,6 +29,11 @@ class HotelFormRequest extends FormRequest
         }
 
         return [
+            'quartier_id' => ['required', 'integer', 'exists:quartiers,id'],
+            'arrondissement_id' => ['required', 'integer', 'exists:arrondissments,id'],
+            'commune_id' => ['required', 'integer', 'exists:communes,id'],
+            'departement_id' => ['required', 'integer', 'exists:departements,id'],
+
             'nom' => ['required', 'string', new SameHotelForQuartier()],
             'longitude' => ['required'],
             'lattitude' => ['required'],
@@ -36,10 +41,6 @@ class HotelFormRequest extends FormRequest
             'email' => ['required', 'email'],
             'telephone' => ['required'],
             'directeur' => ['required'],
-            'quartier_id' => ['required', 'integer', 'exists:quartiers,id'],
-            'arrondissement_id' => ['required', 'integer', 'exists:arrondissments,id'],
-            'commune_id' => ['required', 'integer', 'exists:communes,id'],
-            'departement_id' => ['required', 'integer', 'exists:departements,id'],
             'photo' => $pictureRule
         ];
     }

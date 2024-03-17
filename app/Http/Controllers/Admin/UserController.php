@@ -65,9 +65,17 @@ class UserController extends Controller
     public function update(UserFormRequest $request, User $user) : RedirectResponse
     {
         $user->roles()->sync($request['roles']);
-        foreach($request['roles'] as $role){
-            $user->permissions()->sync(Role::find($role)->permissions);
+        foreach ($user->permissions as $permission) {
+            $user->revokePermissionTo($permission);
         }
+        foreach($request['roles'] as $role){
+            foreach (Role::find($role)->permissions as $permission) {
+                $user->givePermissionTo($permission->name);
+            }
+        }
+        /* foreach($request['roles'] as $role){
+            $user->permissions()->sync(Role::findById($role)->permissions);
+        } */
         return
             redirect()
             ->route('admin.users.index')
@@ -77,7 +85,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(User $user) : RedirectResponse
     {
         $user->delete();
         return

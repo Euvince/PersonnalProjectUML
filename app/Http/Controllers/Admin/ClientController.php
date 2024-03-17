@@ -31,7 +31,21 @@ class ClientController extends Controller
         return
             redirect()
             ->route('admin.clients.index')
-            ->with('success', 'Le Client a été recruté avec succès.');
+            ->with('success', 'Le client a été recruté avec succès.');
+    }
+
+    public function licencier(User $user) : RedirectResponse
+    {
+        $this->authorize('licencier', $user);
+        $user->update([
+            'hotel_id' => null
+        ]);
+        $user->syncRoles(['Client']);
+        $user->syncPermissions(['Réserver une Chambre', 'Demander un Service']);
+        return
+            redirect()
+            ->route('admin.users.index')
+            ->with('success', 'Le client a été licencié avec succès.');
     }
 
 }

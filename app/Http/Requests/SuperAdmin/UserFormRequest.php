@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\SuperAdmin;
 
-use App\Rules\SameArrondissementForCommune;
+use App\Rules\SameTypeRoleRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ArrondissementFormRequest extends FormRequest
+class UserFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +23,8 @@ class ArrondissementFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'commune_id' => ['required', 'integer', 'exists:communes,id'],
-            'nom' => ['required', 'string', new SameArrondissementForCommune()],
-            'longitude' => ['required'],
-            'lattitude' => ['required'],
+            'hotel_id' => ['required', 'integer', 'exists:hotels,id'],
+            'roles' => ['required', 'array', 'exists:roles,id', new SameTypeRoleRule()],
         ];
     }
 }
