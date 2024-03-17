@@ -1,7 +1,7 @@
 @extends('Client.layouts.template')
 
 @section('content')
-
+    @dump(session('status'))
     @if (!auth()->user()->two_factor_secret)
         <h5><strong>Vous n'avez pas activer la double authentification</strong></h5>
 
@@ -25,7 +25,7 @@
                 veuillez scanner le code QR suivant dans l'application d'authentification de votre téléphone.
                 {!! auth()->user()->twoFactorQrCodeSvg() !!}
 
-                <form action="{{ url('user/confirmed-two-factor-authentication') }}" method="POST" class="mt-3">
+                <form action="{{ /* url('user/confirmed-two-factor-authentication') */ route('two-factor.confirm') }}" method="POST" class="mt-3">
                     <h3>Entrer ici le code de vérification obtenue à partir de Code Qr pour confirmer la double authentification</h3>
                     @csrf
                     <div class="row">

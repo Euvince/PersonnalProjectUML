@@ -95,14 +95,17 @@ class RoleController extends Controller
         $data = $request->validated();
         unset($data['permissions']);
         $role->update($data);
+        foreach ($role->permissions as $permission) {
+            $role->revokePermissionTo($permission);
+        }
         foreach ($request->permissions as $id) {
-        $permission = Permission::findById($id);
-        $role->givePermissionTo($permission->name);
-    }
+            $permission = Permission::findById($id);
+            $role->givePermissionTo($permission->name);
+        }
         return
-        redirect()
-        ->route('super-admin.roles.index')
-        ->with('success', 'Le Rôle a bien été modifié');
+            redirect()
+            ->route('super-admin.roles.index')
+            ->with('success', 'Le Rôle a bien été modifié');
      }
 
      /**
