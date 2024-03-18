@@ -14,7 +14,7 @@
 
         <div class="row">
             <div class="col row">
-                <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="nom" label="Nom" type="text" name="nom" placeholder="Nom"  readonly="" value="{{ $hotel->nom }}" />
+                <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="nom" label="Nom" type="text" name="nom" placeholder="Nom"  readonly="" value="{!! $hotel->nom !!}" />
                 <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="longitude" label="Longitude" type="text" name="longitude" placeholder="Longitude"  readonly="" value="{{ $hotel->longitude }}" />
                 <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="lattitude" label="Lattitude" type="text" name="lattitude" placeholder="Lattitude"  readonly="" value="{{ $hotel->lattitude }}" />
             </div>
@@ -30,7 +30,7 @@
 
         <div class="row">
             <div class="col row">
-                <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="directeur" label="Directeur" type="text" name="directeur" placeholder="Directeur"  readonly="" value="{{ $hotel->nom }}" />
+                <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="directeur" label="Directeur" type="text" name="directeur" placeholder="Directeur"  readonly="" value="{{ $hotel->directeur }}" />
                 <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="photo" label="Photo" type="file" name="photo" placeholder="photo"  readonly="" value="{{ $hotel->photo }}" />
                 <div class="form-group col">
                 </div>

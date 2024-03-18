@@ -10,7 +10,7 @@
                 <label for="name" class="col-form-label">Rôle</label>
                 <input type="text" class="form-control" style="height: 38px;" name="name" value="{{ $role->name }}">
                 @error('name')
-                    <span style="color: red; font-size: 0.7rem">{{ $message }}</span>
+                    <span style="color: red; font-size: 0.7rem;">{{ $message }}</span>
                 @enderror
             </div>
         </div>
@@ -23,7 +23,7 @@
                     @endforeach
                 </select>
                 @error('type_role_id')
-                    <span style="color: red; font-size: 0.7rem">{{ $message }}</span>
+                    <span style="color: red; font-size: 0.7rem;">{{ $message }}</span>
                 @enderror
             </div>
         </div>
@@ -35,7 +35,7 @@
                     @endforeach
                 </select>
                 @error('permissions')
-                    <span style="color: red; font-size: 0.7rem">{{ $message }}</span>
+                    <span style="color: red; font-size: 0.7rem;">{{ $message }}</span>
                 @enderror
             </div>
         </div>

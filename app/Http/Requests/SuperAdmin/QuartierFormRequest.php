@@ -23,10 +23,11 @@ class QuartierFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'arrondissement_id' => ['required', 'integer', 'exists:arrondissements,id'],
-            'nom' => ['required', 'string', new SameQuartierForArrondissement()],
+            'arrondissement_id' => ['required', 'integer', 'exists:arrondissements,id', new SameQuartierForArrondissement()],
+
             'longitude' => ['required'],
             'lattitude' => ['required'],
+            'nom' => ['required', 'string'],
         ];
     }
 }

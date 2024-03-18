@@ -23,8 +23,8 @@ class ArrondissementFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'commune_id' => ['required', 'integer', 'exists:communes,id'],
-            'nom' => ['required', 'string', new SameArrondissementForCommune()],
+            'commune_id' => ['required', 'integer', 'exists:communes,id', new SameArrondissementForCommune()],
+            'nom' => ['required', 'string'],
             'longitude' => ['required'],
             'lattitude' => ['required'],
         ];

@@ -56,23 +56,10 @@ class HotelDynamicSelect extends Component
         }
         if(old('departement_id')) {
             /* $this->quartiers = Arrondissement::find(old('arrondissement_id'))->sortBy('nom'); */
-            $this->arrondissements = Commune::find(old('commune_id'))->arrondissements->sortBy('nom');
+            $this->arrondissements = Commune::find(old('commune_id'))?->arrondissements->sortBy('nom');
             $this->communes = Departement::find(old('departement_id'))->communes->sortBy('nom');
             $this->selectedDepartement = old('departement_id');
         }
-
-        /* if(old('arrondissement_id')) {
-            $this->selectedArrondissement = old('arrondissement_id');
-        }
-        if(old('commune_id')) {
-            $this->arrondissements = Commune::find(old('commune_id'))->arrondissements->sortBy('nom');
-            $this->communes = Departement::find(old('departement_id'))->communes->sortBy('nom');
-            $this->selectedCommune = old('commune_id');
-        }
-        if(old('departement_id')) {
-            $this->communes = Departement::find(old('departement_id'))->communes->sortBy('nom');
-            $this->selectedDepartement = old('departement_id');
-        } */
     }
 
     public function updatedSelectedDepartement(int $departement_id) : void
@@ -99,7 +86,7 @@ class HotelDynamicSelect extends Component
             $this->quartiers = Quartier::where('arrondissement_id', $this->arrondissements->sortBy('nom')->first()->id)->get();
         }
         else {
-            $this->arrondissements = [];
+            $this->quartiers = [];
         }
         $this->selectedDepartement = Commune::find($commune_id)->departement_id;
     }

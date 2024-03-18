@@ -23,8 +23,8 @@ class CommuneFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'departement_id' => ['required', 'integer', 'exists:departements,id'],
-            'nom' => ['required', 'string', new SameCommuneForDepartement()],
+            'departement_id' => ['required', 'integer', 'exists:departements,id', new SameCommuneForDepartement()],
+            'nom' => ['required', 'string'],
             'longitude' => ['required'],
             'lattitude' => ['required'],
         ];
