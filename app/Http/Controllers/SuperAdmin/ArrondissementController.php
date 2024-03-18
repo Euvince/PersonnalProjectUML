@@ -29,7 +29,7 @@ class ArrondissementController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create() : View
+    public function create() : View | RedirectResponse
     {
         $departements = Departement::has('communes', '>=', 1)->orderBy('nom', 'ASC')->get();
         if ($departements->isEmpty()) {

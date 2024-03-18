@@ -23,11 +23,13 @@
         @csrf
         @method('put')
 
-        <div class="row">
-            <div class="col row">
-                <x-select class1="form-group w-100" class2="col-form-label" class3="form-control" id="hotel_id" label="Hôtel" name="hotel_id" :value="$hotels" elementIdOnEntite="{{ $user->hotel_id }}"/>
-            </div>
-        </div>
+        @livewire('super-admin-user-dynamic-select', [
+            'user' => $user,
+            'quartiers' => $quartiers,
+            'communes' => $communes,
+            'departements' => $departements,
+            'arrondissements' => $arrondissements
+        ])
 
         <div class="row">
             <div class="col row">

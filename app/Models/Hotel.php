@@ -24,12 +24,16 @@ class Hotel extends Model
     protected $fillable = [
         'nom',
         'email',
+        'photo',
         'longitude',
         'lattitude',
         'telephone',
         'directeur',
+        'commune_id',
         'quartier_id',
+        'departement_id',
         'adresse_postale',
+        'arrondissement_id',
     ];
 
     protected static function boot() {

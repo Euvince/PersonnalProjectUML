@@ -9,7 +9,7 @@ use App\Models\Quartier;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
-class HotelDynamicSelect extends Component
+class SuperAdminUserDynamicSelect extends Component
 {
 
     public $hotel;
@@ -107,7 +107,7 @@ class HotelDynamicSelect extends Component
 
     public function render() : View
     {
-        return view('livewire.hotel-dynamic-select');
+        return view('livewire.super-admin-user-dynamic-select');
     }
 
 }

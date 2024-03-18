@@ -25,8 +25,8 @@ class CommuneFormRequest extends FormRequest
         return [
             'departement_id' => ['required', 'integer', 'exists:departements,id', new SameCommuneForDepartement()],
             'nom' => ['required', 'string'],
-            'longitude' => ['required'],
-            'lattitude' => ['required'],
+            'longitude' => ['required', 'numeric'],
+            'lattitude' => ['required', 'numeric'],
         ];
     }
 }

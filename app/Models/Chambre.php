@@ -31,6 +31,7 @@ class Chambre extends Model
     protected $fillable = [
         'etage',
         /* 'statut', */
+        'photo',
         'disponible',
         'reserve',
         'occupe',

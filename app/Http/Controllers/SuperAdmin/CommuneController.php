@@ -29,8 +29,13 @@ class CommuneController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create() : View
+    public function create() : View | RedirectResponse
     {
+        if (Departement::all()->count() == 0) {
+            return redirect()
+            ->route('super-admin.communes.index')
+            ->with('error', 'Veuillez disposer d\'un Département au moins d\'abord.');
+        }
         return view('SuperAdmin.Commune.commune-form', [
             'commune' => new Commune(),
             'departements' => Departement::orderBy('nom', 'ASC')->pluck('nom', 'id'),

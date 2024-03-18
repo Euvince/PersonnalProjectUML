@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\SuperAdmin\QuartierFormRequest;
+use App\Models\Arrondissement;
 
 class QuartierController extends Controller
 {
@@ -29,7 +30,7 @@ class QuartierController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create() : View
+    public function create() : View | RedirectResponse
     {
         $departements = Departement::has('communes', '>=', 1)->orderBy('nom', 'ASC')->get();
         if ($departements->isEmpty()) {
@@ -43,6 +44,12 @@ class QuartierController extends Controller
             return redirect()
             ->route('super-admin.quartiers.index')
             ->with('error', 'Veuillez disposer d\'une Commune contenant au moins un arrondissement d\'abord.');
+        }
+
+        if (Arrondissement::all()->count() == 0) {
+            return redirect()
+            ->route('super-admin.quartiers.index')
+            ->with('error', 'Veuillez disposer d\'un Arrondissement au moins d\'abord.');
         }
 
         return view('SuperAdmin.Quartier.quartier-form', [

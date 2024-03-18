@@ -28,8 +28,8 @@ class DepartementFormRequest extends FormRequest
                 ->ignore($this->route()->parameter('departement'))
                 ->withoutTrashed(),
             ],
-            'longitude' => ['required'],
-            'lattitude' => ['required'],
+            'longitude' => ['required', 'numeric'],
+            'lattitude' => ['required', 'numeric'],
         ];
     }
 }

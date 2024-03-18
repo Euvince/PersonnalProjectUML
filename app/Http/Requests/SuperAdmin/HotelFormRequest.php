@@ -29,14 +29,14 @@ class HotelFormRequest extends FormRequest
         }
 
         return [
-            'quartier_id' => ['required', 'integer', 'exists:quartiers,id', new SameHotelForQuartier()],
-            'arrondissement_id' => ['required', 'integer', 'exists:arrondissements,id'],
-            'commune_id' => ['required', 'integer', 'exists:communes,id'],
             'departement_id' => ['required', 'integer', 'exists:departements,id'],
+            'commune_id' => ['required', 'integer', 'exists:communes,id'],
+            'arrondissement_id' => ['required', 'integer', 'exists:arrondissements,id'],
+            'quartier_id' => ['required', 'integer', 'exists:quartiers,id', new SameHotelForQuartier()],
 
             'nom' => ['required', 'string'],
-            'longitude' => ['required'],
-            'lattitude' => ['required'],
+            'longitude' => ['required', 'numeric'],
+            'lattitude' => ['required', 'numeric'],
             'adresse_postale' => ['required', 'string'],
             'email' => ['required', 'email'],
             'telephone' => ['required'],

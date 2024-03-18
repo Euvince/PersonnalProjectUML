@@ -25,8 +25,8 @@ class QuartierFormRequest extends FormRequest
         return [
             'arrondissement_id' => ['required', 'integer', 'exists:arrondissements,id', new SameQuartierForArrondissement()],
 
-            'longitude' => ['required'],
-            'lattitude' => ['required'],
+            'longitude' => ['required', 'numeric'],
+            'lattitude' => ['required', 'numeric'],
             'nom' => ['required', 'string'],
         ];
     }

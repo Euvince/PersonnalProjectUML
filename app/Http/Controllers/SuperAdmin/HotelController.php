@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\SuperAdmin\HotelFormRequest;
+use App\Models\Quartier;
 
 class HotelController extends Controller
 {
@@ -24,13 +25,17 @@ class HotelController extends Controller
      */
     public function index() : View
     {
+        /* $departements = Departement::has('communes', '>=', 1)->orderBy('nom', 'ASC')->get();
+        dd($departements);
+        $communes = $departements->first()->communes->sortBy('nom');
+        dd($communes); */
         return view('SuperAdmin.Hotel.hotels');
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create() : View
+    public function create() : View | RedirectResponse
     {
         $hotel = new Hotel();
 
@@ -47,22 +52,28 @@ class HotelController extends Controller
         $departements = Departement::has('communes', '>=', 1)->orderBy('nom', 'ASC')->get();
         if ($departements->isEmpty()) {
             return redirect()
-            ->route('super-admin.quartiers.index')
+            ->route('super-admin.hotels.index')
             ->with('error', 'Veuillez disposer d\'un Département contenant au moins une commune d\'abord.');
         }
 
         $communes = $departements->first()->communes->sortBy('nom');
         if ($communes->isEmpty()) {
             return redirect()
-            ->route('super-admin.quartiers.index')
+            ->route('super-admin.hotels.index')
             ->with('error', 'Veuillez disposer d\'une Commune contenant au moins un arrondissement d\'abord.');
         }
 
         $arrondissements = $communes->first()->arrondissements->sortBy('nom');
         if ($communes->isEmpty()) {
             return redirect()
-            ->route('super-admin.quartiers.index')
+            ->route('super-admin.hotels.index')
             ->with('error', 'Veuillez disposer d\'une Commune contenant au moins un arrondissement d\'abord.');
+        }
+
+        if (Quartier::all()->count() == 0) {
+            return redirect()
+            ->route('super-admin.hotels.index')
+            ->with('error', 'Veuillez disposer d\'un Quartier au moins d\'abord.');
         }
 
         return view('SuperAdmin.Hotel.hotel-form', [
@@ -70,7 +81,7 @@ class HotelController extends Controller
             'departements' => $departements,
             'communes' => $communes,
             'arrondissements' => $arrondissements,
-            'quartiers' => $arrondissements->first()->quartiers->sortBy('nom')
+            'quartiers' => $arrondissements->first()?->quartiers->sortBy('nom')
         ]);
     }
 
@@ -93,8 +104,13 @@ class HotelController extends Controller
      */
     public function store(HotelFormRequest $request) : RedirectResponse
     {
-        dd($request->validated());
-        Hotel::create($this->withPicture($request, new Hotel()));
+        $quartier = Quartier::find($request->quartier_id);
+        Hotel::create(array_merge(
+            $this->withPicture($request, new Hotel()), [
+                /* 'arrondissement_id' => $quartier->arrondissement->id,
+                'commune_id' => $quartier->arrondissement->commune->id,
+                'departement_id' => $quartier->arrondissement->commune->departement->id, */
+            ]));
         return
             redirect()
             ->route('super-admin.hotels.index')
@@ -130,7 +146,14 @@ class HotelController extends Controller
      */
     public function update(HotelFormRequest $request, Hotel $hotel) : RedirectResponse
     {
-        $hotel->update($this->withPicture($request, $hotel));
+        $quartier = Quartier::find($request->quartier_id);
+        $hotel->update(array_merge(
+            $this->withPicture($request, $hotel), [
+                /* 'arrondissement_id' => $quartier->arrondissement->id,
+                'commune_id' => $quartier->arrondissement->commune->id,
+                'departement_id' => $quartier->arrondissement->commune->departement->id, */
+            ]
+        ));
         return
             redirect()
             ->route('super-admin.hotels.index')

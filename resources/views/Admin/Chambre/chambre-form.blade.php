@@ -8,7 +8,7 @@
         <h1 class="fw-bold">{{ $chambre->exists ? 'Éditer une Chambre' : 'Créer une Chambre' }}</h1>
     </div>
 
-    <form method="POST" action="{{ route($chambre->exists ? 'admin.chambres.update' : 'admin.chambres.store', ['chambre' => $chambre->id]) }}">
+    <form method="POST" action="{{ route($chambre->exists ? 'admin.chambres.update' : 'admin.chambres.store', ['chambre' => $chambre->id]) }}" enctype="multipart/form-data">
         @csrf
         @method($chambre->exists ? 'put' : 'post')
 

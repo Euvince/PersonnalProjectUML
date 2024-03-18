@@ -8,7 +8,7 @@
         <h1 class="fw-bold">{{ $hotel->exists ? 'Éditer un Hôtel' : 'Créer un Hôtel' }}</h1>
     </div>
 
-    <form method="POST" action="{{ route($hotel->exists ? 'super-admin.hotels.update' : 'super-admin.hotels.store', ['hotel' => $hotel->id]) }}">
+    <form method="POST" action="{{ route($hotel->exists ? 'super-admin.hotels.update' : 'super-admin.hotels.store', ['hotel' => $hotel->id]) }}" enctype="multipart/form-data">
         @csrf
         @method($hotel->exists ? 'put' : 'post')
 
@@ -31,7 +31,7 @@
         <div class="row">
             <div class="col row">
                 <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="directeur" label="Directeur" type="text" name="directeur" placeholder="Directeur"  readonly="" value="{{ $hotel->directeur }}" />
-                <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="photo" label="Photo" type="file" name="photo" placeholder="photo"  readonly="" value="{{ $hotel->photo }}" />
+                <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="photo" label="Photo" type="file" name="photo" placeholder="Photo"  readonly="" value="{{ $hotel->photo }}" />
                 <div class="form-group col">
                 </div>
             </div>
