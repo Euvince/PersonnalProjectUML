@@ -2,17 +2,21 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Arrondissement;
+use App\Models\User;
 use App\Models\Commune;
-use App\Models\Departement;
-use App\Models\Quartier;
-use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use App\Models\Quartier;
+use App\Models\Departement;
+use App\Models\Arrondissement;
+use App\Models\Hotel;
+use Illuminate\Contracts\View\View;
 
 class SuperAdminUserDynamicSelect extends Component
 {
 
-    public $hotel;
+    public User $user;
+
+    public $hotels;
 
     public $quartiers;
 
@@ -21,6 +25,8 @@ class SuperAdminUserDynamicSelect extends Component
     public $departements;
 
     public $arrondissements;
+
+    public $selectedHotel;
 
     public $selectedQuartier;
 
@@ -33,11 +39,13 @@ class SuperAdminUserDynamicSelect extends Component
 
     public function mount() : void
     {
-        if(!is_null($this->hotel->quartier)){
-            $this->selectedQuartier = $this->hotel->quartier_id;
-            $this->selectedArrondissement = $this->hotel->quartier->arrondissement_id;
-            $this->selectedCommune = $this->hotel->quartier->arrondissement->commune_id;
-            $this->selectedDepartement = $this->hotel->quartier->arrondissement->commune->departement_id;
+
+        if(!is_null($this->user->hotel)){
+            $this->selectedHotel = $this->user->hotel_id;
+            $this->selectedQuartier = $this->user->hotel->quartier_id;
+            $this->selectedArrondissement = $this->user->hotel->quartier->arrondissement_id;
+            $this->selectedCommune = $this->user->hotel->quartier->arrondissement->commune_id;
+            $this->selectedDepartement = $this->user->hotel->quartier->arrondissement->commune->departement_id;
         }
 
         /* if(old('quartier_id')) {
@@ -94,12 +102,19 @@ class SuperAdminUserDynamicSelect extends Component
     public function updatedSelectedArrondissement(int $arrondissement_id)
     {
         $this->quartiers = Quartier::where('arrondissement_id', $arrondissement_id)->orderBy('nom', 'ASC')->get();
+        if($this->quartiers->isNotEmpty()) {
+            $this->hotels = Hotel::where('quartier_id', $this->quartiers->sortBy('nom')->first()->id)->get();
+        }
+        else {
+            $this->hotels = [];
+        }
         $this->selectedCommune = Arrondissement::find($arrondissement_id)->commune_id;
         $this->selectedDepartement = Commune::find($this->selectedCommune)->departement_id;
     }
 
     public function updatedSelectedQuartier(int $quartier_id) : void
     {
+        $this->hotels = Hotel::where('quartier_id', $quartier_id)->orderBy('nom', 'ASC')->get();
         $this->selectedArrondissement = Quartier::find($quartier_id)->arrondissement_id;
         $this->selectedCommune = Arrondissement::find($this->selectedArrondissement)->commune_id;
         $this->selectedDepartement = Commune::find($this->selectedCommune)->departement_id;

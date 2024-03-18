@@ -4,12 +4,14 @@ namespace App\Http\Controllers\SuperAdmin;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Hotel;
+use App\Models\Quartier;
+use App\Models\Departement;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\SuperAdmin\UserFormRequest;
-use App\Models\Hotel;
 
 class UserController extends Controller
 {
@@ -33,12 +35,50 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user) : View
+    public function edit(User $user) : View | RedirectResponse
     {
+        $departements = Departement::has('communes', '>=', 1)->orderBy('nom', 'ASC')->get();
+        if ($departements->isEmpty()) {
+            return redirect()
+            ->route('super-admin.users.index')
+            ->with('error', 'Veuillez disposer d\'un Département contenant au moins une commune d\'abord.');
+        }
+
+        $communes = $departements->first()->communes->sortBy('nom');
+        if ($communes->isEmpty()) {
+            return redirect()
+            ->route('super-admin.users.index')
+            ->with('error', 'Veuillez disposer d\'une Commune contenant au moins un arrondissement d\'abord.');
+        }
+
+        $arrondissements = $communes->first()->arrondissements->sortBy('nom');
+        if ($communes->isEmpty()) {
+            return redirect()
+            ->route('super-admin.users.index')
+            ->with('error', 'Veuillez disposer d\'une Commune contenant au moins un arrondissement d\'abord.');
+        }
+
+        $quartiers = $arrondissements->first()->quartiers->sortBy('nom');
+        if ($arrondissements->isEmpty()) {
+            return redirect()
+            ->route('super-admin.users.index')
+            ->with('error', 'Vos communes doivent disposer d\'arrondissement(s) et ceux-ci de quartier(s).');
+        }
+
+        if ($quartiers->isEmpty()) {
+            return redirect()
+            ->route('super-admin.users.index')
+            ->with('error', 'Vos arrondissements doivent disposer de quartier(s) et ceux-ci d\'hôtel(s).');
+        }
+
         return view('SuperAdmin.Users.user-form', [
             'user' => $user,
             'roles' => Role::all()->pluck('name', 'id'),
-            'hotels' => Hotel::all()->sortBy('nom')->pluck('nom', 'id'),
+            'departements' => $departements,
+            'communes' => $communes,
+            'arrondissements' => $arrondissements,
+            'quartiers' => $quartiers,
+            'hotels' => $quartiers->first()->hotels->sortBy('nom'),
         ]);
     }
 

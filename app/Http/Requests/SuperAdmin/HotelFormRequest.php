@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\SuperAdmin;
 
+use Illuminate\Validation\Rule;
 use App\Rules\SameHotelForQuartier;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,9 +24,9 @@ class HotelFormRequest extends FormRequest
     public function rules(): array
     {
         if(request()->routeIs('super-admin.hotels.store')){
-            $pictureRule = 'required|image|max:5120';
+            $pictureRule = 'required|image|max:8120';
         }elseif(request()->routeIs('super-admin.hotels.update')){
-            $pictureRule = 'sometimes|image|max:5120';
+            $pictureRule = 'sometimes|image|max:8120';
         }
 
         return [
@@ -38,7 +39,12 @@ class HotelFormRequest extends FormRequest
             'longitude' => ['required', 'numeric'],
             'lattitude' => ['required', 'numeric'],
             'adresse_postale' => ['required', 'string'],
-            'email' => ['required', 'email'],
+            'email' => [
+                'required', 'email',
+                Rule::unique('hotels')
+                ->ignore($this->route()->parameter('hotel'))
+                ->withoutTrashed(),
+            ],
             'telephone' => ['required'],
             'directeur' => ['required'],
             'photo' => $pictureRule

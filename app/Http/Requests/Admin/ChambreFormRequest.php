@@ -24,9 +24,9 @@ class ChambreFormRequest extends FormRequest
     {
 
         if(request()->routeIs('admin.chambres.store')){
-            $pictureRule = 'required|image|max:5120';
+            $pictureRule = 'required|image|max:8120';
         }elseif(request()->routeIs('admin.chambres.update')){
-            $pictureRule = 'sometimes|image|max:5120';
+            $pictureRule = 'sometimes|image|max:8120';
         }
 
         return [

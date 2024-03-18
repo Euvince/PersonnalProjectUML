@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row mt-4">
     <div class="col row mx-1">
         <div class="form-group w-100">
             <label for="departement_id" class="col-form-label">Département</label>
@@ -47,6 +47,20 @@
                 @endforeach
             </select>
             @error('quartier_id')
+                <span style="color: red; font-size: 0.7rem;">{{ $message }}</span>
+            @enderror
+        </div>
+    </div>
+
+    <div class="col row mx-1">
+        <div class="form-group w-100">
+            <label for="hotel_id" class="col-form-label">Hôtels</label>
+            <select name="hotel_id" id="hotel_id" class="form-control" wire:model="selectedHotel">
+                @foreach ($hotels as $hotel)
+                    <option value="{{ $hotel->id }}">{{ $hotel->nom }}</option>
+                @endforeach
+            </select>
+            @error('hotel_id')
                 <span style="color: red; font-size: 0.7rem;">{{ $message }}</span>
             @enderror
         </div>

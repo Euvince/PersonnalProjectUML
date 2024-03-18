@@ -70,6 +70,12 @@ class HotelController extends Controller
             ->with('error', 'Veuillez disposer d\'une Commune contenant au moins un arrondissement d\'abord.');
         }
 
+        if ($arrondissements->isEmpty()) {
+            return redirect()
+            ->route('super-admin.hotels.index')
+            ->with('error', 'Vos communes doivent disposer d\'arrondissements et ceux-ci de quartier(s).');
+        }
+
         if (Quartier::all()->count() == 0) {
             return redirect()
             ->route('super-admin.hotels.index')

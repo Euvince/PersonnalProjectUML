@@ -12,6 +12,12 @@
                 <strong>{{ session('success') }}</strong>
             </div>
         @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger" role="alert">
+                <strong>{{ session('error') }}</strong>
+            </div>
+        @endif
         <div class="card">
             <div class="card-body">
                 <h4 class="header-title">Utilisateurs</h4>
