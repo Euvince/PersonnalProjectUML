@@ -81,7 +81,7 @@ class HotelController extends Controller
             'departements' => $departements,
             'communes' => $communes,
             'arrondissements' => $arrondissements,
-            'quartiers' => $arrondissements->first()?->quartiers->sortBy('nom')
+            'quartiers' => $arrondissements->first()->quartiers->sortBy('nom')
         ]);
     }
 

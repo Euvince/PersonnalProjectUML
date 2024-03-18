@@ -23,17 +23,24 @@
         @csrf
         @method('put')
 
-        @livewire('super-admin-user-dynamic-select', [
+        {{-- @livewire('super-admin-user-dynamic-select', [
             'user' => $user,
             'quartiers' => $quartiers,
             'communes' => $communes,
             'departements' => $departements,
             'arrondissements' => $arrondissements
-        ])
+        ]) --}}
+
+
+        <div class="row">
+            <div class="col row mx-1">
+                <x-select class1="form-group w-50" class2="col-form-label" class3="form-control" id="hotel_id" label="Hôtel" name="hotel_id" :value="$hotels" elementIdOnEntite="{{ $user->hotel_id }}"/>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col row">
-                <div class="form-group w-100 mx-3 mt-4">
+                <div class="form-group w-50 mx-3 mt-4">
                     <label for="roles" class="col-form-label">Rôles</label>
                     <select class="form-control" style="height: 200px;" placeholder="Choisissez quelques roles" id="roles" name="roles[]" multiple="multiple">
                         @foreach ($roles as $id => $name)

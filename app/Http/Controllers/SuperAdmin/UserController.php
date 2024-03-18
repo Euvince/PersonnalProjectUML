@@ -38,7 +38,7 @@ class UserController extends Controller
         return view('SuperAdmin.Users.user-form', [
             'user' => $user,
             'roles' => Role::all()->pluck('name', 'id'),
-            'hotels' => Hotel::all()->pluck('nom', 'id'),
+            'hotels' => Hotel::all()->sortBy('nom')->pluck('nom', 'id'),
         ]);
     }
 
