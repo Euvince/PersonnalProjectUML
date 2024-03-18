@@ -70,7 +70,7 @@ class ArrondissementsTable extends Component
             'arrondissements' => $arrondissements
                 ->orderBy($this->orderField, $this->orderDirection)
                 ->paginate(20),
-            'communes' => Commune::orderBy('nom', 'ASC')->get()
+            'communes' => Commune::has('arrondissements', '>=', 1)->orderBy('nom', 'ASC')->get()
         ]);
     }
 

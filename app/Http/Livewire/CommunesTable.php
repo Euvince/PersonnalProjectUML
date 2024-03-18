@@ -70,7 +70,7 @@ class CommunesTable extends Component
             'communes' => $communes
                 ->orderBy($this->orderField, $this->orderDirection)
                 ->paginate(20),
-            'departements' => Departement::orderBy('nom', 'ASC')->get()
+            'departements' => Departement::has('communes', '>=', 1)->orderBy('nom', 'ASC')->get()
         ]);
     }
 

@@ -70,7 +70,7 @@ class QuartiersTable extends Component
             'quartiers' => $quartiers
                 ->orderBy($this->orderField, $this->orderDirection)
                 ->paginate(20),
-            'arrondissements' => Arrondissement::orderBy('nom', 'ASC')->get()
+            'arrondissements' => Arrondissement::has('quartiers', '>=', 1)->orderBy('nom', 'ASC')->get()
         ]);
     }
 
