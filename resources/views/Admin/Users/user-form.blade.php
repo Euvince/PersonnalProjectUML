@@ -19,6 +19,17 @@
         </p>
     </div>
 
+    <div class="row mx-2 mt-2 mb-2">
+        <p><strong>Les permissions actuelles : </strong> <br>
+            @foreach ($user->permissions as $permission)
+                -{{ $permission->name }}
+                @if (!$loop->last)
+                    , <br>
+                @endif
+            @endforeach
+        </p>
+    </div>
+
     <form method="POST" action="{{ route('admin.users.update', ['user' => $user->id]) }}">
         @csrf
         @method('put')

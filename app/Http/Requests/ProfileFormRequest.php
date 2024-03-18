@@ -35,7 +35,12 @@ class ProfileFormRequest extends FormRequest
             ],
             'prenoms' => ['required', 'string', 'max:255'],
             'password' => $this->passwordRules(),
-            'telephone' => ['required', 'string',],
+            'telephone' => [
+                'required', 'string',
+                Rule::unique('hotels')
+                ->ignore($this->route()->parameter('user'))
+                ->withoutTrashed(),
+            ],
             'nationnalite' => ['required', 'string',],
             'date_naissance' => ['required', 'string', new UserBirthDayRule()],
         ];

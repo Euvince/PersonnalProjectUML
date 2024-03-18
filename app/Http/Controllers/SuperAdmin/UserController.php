@@ -73,7 +73,7 @@ class UserController extends Controller
 
         return view('SuperAdmin.Users.user-form', [
             'user' => $user,
-            'roles' => Role::all()->pluck('name', 'id'),
+            'roles' => Role::where('name', '!=', 'Client')->pluck('name', 'id'),
             'departements' => $departements,
             'communes' => $communes,
             'arrondissements' => $arrondissements,
@@ -109,13 +109,24 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(User $user) : RedirectResponse
     {
         $user->delete();
         return
             redirect()
             ->route('super-admin.users.index')
             ->with('success', 'L\'Utilisateur a été supprimé avec succès.');
+    }
+
+    public function licencier(User $user) : RedirectResponse
+    {
+        $user->update(['hotel_id' => NULL]);
+        $user->roles()->sync(['Client']);
+        $user->syncPermissions(['Réserver une Chambre', 'Demander un Service']);
+        return
+            redirect()
+            ->route('super-admin.users.index')
+            ->with('success', 'L\'Utilisateur est devenu simplement client avec succès.');
     }
 
 }

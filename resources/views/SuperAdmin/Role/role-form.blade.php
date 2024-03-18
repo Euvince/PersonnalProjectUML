@@ -8,6 +8,17 @@
         <h1 class="fw-bold">{{ $role->exists ? 'Éditer un Rôle' : 'Créer un Rôle' }}</h1>
     </div>
 
+    <div class="row mx-2 mt-2 mb-2">
+        <p><strong>Les permissions actuelles : </strong> <br>
+            @foreach ($role->permissions as $permission)
+                -{{ $permission->name }}
+                @if (!$loop->last)
+                    , <br>
+                @endif
+            @endforeach
+        </p>
+    </div>
+
     <form method="POST" action="{{ route($role->exists ? 'super-admin.roles.update' : 'super-admin.roles.store', ['role' => $role->id]) }}">
         @csrf
         @method($role->exists ? 'put' : 'post')

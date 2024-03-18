@@ -28,7 +28,7 @@ class TypeServiceFormRequest extends FormRequest
                 ->ignore($this->route()->parameter('type_service'))
                 ->withoutTrashed(),
             ],
-            'prix' => ['required'],
+            'prix' => ['required', 'numeric'],
         ];
     }
 }

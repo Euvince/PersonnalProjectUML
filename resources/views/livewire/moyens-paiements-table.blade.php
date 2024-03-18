@@ -1,6 +1,6 @@
 <div class="row" x-data = "{ moyensChecked : @entangle('moyensChecked').defer }">
     <div class="search-box pull-left mt-5 ml-3">
-        <input type="text" name="search" placeholder="Rechercher..." required wire:model="nom">
+        <input type="text" name="search" placeholder="Rechercher..." required wire:model="moyen">
     </div>
     <div class="col-12 mt-5">
         <div class="row ml-2">

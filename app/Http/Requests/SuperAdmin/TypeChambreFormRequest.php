@@ -28,7 +28,7 @@ class TypeChambreFormRequest extends FormRequest
                 ->ignore($this->route()->parameter('type_chambre'))
                 ->withoutTrashed(),
             ],
-            'prix_par_nuit' => ['required'],
+            'prix_par_nuit' => ['required', 'numeric'],
         ];
     }
 }

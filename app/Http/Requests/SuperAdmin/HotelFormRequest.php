@@ -45,7 +45,12 @@ class HotelFormRequest extends FormRequest
                 ->ignore($this->route()->parameter('hotel'))
                 ->withoutTrashed(),
             ],
-            'telephone' => ['required'],
+            'telephone' => [
+                'required',
+                Rule::unique('hotels')
+                ->ignore($this->route()->parameter('hotel'))
+                ->withoutTrashed(),
+            ],
             'directeur' => ['required'],
             'photo' => $pictureRule
         ];

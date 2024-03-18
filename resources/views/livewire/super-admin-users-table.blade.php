@@ -32,6 +32,7 @@
                                     <x-table-header label="Prénoms" :direction="$orderDirection" name="prenoms" :field="$orderField"></x-table-header>
                                     <x-table-header label="Email" :direction="$orderDirection" name="email" :field="$orderField"></x-table-header>
                                     <x-table-header label="Nationnalité" :direction="$orderDirection" name="nationnalite" :field="$orderField"></x-table-header>
+                                    <td style="cursor: pointer; font-weight:bold;">Hôtel</td>
                                     <td style="cursor: pointer; font-weight:bold;">Rôle(s)</td>
                                     <th scope="col">Actions</th>
                                 </tr>
@@ -47,6 +48,7 @@
                                         <td>{{ $user->prenoms }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->nationnalite }}</td>
+                                        <td>{{ $user->hotel_id === NULL ? 'Aucun' : $user->hotel->nom }}</td>
                                         <td>
                                             @foreach ($user->roles as $role)
                                                 {{ $role->name }}
@@ -57,6 +59,11 @@
                                         </td>
                                         <td>
                                             <ul class="d-flex justify-content-center">
+                                                <form action="{{ route('super-admin.users.licenciement', ['user' => $user->id]) }}" class="mr-3" method="POST">
+                                                    @csrf
+                                                    @method('patch')
+                                                    <button class="text-success" style="border: none; background: white;"><i class="fa-solid fa-arrow-left"></i></button>
+                                                </form>
                                                 <li class="mr-3"><a href="{{ route('super-admin.users.show', ['user' => $user->id]) }}" class="text-primary"><i class="fa-solid fa-eye"></i></a></li>
                                                 <li class="mr-3"><a href="{{ route('super-admin.users.edit', ['user' => $user->id]) }}" class="text-secondary"><i class="fa fa-edit"></i></a></li>
                                                 <li><a href="" class="text-danger" data-target="#modal{{ $user->id }}" data-toggle="modal"><i class="ti-trash"></i></a></li>

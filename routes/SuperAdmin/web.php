@@ -76,9 +76,9 @@ Route::group(['middleware' => ['auth', 'permission:Gérer les Rôles'], 'prefix'
     ->where(['user' => $idRegex])
     ->name('users.destroy');
 
-    /* Route::patch('users/{user}/licenciement', [UserController::class, 'licencier'])
+    Route::patch('users/{user}/licenciement', [UserController::class, 'licencier'])
     ->name('users.licenciement')
     ->where([
         'user' => $idRegex
-    ]); */
+    ]);
 });

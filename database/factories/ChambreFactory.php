@@ -18,7 +18,7 @@ class ChambreFactory extends Factory
     {
         $chambres = [
             '1.png','2.png','3.png','4.png','5.png','6.png','7.png','8.png','9.png','10.png',
-            '11.jpg','12.jpg','13.jpg','14.jpg',
+            '11.jpg','12.jpg','13.jpg','14.jpg','15.jpeg','16.jpeg','17.jpeg','18.jpeg',
         ];
 
         return [

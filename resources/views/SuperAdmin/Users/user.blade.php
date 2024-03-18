@@ -11,6 +11,7 @@
             <div class="single-table">
                 <div class="row">
                     <div class="col">
+                        <p><strong>Nom : </strong> {{ $user->hotel->nom }}</p>
                         <p><strong>Nom : </strong> {{ $user->nom }}</p>
                         <p><strong>Prénoms : </strong> {{ Str::ucfirst($user->prenoms) }}</p>
                         <p><strong>Email : </strong> {{ $user->email }}</p>

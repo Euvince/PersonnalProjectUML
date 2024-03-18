@@ -21,7 +21,7 @@ return new class extends Migration
             $table->float('lattitude');
             $table->string('adresse_postale');
             $table->string('email')->unique();
-            $table->string('telephone');
+            $table->string('telephone')->unique();
             $table->string('directeur');
             $table->string('photo')->nullable();
             $table->unsignedBigInteger('quartier_id');

@@ -34,7 +34,11 @@ class CreateNewUser implements CreatesNewUsers
             ],
             'prenoms' => ['required', 'string', 'max:255'],
             'password' => $this->passwordRules(),
-            'telephone' => ['required', 'string',],
+            'telephone' => [
+                'required', 'string',
+                Rule::unique('hotels')
+                ->withoutTrashed(),
+            ],
             'nationnalite' => ['required', 'string',],
             'date_naissance' => ['required', 'string', new UserBirthDayRule()],
         ])->validate();
