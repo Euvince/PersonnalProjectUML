@@ -28,7 +28,7 @@
 
         <div class="row">
             <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="telephone_client" label="Téléphone du client" type="text" name="telephone_client" placeholder="Téléphone"  readonly="" value="{{ $reservation->telephone_client }}" />
-            <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="debut_sejour" label="Début du séjour" type="date" name="debut_sejour" placeholder="Début du séjour"  readonly="" value="{{ $reservation->debut_sejour->format('Y-m-d') }}" />
+            <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="debut_sejour" label="Début du séjour" type="date" name="debut_sejour" placeholder="Début du séjour"  readonly="{{ $reservation->isConfirmed() ? 'readonly' : '' }}" value="{{ $reservation->debut_sejour->format('Y-m-d') }}" />
             <x-input class1="form-group col" class2="form-label mt-4" class3="form-control" id="fin_sejour" label="Fin du séjour" type="date" name="fin_sejour" placeholder="Fin du séjour"  readonly="" value="{{ $reservation->fin_sejour->format('Y-m-d') }}" />
         </div>
 

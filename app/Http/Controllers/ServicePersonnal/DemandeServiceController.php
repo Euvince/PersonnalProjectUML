@@ -37,7 +37,7 @@ class DemandeServiceController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create() : View
+    public function create() : View | RedirectResponse
     {
         $demandeService = new Service();
 
@@ -48,10 +48,18 @@ class DemandeServiceController extends Controller
             'telephone_client' => "+229 65141420",
         ]);
 
+        $auth_chambres = Auth::user()->hotel->chambres->where('occupe', 1)/* ->sortBy('libelle') */->pluck('libelle', 'id');
+        if ($auth_chambres->isEmpty()) {
+            return
+                redirect()
+                ->route('service-personnal.demande-service.index')
+                ->with('error', 'Aucune chambre n\'est encore occupée pour que vous éffectuer cette action');
+        }
+
        return view('ServicePersonnal.DemandeService.demande-service-form', [
             'demandeService' =>  $demandeService,
             'typesServices' => TypeService::all()->pluck('type', 'id'),
-            'chambres' => Auth::user()->hotel->chambres->where('occupe', 1)/* ->sortBy('libelle') */->pluck('libelle', 'id'),
+            'chambres' => $auth_chambres,
        ]);
     }
 
@@ -72,7 +80,7 @@ class DemandeServiceController extends Controller
         ) {
             return
                 back()
-                ->with('error', 'Revérifiez les informations du client occupant la chamnbre s\'il vous plaît.')
+                ->with('error', 'Revérifiez les informations du client occupant la chambre s\'il vous plaît.')
                 ->withInput();
         }
 

@@ -248,6 +248,10 @@ class ClientController extends Controller
         return
             back()
             ->withErrors(['error' => 'La demande est déjà rendue.']);
+        if (!$demande_service->chambre->isOccupied())
+        return
+            back()
+            ->withErrors(['error' => 'La chambre n\'est plus occupée.']);
         if ($demande_service->chambre->isOccupied() &&
             $demande_service->chambre->reservations->where('confirme', 1)
             ->where('user_id', Auth::user()->id)
@@ -270,6 +274,10 @@ class ClientController extends Controller
         return
             back()
             ->withErrors(['error' => 'La demande est déjà rendue.']);
+        if (!$demande_service->chambre->isOccupied())
+        return
+            back()
+            ->withErrors(['error' => 'La chambre n\'est plus occupée.']);
         $demande_service->delete();
         return
             back()

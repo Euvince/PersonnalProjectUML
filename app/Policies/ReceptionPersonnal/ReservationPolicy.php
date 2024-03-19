@@ -39,7 +39,8 @@ class ReservationPolicy
     public function update(User $user, Reservation $reservation): bool
     {
         return $user->can('Gérer les Réservations')
-            && $reservation->chambre->hotel_id === $user->hotel_id;
+            && $reservation->chambre->hotel_id === $user->hotel_id
+            && !$reservation->isFinished();
     }
 
     /**
@@ -48,7 +49,8 @@ class ReservationPolicy
     public function delete(User $user, Reservation $reservation): bool
     {
         return $user->can('Gérer les Réservations')
-            && $reservation->chambre->hotel_id === $user->hotel_id;
+            && $reservation->chambre->hotel_id === $user->hotel_id
+            && !$reservation->isFinished();
     }
 
     /**
@@ -66,13 +68,15 @@ class ReservationPolicy
     public function forceDelete(User $user, Reservation $reservation): bool
     {
         return $user->can('Gérer les Réservations')
-            && $reservation->chambre->hotel_id === $user->hotel_id;
+            && $reservation->chambre->hotel_id === $user->hotel_id
+            && !$reservation->isFinished();
     }
 
     public function confirmReservation (User $user, Reservation $reservation): bool
     {
         return $user->can('Gérer les Réservations')
-            && $reservation->chambre->hotel_id === $user->hotel_id;
+            && $reservation->chambre->hotel_id === $user->hotel_id
+            && !$reservation->isConfirmed();
     }
 
 }

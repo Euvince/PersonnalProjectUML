@@ -160,11 +160,11 @@ class ReservationController extends Controller
             ->with('error', 'La chambre est déjà réservée pour la période que vous indiquez.')
             ->withInput();
 
-        $paiement = Paiement::find($reservation->paiement->id);
-        $paiement->delete();
+        $paiement = Paiement::where('reservation_id', $reservation->id)->first();
+        /* $paiement->delete();
         foreach ($paiement->factures as $facture) {
             $facture->delete();
-        }
+        } */
 
         $reservation->update($request->validated());
 
@@ -173,7 +173,7 @@ class ReservationController extends Controller
 
         /* auth()->user()->charge($montant, $request->payment_method, User::stripeOptions()); */
 
-        $paiement = Paiement::create([
+        /* $paiement = Paiement::create([
             'montant' => $montant,
             'user_id' => Auth::user()->id,
             'reservation_id' => $reservation->id,
@@ -183,11 +183,30 @@ class ReservationController extends Controller
             'telephone_client' => $reservation->telephone_client,
             'date_paiement' => Carbon::now()->format('Y-m-d'),
             'moyen_paiement_id' => MoyenPaiement::where('moyen', 'STRIPE')->first()->id
+        ]); */
+
+        $paiement->update([
+            'montant' => $montant,
+            'nom_client' => $reservation->nom_client,
+            'prenoms_client' => $reservation->prenoms_client,
+            'email_client' => $reservation->email_client,
+            'telephone_client' => $reservation->telephone_client,
+            'date_paiement' => Carbon::now()->format('Y-m-d'),
         ]);
 
-        $facture = Facture::create([
+        $facture = Facture::where('paiement_id', $paiement->id)->first();
+
+        /* $facture = Facture::create([
             'type' => 'départ',
             'paiement_id' => $paiement->id,
+            'montant_total' => $paiement->montant,
+            'nom_client' => $reservation->nom_client,
+            'prenoms_client' => $reservation->prenoms_client,
+            'email_client' => $reservation->email_client,
+            'telephone_client' => $reservation->telephone_client,
+        ]); */
+
+        $facture->update([
             'montant_total' => $paiement->montant,
             'nom_client' => $reservation->nom_client,
             'prenoms_client' => $reservation->prenoms_client,
@@ -229,13 +248,13 @@ class ReservationController extends Controller
 
     public function confirmReservation(Reservation $reservation) : RedirectResponse
     {
-        $this->authorize('confirmReservation', $reservation);
+        /* $this->authorize('confirmReservation', $reservation);
         if (!$reservation->canBeConfirmed()) {
             return
                 redirect()
                 ->route('reception-personnal.reservations.index')
                 ->with('error', 'La période de réservation n\'étant pas atteinte, vous ne pouvez donc pas confirmez cette réservation.');
-        }
+        } */
         if (Reservation::query()
             ->where('debut_sejour', '<=', $reservation->debut_sejour)
             ->where('chambre_id', $reservation->chambre_id)

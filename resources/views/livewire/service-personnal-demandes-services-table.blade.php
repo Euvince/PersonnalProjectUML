@@ -46,7 +46,7 @@
                                         <span class="badge bg-primary rounded-pill">{{ number_format($service->TypeService->prix, 0, ',', '.')}}$</span>
                                     </li>
                                     <div class="d-flex">
-                                        @if (!$service->isRendered())
+                                        @if (!$service->isRendered() && $service->chambre->isOccupied())
                                             <form action="{{ route('service-personnal.demande.confirm', ['demande_service' => $service->id]) }}" method="POST" class="mx-1">
                                                 @csrf
                                                 @method('patch')
@@ -55,7 +55,7 @@
                                             <a href="{{ route('service-personnal.demande.cannotrendered', ['demande_service' => $service->id]) }}" class="btn btn-danger btn-sm mx-1"><i class="fa-solid fa-x"></i></a>
                                         @endif
                                         <a href="{{ route('service-personnal.demande-service.show', ['demande_service' => $service->id]) }}" class="btn btn-primary btn-sm mx-1"><i class="fa-solid fa-eye"></i></a>
-                                        @if (!$service->isRendered())
+                                        @if (!$service->isRendered()&& $service->chambre->isOccupied())
                                             <a href="{{ route('service-personnal.demande-service.edit', ['demande_service' => $service->id]) }}" class="btn btn-warning btn-sm mx-1"><i class="fa fa-edit"></i></a>
                                             <a href="" class="btn btn-danger btn-sm mx-1"  data-target="#modal{{ $service->id }}" data-toggle="modal"><i class="fa fa-trash"></i></a>
                                         @endif

@@ -75,10 +75,11 @@ class Reservation extends Model
     }
 
     public function getServicesPrice() : float {
-        foreach($this->chambre->services->where('rendu', 1) as $service) {
+        $services = $this->chambre->services->where('rendu', 1);
+        foreach($services as $service) {
             $services_price = $service->TypeService->prix;
         }
-        return $services_price;
+        return $services->count() > 0 ? $services_price : 0;
     }
 
     public function getTotalPriceForCheckOut() : float {
