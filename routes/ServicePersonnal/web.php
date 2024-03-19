@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => ['auth', 'permission:Gérer les Demandes de Services'], 'prefix' => 'service-personnal', 'as' => 'service-personnal.'], function () {
+Route::group(['middleware' => ['auth', 'verified', 'permission:Gérer les Demandes de Services'], 'prefix' => 'service-personnal', 'as' => 'service-personnal.'], function () {
     Route::resource('demande-service', DemandeServiceController::class);
 
     $idRegex = '[0-9]+';

@@ -33,6 +33,9 @@
                 <div class="w-100">
                     <label for="description" class="form-label mt-4">Description</label>
                     <textarea class="form-control" id="description" name="description" rows="3">{{ $chambre->description }}</textarea>
+                    @error('description')
+                        <span style="color: red; font-size: 0.7rem;">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
         </div>

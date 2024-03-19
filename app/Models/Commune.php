@@ -37,6 +37,9 @@ class Commune extends Model
             });
 
             static::deleting(function ($commune) use ($userFullName) {
+                $commune->arrondissements->each(function ($arrondissement) {
+                    $arrondissement->delete();
+                });
                 $commune->deleted_by = $userFullName;
                 $commune->save();
             });

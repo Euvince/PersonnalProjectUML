@@ -38,6 +38,9 @@ class Arrondissement extends Model
             });
 
             static::deleting(function ($arrondissement) use ($userFullName) {
+                $arrondissement->quartiers->each(function ($quartier) {
+                    $quartier->delete();
+                });
                 $arrondissement->deleted_by = $userFullName;
                 $arrondissement->save();
             });

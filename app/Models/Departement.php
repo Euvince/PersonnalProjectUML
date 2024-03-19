@@ -35,6 +35,9 @@ class Departement extends Model
             });
 
             static::deleting(function ($departement) use ($userFullName) {
+                $departement->communes->each(function ($commune) {
+                    $commune->delete();
+                });
                 $departement->deleted_by = $userFullName;
                 $departement->save();
             });

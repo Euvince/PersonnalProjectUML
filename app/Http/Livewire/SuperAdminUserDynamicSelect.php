@@ -85,6 +85,12 @@ class SuperAdminUserDynamicSelect extends Component
         else {
             $this->quartiers = [];
         }
+        if ($this->quartiers->isNotEmpty()) {
+            $this->hotels = Hotel::where('quartier_id', $this->quartiers->sortBy('nom')->first()->id)->get();
+        }
+        else {
+            $this->hotels = [];
+        }
     }
 
     public function updatedSelectedCommune(int $commune_id) : void
@@ -95,6 +101,12 @@ class SuperAdminUserDynamicSelect extends Component
         }
         else {
             $this->quartiers = [];
+        }
+        if ($this->quartiers->isNotEmpty()) {
+            $this->hotels = Hotel::where('quartier_id', $this->quartiers->sortBy('nom')->first()->id)->get();
+        }
+        else {
+            $this->hotels = [];
         }
         $this->selectedDepartement = Commune::find($commune_id)->departement_id;
     }
@@ -116,6 +128,14 @@ class SuperAdminUserDynamicSelect extends Component
     {
         $this->hotels = Hotel::where('quartier_id', $quartier_id)->orderBy('nom', 'ASC')->get();
         $this->selectedArrondissement = Quartier::find($quartier_id)->arrondissement_id;
+        $this->selectedCommune = Arrondissement::find($this->selectedArrondissement)->commune_id;
+        $this->selectedDepartement = Commune::find($this->selectedCommune)->departement_id;
+    }
+
+    public function updatedSelectedHotel(int $hotel_id) : void
+    {
+        $this->selectedQuartier = Hotel::find($hotel_id)->quartier_id;
+        $this->selectedArrondissement = Quartier::find($this->selectedQuartier)->arrondissement_id;
         $this->selectedCommune = Arrondissement::find($this->selectedArrondissement)->commune_id;
         $this->selectedDepartement = Commune::find($this->selectedCommune)->departement_id;
     }

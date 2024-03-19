@@ -37,7 +37,7 @@ class ProfileFormRequest extends FormRequest
             'password' => $this->passwordRules(),
             'telephone' => [
                 'required', 'string',
-                Rule::unique('hotels')
+                Rule::unique('users')
                 ->ignore($this->route()->parameter('user'))
                 ->withoutTrashed(),
             ],

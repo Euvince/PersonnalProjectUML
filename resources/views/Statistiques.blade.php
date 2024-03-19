@@ -1,3 +1,21 @@
+@php
+    use App\Models\User;
+    use App\Models\Hotel;
+    use App\Models\Chambre;
+
+    $pbedrooms = Chambre::where('hotel_id', auth()->user()->hotel_id)->count();
+
+    $ausers = User::where('hotel_id', auth()->user()->hotel_id)->count();
+
+    $pusers = User::whereHas('roles', function ($query) {
+        $query->where('name', 'Client');
+    })->where('hotel_id', auth()->user()->hotel_id)->get()->count();
+
+    $spusers = User::all()->count();
+
+    $sphotels = Hotel::all()->count();
+@endphp
+
 @extends('SuperAdmin.layouts.template')
 
 @section('content')
@@ -10,8 +28,23 @@
                 <div class="card">
                     <div class="seo-fact sbg1">
                         <div class="p-4 d-flex justify-content-between align-items-center">
-                            <div class="seofct-icon"><i class="ti-thumb-up"></i> Likes</div>
-                            <h2>2,315</h2>
+                            <div class="seofct-icon">{{-- <i class="ti-thumb-up"></i> Likes --}}<i class="fa-solid fa-users"></i>
+                                @hasanyrole(['Super Admin', 'Administrateur'])
+                                    Users
+                                @else Clients
+                                @endhasanyrole
+                            </div>
+                            <h2>
+                                @hasrole('Super Admin')
+                                    {{ $spusers }}
+                                @endhasrole
+                                @hasrole('Administrateur')
+                                    {{ $ausers }}
+                                @endhasrole
+                                @hasanyrole(['Personnel de Service', 'Personnel de Réception'])
+                                    {{ $pusers }}
+                                @endhasanyrole
+                            </h2>
                         </div>
                         <canvas id="seolinechart1" height="50"></canvas>
                     </div>
@@ -21,8 +54,18 @@
                 <div class="card">
                     <div class="seo-fact sbg2">
                         <div class="p-4 d-flex justify-content-between align-items-center">
-                            <div class="seofct-icon"><i class="ti-share"></i> Share</div>
-                            <h2>3,984</h2>
+                            <div class="seofct-icon">{{-- <i class="ti-share"></i> Share --}}<i class="fa-solid fa-hotel"></i>
+                                @can('Gérer les Hôtels')
+                                    Hotels
+                                @else Chambres
+                                @endcan
+                            </div>
+                            <h2>
+                                @can('Gérer les Hôtels')
+                                    {{ $sphotels }}
+                                @else {{ $pbedrooms }}
+                                @endcan
+                            </h2>
                         </div>
                         <canvas id="seolinechart2" height="50"></canvas>
                     </div>

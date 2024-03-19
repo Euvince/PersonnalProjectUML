@@ -73,7 +73,7 @@ class UserController extends Controller
 
         return view('SuperAdmin.Users.user-form', [
             'user' => $user,
-            'roles' => Role::where('name', '!=', 'Client')->pluck('name', 'id'),
+            'roles' => Role::/* where('name', '!=', 'Client') */all()->pluck('name', 'id'),
             'departements' => $departements,
             'communes' => $communes,
             'arrondissements' => $arrondissements,
@@ -121,7 +121,7 @@ class UserController extends Controller
     public function licencier(User $user) : RedirectResponse
     {
         $user->update(['hotel_id' => NULL]);
-        $user->roles()->sync(['Client']);
+        $user->roles()->sync([Role::where('name', 'Client')->first()->id]);
         $user->syncPermissions(['Réserver une Chambre', 'Demander un Service']);
         return
             redirect()

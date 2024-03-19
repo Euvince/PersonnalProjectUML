@@ -37,6 +37,9 @@ class Quartier extends Model
             });
 
             static::deleting(function ($quartier) use ($userFullName) {
+                $quartier->hotels->each(function ($hotel) {
+                    $hotel->delete();
+                });
                 $quartier->deleted_by = $userFullName;
                 $quartier->save();
             });

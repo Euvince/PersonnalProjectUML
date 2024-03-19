@@ -65,11 +65,11 @@
                             <div class="dropdown-menu">
                                 {{-- <a class="dropdown-item" href="#">Message</a>
                                 <a class="dropdown-item" href="#">Settings</a> --}}
-                                <a class="dropdown-item" href="{{ route('personnal-profile.show', ['user' => auth()->user()->id]) }}" style="font-weight: bold;"><i class="fa-solid fa-user"></i> Profile</a>
+                                <a class="dropdown-item" href="{{ route('personnal-profile.show', ['user' => auth()->user()->id]) }}" style="font-weight: bold;"><i class="fa-solid fa-user" style="margin-right: 7px;"></i>Profile</a>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
                                     @method('post')
-                                    <button type="submit" class="dropdown-item" style="font-weight: bold;"><i class="fa-solid fa-user"></i> Déconnexion</button>
+                                    <button type="submit" class="dropdown-item" style="font-weight: bold;"><i class="fa-solid fa-right-from-bracket" style="margin-right: 7px;"></i>Déconnexion</button>
                                 </form>
                             </div>
                         </div>

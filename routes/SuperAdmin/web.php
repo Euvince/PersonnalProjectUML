@@ -23,23 +23,23 @@ use App\Http\Controllers\SuperAdmin\UserController;
 |
 */
 
-Route::group(['middleware' => ['auth', 'permission:Gérer les Départements'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
+Route::group(['middleware' => ['auth', 'verified', 'permission:Gérer les Départements'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
     Route::resource('departements', DepartementController::class);
 });
 
-Route::group(['middleware' => ['auth', 'permission:Gérer les Communes'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
+Route::group(['middleware' => ['auth', 'verified', 'permission:Gérer les Communes'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
     Route::resource('communes', CommuneController::class);
 });
 
-Route::group(['middleware' => ['auth', 'permission:Gérer les Arrondissements'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
+Route::group(['middleware' => ['auth', 'verified', 'permission:Gérer les Arrondissements'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
     Route::resource('arrondissements', ArrondissementController::class);
 });
 
-Route::group(['middleware' => ['auth', 'permission:Gérer les Quartiers'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
+Route::group(['middleware' => ['auth', 'verified', 'permission:Gérer les Quartiers'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
     Route::resource('quartiers', QuartierController::class);
 });
 
-Route::group(['middleware' => ['auth', 'permission:Gérer les Hôtels'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
+Route::group(['middleware' => ['auth', 'verified', 'permission:Gérer les Hôtels'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
     Route::resource('hotels', HotelController::class);
 });
 
@@ -47,19 +47,19 @@ Route::group(['middleware' => ['auth', 'permission:Gérer les Types de Chambres'
     Route::resource('type-chambre', TypeChambreController::class);
 });
 
-Route::group(['middleware' => ['auth', 'permission:Gérer les Types de Services'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
+Route::group(['middleware' => ['auth', 'verified', 'permission:Gérer les Types de Services'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
     Route::resource('type-service', TypeServiceController::class);
 });
 
-Route::group(['middleware' => ['auth', 'permission:Gérer les Moyens de Paiement'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
+Route::group(['middleware' => ['auth', 'verified', 'permission:Gérer les Moyens de Paiement'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
     Route::resource('moyen-paiement', MoyenPaiementController::class);
 });
 
-Route::group(['middleware' => ['auth', 'permission:Gérer les Rôles'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
+Route::group(['middleware' => ['auth', 'verified', 'permission:Gérer les Rôles'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
     Route::resource('roles', RoleController::class);
 });
 
-Route::group(['middleware' => ['auth', 'permission:Gérer les Rôles'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
+Route::group(['middleware' => ['auth', 'verified', 'permission:Gérer les Rôles'], 'prefix' => 'super-admin', 'as' => 'super-admin.'], function () {
     Route::get('users', [UserController::class, 'index'])->name('users.index');
     Route::get('users/{user}', [UserController::class, 'show'])->name('users.show');
 

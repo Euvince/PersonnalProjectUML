@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => ['auth', 'permission:Gérer les Réservations'], 'prefix' => 'reception-personnal', 'as' => 'reception-personnal.'], function () {
+Route::group(['middleware' => ['auth', 'verified', 'permission:Gérer les Réservations'], 'prefix' => 'reception-personnal', 'as' => 'reception-personnal.'], function () {
     Route::resource('reservations', ReservationController::class);
 
     $idRegex = '[0-9]+';
@@ -28,7 +28,7 @@ Route::group(['middleware' => ['auth', 'permission:Gérer les Réservations'], '
     Route::get('factures/{facture}', [FactureController::class, 'show'])->name('factures.show');
 });
 
-Route::group(['middleware' => ['auth', 'permission:Gérer les Réservations|Gérer les Demandes de Services'], 'prefix' => 'personnal', 'as' => 'personnal.'], function () {
+Route::group(['middleware' => ['auth', 'verified', 'permission:Gérer les Réservations|Gérer les Demandes de Services'], 'prefix' => 'personnal', 'as' => 'personnal.'], function () {
     Route::get('chambres', [ChambreController::class, 'index'])->name('chambres.index');
     Route::get('chambres/{chambre}', [ChambreController::class, 'show'])->name('chambres.show');
 });

@@ -23,33 +23,39 @@ $mailRegex = '[^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$]';
 
 Route::get('/parametres', function () {
     return view ('parametres');
-})/* ->middleware(['auth', 'verified']) */
+})->middleware(['auth', 'verified'])
 ->name('parametres');
 
-Route::group(['middleware' => ['auth', 'permission:Gérer les Départements|Gérer les Communes|Gérer les Arrondissements|Gérer les Quartiers|Gérer les Hôtels|Gérer les Types de Chambres|Gérer les Types de Services|Gérer les Rôles|Gestion des Utilisateurs|Gérer les Utilisateurs|Gérer les Chambres|Gérer les Réservations|Gérer les Demandes de Services']], function () {
+Route::group(['middleware' => ['auth', 'verified', 'permission:Gérer les Départements|Gérer les Communes|Gérer les Arrondissements|Gérer les Quartiers|Gérer les Hôtels|Gérer les Types de Chambres|Gérer les Types de Services|Gérer les Rôles|Gestion des Utilisateurs|Gérer les Utilisateurs|Gérer les Chambres|Gérer les Réservations|Gérer les Demandes de Services']], function () {
     Route::get('statistiques', [StatistiquesController::class, 'index'])->name('statistiques');
 });
 
 Route::get('client-show-profile/{user}', [ProfileController::class, 'show'])
 ->name('client-profile.show')
-->where(['user' => $idRegex]);
+->where(['user' => $idRegex])
+->middleware('auth', 'verified');
 
-Route::get('client-update-profile/{user}', [ProfileController::class, 'edit'])
+Route::get('client-edit-profile/{user}', [ProfileController::class, 'edit'])
 ->name('client-profile.edit')
-->where(['user' => $idRegex]);
+->where(['user' => $idRegex])
+->middleware('auth', 'verified');
 
 Route::put('client-update-profile/{user}', [ProfileController::class, 'update'])
 ->name('client-profile.update')
-->where(['user' => $idRegex]);
+->where(['user' => $idRegex])
+->middleware('auth', 'verified');
 
 Route::get('personnal-show-profile/{user}', [ProfileController::class, 'show'])
 ->name('personnal-profile.show')
-->where(['user' => $idRegex]);
+->where(['user' => $idRegex])
+->middleware('auth', 'verified');
 
-Route::get('personnal-update-profile/{user}', [ProfileController::class, 'edit'])
+Route::get('personnal-edit-profile/{user}', [ProfileController::class, 'edit'])
 ->name('personnal-profile.edit')
-->where(['user' => $idRegex]);
+->where(['user' => $idRegex])
+->middleware('auth', 'verified');
 
 Route::put('personnal-update-profile/{user}', [ProfileController::class, 'update'])
 ->name('personnal-profile.update')
-->where(['user' => $idRegex]);
+->where(['user' => $idRegex])
+->middleware('auth', 'verified');

@@ -51,6 +51,9 @@ class Hotel extends Model
             });
 
             static::deleting(function ($hotel) use ($userFullName) {
+                $hotel->chambres->each(function ($chambre) {
+                    $chambre->delete();
+                });
                 $hotel->deleted_by = $userFullName;
                 $hotel->save();
             });
