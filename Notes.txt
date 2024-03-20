@@ -1,6 +1,8 @@
 -Sur le Formulaire de Hôtel chez l'admin et celui de User chez le super admin, les anciennes valeurs
 pour les selects dynamiques sontpas très faciles à gérer pour ne pas l'obliger à re-sàlectionner;
 
+-Le nombre de clients dans l'Hôtel d'un personnel
+
 -Le champ two_factor_confirmed_at qui refuse de se remplir pour achever la double authentification;
 
 -Jobs avec Fortify pour ne pas faire attendre l'utilisateur.

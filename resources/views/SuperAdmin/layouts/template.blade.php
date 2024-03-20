@@ -79,7 +79,7 @@
                             <div class="dropdown-menu">
                                 {{-- <a class="dropdown-item" href="#">Message</a>
                                 <a class="dropdown-item" href="#">Settings</a> --}}
-                                <a class="dropdown-item" href="{{ route('clients.hotels.index') }}" style="font-weight: bold;"><i class="fa-solid fa-user" style="margin-right: 7px;"></i>Page d'acceuil</a>
+                                <a class="dropdown-item" href="{{ route('clients.hotels.index') }}" style="font-weight: bold;"> <i class="fa-solid fa-user" style="margin-right: 7px;"></i> Page d'acceuil</a>
                                 <a class="dropdown-item" href="{{ route('personnal-profile.show', ['user' => auth()->user()->id]) }}" style="font-weight: bold;"><i class="fa-solid fa-user" style="margin-right: 7px;"></i>Profile</a>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
