@@ -32,7 +32,7 @@
             @endhasrole
           @endauth
         </ul>
-        @hasrole('Client')<a class="nav-link active" href="{{ route('contact.us.form') }}" style="color: white;"><i class="fa-solid fa-phone"></i> Nous-contacter</a>@endhasrole
+        @hasrole('Client')<a class="nav-link active" href="{{ route('contact.us.form') }}" style="color: white;"><i class="fa-solid fa-envelope"></i> Nous-contacter</a>@endhasrole
         <li class="nav-item dropdown d-flex mx-5" style="color: white;">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Autres options</a>
             <div class="dropdown-menu">

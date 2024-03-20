@@ -38,7 +38,6 @@
                         <div class="form-gp">
                             <label for="date_naissance">Date de Naissance</label>
                             <input type="date" id="date_naissance" name="date_naissance"  value="{{ old('date_naissance') }}">
-                            <i class="ti-user"></i>
                             <div class="text-danger" style="font-size: 0.7rem;">
                                 @error('date_naissance')
                                     {{ $message }}
@@ -68,7 +67,7 @@
                         <div class="form-gp">
                             <label for="email">Email</label>
                             <input type="text" id="email" name="email"  value="{{ old('email') }}">
-                            <i class="ti-user"></i>
+                            <i class="fa-solid fa-envelope"></i>
                             <div class="text-danger" style="font-size: 0.7rem;">
                                 @error('email')
                                     {{ $message }}
@@ -78,7 +77,7 @@
                         <div class="form-gp">
                             <label for="telephone">Téléphone</label>
                             <input type="text" id="telephone" name="telephone"  value="{{ old('telephone') }}">
-                            <i class="ti-user"></i>
+                            <i class="fa-solid fa-phone"></i>
                             <div class="text-danger" style="font-size: 0.7rem;">
                                 @error('telephone')
                                     {{ $message }}
@@ -88,7 +87,7 @@
                         <div class="form-gp">
                             <label for="password">Mot de Passe</label>
                             <input type="password" id="password" name="password">
-                            <i class="ti-lock"></i>
+                            <i class="fa-solid fa-lock"></i>
                             <div class="text-danger" style="font-size: 0.7rem;">
                                 @error('password')
                                     {{ $message }}
@@ -98,7 +97,7 @@
                         <div class="form-gp">
                             <label for="password_confirmation">Confirmer Mot de passe</label>
                             <input type="password" id="password_confirmation" name="password_confirmation">
-                            <i class="ti-lock"></i>
+                            <i class="fa-solid fa-lock"></i>
                             <div class="text-danger" style="font-size: 0.7rem;">
                                 @error('password_confirmation')
                                     {{ $message }}

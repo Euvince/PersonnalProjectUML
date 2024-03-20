@@ -23,7 +23,7 @@
                         <div class="form-gp">
                             <label for="email">Email</label>
                             <input type="text" id="email" name="email"  value="{{ old('email') }}">
-                            <i class="ti-user"></i>
+                            <i class="fa-solid fa-envelope"></i>
                             <div class="text-danger">
                                 @error('email')
                                     {{ $message }}

@@ -8,7 +8,7 @@
         <div class="row ml-2">
             <a class="btn btn-danger mb-3 mx-2" style="color: white;" x-show="servicesChecked.length > 0" x-on:click="$wire.cannotRanderedServices(servicesChecked)" x-cloak><i class="fa fa-x"></i></a>
             {{-- <a class="btn btn-success mb-3" style="color: white;" x-show="servicesChecked.length > 0" x-on:click="$wire.confirmServices(servicesChecked)" x-cloak><i class="fa-solid fa-circle-check"></i></a> --}}
-            <a class="btn btn-danger mb-3 mx-2" style="color: white;" x-show="servicesChecked.length > 0" x-on:click="$wire.cancelServices(servicesChecked)" x-cloak><i class="fa fa-trash"></i></a>
+            <a class="btn btn-danger mb-3 mx-2" style="color: white;" x-show="servicesChecked.length > 0" x-on:click="$wire.cancelDemandes(servicesChecked)" x-cloak><i class="fa fa-trash"></i></a>
             <a href="{{ route('service-personnal.demande-service.create') }}" class="btn btn-primary mb-3 ml-1"><i class="fa fa-plus"></i> Créer une demande de service</a>
         </div>
 
@@ -50,7 +50,12 @@
                                                 @method('patch')
                                                 <button class="btn btn-success btn-sm"><i class="fa-solid fa-circle-check"></i> </button>
                                             </form>
-                                            <a href="{{ route('service-personnal.demande.cannotrendered', ['demande_service' => $service->id]) }}" class="btn btn-danger btn-sm mx-1"><i class="fa-solid fa-x"></i></a>
+
+                                            <form action="{{ route('service-personnal.demande.cannotrendered', ['demande_service' => $service->id]) }}" method="POST" class="mx-1">
+                                                @csrf
+                                                @method('patch')
+                                                <button class="btn btn-danger btn-sm"><i class="fa-solid fa-x"></i> </button>
+                                            </form>
                                         @endif
                                         <a href="{{ route('service-personnal.demande-service.show', ['demande_service' => $service->id]) }}" class="btn btn-primary btn-sm mx-1"><i class="fa-solid fa-eye"></i></a>
                                         @if (!$service->isRendered()&& $service->chambre->isOccupied())

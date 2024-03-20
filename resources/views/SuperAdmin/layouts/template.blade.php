@@ -1,3 +1,10 @@
+@php
+    use App\Models\Service;
+    use App\Models\Reservation;
+    $services = Service::where('rendu', 0)->get();
+    $reservations = Reservation::where('confirme', 0)->get();
+@endphp
+
 @include('SuperAdmin.layouts.partials.header')
 
 <!--[if lt IE 8]>
@@ -33,7 +40,14 @@
                             @canAny(['Gérer les Réservations', 'Gérer les Demandes de Services'])
                                 <li class="dropdown">
                                     <i class="ti-bell dropdown-toggle" data-toggle="dropdown">
-                                        <span>2</span>
+                                        <span>
+                                            @can('Gérer les Réservations')
+                                                {{ $reservations->count() }}
+                                            @endcan
+                                            @can('Gérer les Demandes de Services')
+                                                {{ $services->count() }}
+                                            @endcan
+                                        </span>
                                     </i>
                                     @include('SuperAdmin.layouts.partials.notifications')
                                 </li>
