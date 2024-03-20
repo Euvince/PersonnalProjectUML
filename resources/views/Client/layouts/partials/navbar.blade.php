@@ -36,6 +36,23 @@
         <li class="nav-item dropdown d-flex mx-5" style="color: white;">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Autres options</a>
             <div class="dropdown-menu">
+              @canAny ([
+                'Gérer les Départements',
+                'Gérer les Communes',
+                'Gérer les Arrondissements',
+                'Gérer les Quartiers',
+                'Gérer les Hôtels',
+                'Gérer les Types de Chambres',
+                'Gérer les Types de Services',
+                'Gérer les Moyens de Paiement',
+                'Gérer les Rôles',
+                'Gérer les Utilisateurs',
+                'Gérer les Chambres',
+                'Gérer les Réservations',
+                'Gérer les Demandes de Services',
+              ])
+                <a class="dropdown-item" href="{{ route('statistiques') }}"><i class="fa-solid fa-chart-simple"></i> Statistiques</a>
+              @endcanAny
               @guest
                 <a class="dropdown-item" href="{{ route('login') }}"><i class="fa-solid fa-right-to-bracket"></i> Se connecter</a>
                 <a class="dropdown-item" href="{{ route('register') }}"><i class="fa-solid fa-registered"></i> Créer un compte</a>
