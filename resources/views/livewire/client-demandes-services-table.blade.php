@@ -27,7 +27,7 @@
             <a href="{{ route('clients.chambres.ask-service', ['chambre' => $reservation->chambre->id]) }}" class="btn btn-primary mb-3 ml-1"><i class="fa fa-plus"></i> Demander un service</a>
         </div>
         <div class="row">
-            @forelse ($services as $k => $service)
+            @if ($services->count() > 0)
             <table class="table table-hover table-striped">
                 <thead>
                   <tr>
@@ -41,7 +41,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($services as $service)
+                    @foreach ($services as $k => $service)
                     <tr class="table-active">
                         <td>
                             @if (!$service->isRendered())
@@ -74,12 +74,12 @@
                               <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Souhaitez-vous vraiment annuler cette demande de service ?</font></font></p>
                             </div>
                             <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Annuler</font></font></button>
                                 <form action="{{ route('clients.chambres.service-cancel', ['demande_service' => $service->id]) }}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <button type="button" class="btn btn-danger"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Continuer</font></font></button>
-                                  </form>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Annuler</font></font></button>
+                                    <button type="submit" class="btn btn-danger"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Continuer</font></font></button>
+                                </form>
                             </div>
                           </div>
                         </div>
@@ -87,9 +87,8 @@
                   @endforeach
                 </tbody>
               </table>
-            @empty
-                Aucun service demandé dans cette chambre.
-            @endforelse
+            @else <h5 class="mt-2"><strong>Aucune service demandé dans cette chambre</strong></h5>
+            @endif
         </div>
     </div>
     {{ $services->links() }}

@@ -18,6 +18,7 @@ use App\Http\Requests\ReceptionPersonnal\ReservationFormRequest;
 use App\Jobs\CancelReservationJob;
 use App\Jobs\ConfirmReservationJob;
 use App\Jobs\EditReservationJob;
+use App\Models\Service;
 
 class ReservationController extends Controller
 {
@@ -230,11 +231,15 @@ class ReservationController extends Controller
     public function destroy(Reservation $reservation) : RedirectResponse
     {
         $reservation->delete();
-        $paiement = Paiement::find($reservation->paiement->id);
+        $paiement = Paiement::where('reservation_id', $reservation->id)->first();
         $paiement->delete();
         foreach ($paiement->factures as $facture) {
             $facture->delete();
         }
+        $services = Service::where('email_client', $reservation->email_client)->get();
+        $services->each(function ($service) {
+            $service->delete();
+        });
         if ($reservation->chambre->isOccupied()) {
             $reservation->chambre->markAsAvailable();
         }

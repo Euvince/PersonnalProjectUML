@@ -1,3 +1,7 @@
+@php
+    $routeName = request()->route()->getName();
+@endphp
+
 @extends('Client.layouts.template')
 
 @section('title', 'Demander un service')
@@ -25,12 +29,13 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ request()->route()->getName() === 'clients.chambres.edit-service' ? route('clients.chambres.edit-service', ['demande_service' => $demande_service->id]) : route('clients.chambres.service-send', ['chambre' => $chambre->id]) }}">
+    <form method="POST" action="{{ /* $routeName === 'clients.chambres.edit-service' */ $demande_service->exists ? route('clients.chambres.service-update', ['demande_service' => $demande_service->id]) : route('clients.chambres.service-send', ['chambre' => $chambre->id]) }}">
         @csrf
+        @method(/* $routeName === 'clients.chambres.edit-service' */ $demande_service->exists ? 'put' : 'post')
         <div class="row">
             <div>
                 <label for="description" class="form-label mt-4">Description</label>
-                <textarea class="form-control" id="description" name="description" rows="3">{{ old('description') }}</textarea>
+                <textarea class="form-control" id="description" name="description" rows="3">{{ old('description', $demande_service->description) }}</textarea>
                 @error('description')
                     <span style="color: red; font-size: 0.7rem;">{{ $message }}</span>
                 @enderror

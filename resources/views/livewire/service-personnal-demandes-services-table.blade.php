@@ -40,9 +40,7 @@
                                     <p class="card-text" style="font-size: 13px;"><strong>{{ Str::limit($service->chambre->libelle, 25, '...') }}</strong></p>
                                     <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center mb-3">
                                         <strong>{{  $service->statut }}</strong>
-                                        @if ($service->isRendered())
-                                            <span class="badge bg-primary rounded-pill" style="color: white;">Rendu</span>
-                                        @endif
+                                        <span class="badge bg-primary rounded-pill" style="color: white;">{{ $service->isRendered() ? 'Rendu' : 'Non rendu' }}</span>
                                         <span class="badge bg-primary rounded-pill">{{ number_format($service->TypeService->prix, 0, ',', '.')}}$</span>
                                     </li>
                                     <div class="d-flex">

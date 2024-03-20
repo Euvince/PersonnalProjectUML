@@ -205,6 +205,7 @@ class ClientController extends Controller
 
     public function showFormToAskService(Chambre $chambre) : RedirectResponse | View
     {
+        $demande_service = new Service();
         if ($chambre->isOccupied() &&
             $chambre->reservations
             ->where('confirme', 1)
@@ -214,6 +215,7 @@ class ClientController extends Controller
         ) {
             return view('Client.DemandeService.demande-service-form', [
                 'chambre' => $chambre,
+                'demande_service' => $demande_service,
                 'typesServices' => TypeService::all()->pluck('type', 'id')
             ]);
         }
@@ -236,9 +238,10 @@ class ClientController extends Controller
         ]));
 
         DemandeServiceJob::dispatch($service);
+        $reservation = Reservation::where('chambre_id', $service->chambre_id)->first();
         return
             redirect()
-            ->route('clients.services')
+            ->route('clients.services', ['reservation' => $reservation->id])
             ->with('success', 'Votre demande de service a été envoyé avec succès.');
     }
 
@@ -259,6 +262,7 @@ class ClientController extends Controller
         ) {
             return view('Client.DemandeService.demande-service-form', [
                 'demande_service' => $demande_service,
+                'chambre' => $demande_service->chambre,
                 'typesServices' => TypeService::all()->pluck('type', 'id')
             ]);
         }
@@ -266,6 +270,16 @@ class ClientController extends Controller
             redirect()
             ->route('clients.hotels.index')
             ->withErrors(['error' => 'Vous ne pouvez pas éditer de demande de service dans cette chambre.']);
+    }
+
+    public function updateDemandeService(DemandeServiceFormRequest $request, Service $demande_service) : RedirectResponse
+    {
+        $demande_service->update($request->validated());
+        $reservation = Reservation::where('chambre_id', $demande_service->chambre_id)->first();
+        return
+            redirect()
+            ->route('clients.services', ['reservation' => $reservation->id])
+            ->with('success', 'Votre demande de service a été éditée avec succès.');
     }
 
     public function cancelDdemandeService(Service $demande_service) : RedirectResponse

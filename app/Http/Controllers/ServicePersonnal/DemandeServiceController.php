@@ -125,7 +125,7 @@ class DemandeServiceController extends Controller
             ->reservations
             ->where('confirme', 1)
             ->where('termine', 0)
-        ->get();
+        ->first();
         if ($reservation->nom_client !== $request->nom_client ||
             $reservation->email_client !== $request->email_client ||
             $reservation->prenoms_client !== $request-> prenoms_client ||
@@ -133,7 +133,7 @@ class DemandeServiceController extends Controller
         ) {
             return
                 back()
-                ->with('error', 'Revérifiez les informations du client occupant la chamnbre s\'il vous plaît.')
+                ->with('error', 'Revérifiez les informations du client occupant la chambre s\'il vous plaît.')
                 ->withInput();
         }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use DateTime;
+use App\Models\Service;
 use Livewire\Component;
 use App\Models\Paiement;
 use App\Models\Reservation;
@@ -68,11 +69,15 @@ class ReceptionPersonnalReservationsTable extends Component
         foreach ($ids as $id) {
             $reservation = Reservation::find($id);
             $reservation->delete();
-            $paiement = Paiement::find($reservation->paiement->id);
+            $paiement = Paiement::where('reservation_id', $reservation->id)->first();
             $paiement->delete();
             foreach ($paiement->factures as $facture) {
                 $facture->delete();
             }
+            $services = Service::where('email_client', $reservation->email_client)->get();
+            $services->each(function ($service) {
+                $service->delete();
+            });
             /* ÉCRIRE LE CODE POUR REMBOURSER CHAQUE CLIENT */
             CancelReservationJob::dispatch($reservation);
         }
