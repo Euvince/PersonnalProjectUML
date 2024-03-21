@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Reservation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -16,7 +17,9 @@ class CheckOutMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(
+        public Reservation $reservation
+    )
     {
         //
     }
@@ -27,6 +30,7 @@ class CheckOutMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
+            to: $this->reservation->email_client,
             subject: 'Check Out Mail',
         );
     }
@@ -38,6 +42,7 @@ class CheckOutMail extends Mailable
     {
         return new Content(
             markdown: 'mail.check-out-mail',
+            with: ['reservation' => $this->reservation]
         );
     }
 

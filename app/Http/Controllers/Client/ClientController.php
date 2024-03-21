@@ -21,6 +21,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Jobs\ReservationPaymentJob;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use App\Http\Requests\Client\ReservationFormRequest;
+use App\Jobs\CheckOutJob;
 use App\Jobs\DemandeServiceJob;
 use App\Models\Service;
 use App\Models\TypeService;
@@ -335,6 +336,8 @@ class ClientController extends Controller
                 'email_client' => $reservation->email_client,
                 'telephone_client' => $reservation->telephone_client,
             ]);
+
+            CheckOutJob::dispatch($reservation);
 
             $reservation->markAsFinished();
 
