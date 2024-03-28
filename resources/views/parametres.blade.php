@@ -1,7 +1,9 @@
 @extends('Client.layouts.template')
 
+@section('title', 'Paramètres')
+
 @section('content')
-    @dump(session('status'))
+    {{-- @dump(session('status')) --}}
     @if (!auth()->user()->two_factor_secret)
         <h5><strong>Vous n'avez pas activer la double authentification</strong></h5>
 

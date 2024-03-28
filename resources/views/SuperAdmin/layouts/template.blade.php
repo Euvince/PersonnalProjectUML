@@ -81,6 +81,7 @@
                                 <a class="dropdown-item" href="#">Settings</a> --}}
                                 <a class="dropdown-item" href="{{ route('clients.hotels.index') }}" style="font-weight: bold;"> <i class="fa-solid fa-user" style="margin-right: 7px;"></i> Page d'acceuil</a>
                                 <a class="dropdown-item" href="{{ route('personnal-profile.show', ['user' => auth()->user()->id]) }}" style="font-weight: bold;"><i class="fa-solid fa-user" style="margin-right: 7px;"></i>Profile</a>
+                                <a class="dropdown-item" href="{{ route('parametres') }}" style="font-weight: bold;"><i class="fa-solid fa-gear" style="margin-right: 7px;"></i>Paramètres</a>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
                                     @method('post')

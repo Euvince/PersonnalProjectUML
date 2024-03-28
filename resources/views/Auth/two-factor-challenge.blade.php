@@ -5,7 +5,7 @@
 @section('content')
 
      <!-- login area start -->
-    {{-- <div class="login-area">
+    <div class="login-area">
         <div class="container">
             <div class="login-box ptb--100">
                 <form action="{{ url('/two-factor-challenge') }}" method="POST">
@@ -35,13 +35,7 @@
                         </div>
                     </div>
                 </form>
-            </div>
-        </div>
-    </div> --}}
 
-    <div class="login-area">
-        <div class="container">
-            <div class="login-box ptb--100">
                 <form action="{{ url('/two-factor-challenge') }}" method="POST">
                     @csrf
                     <div class="login-form-head">
