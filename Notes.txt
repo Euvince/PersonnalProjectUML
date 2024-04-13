@@ -7,6 +7,6 @@ pour les selects dynamiques sontpas très faciles à gérer pour ne pas l'oblige
 
 -Le nombre de clients dans l'Hôtel d'un personnel;
 -Ajouter la route de téléchargement de la facture pour le personnel de réception
--Configurer les factures de fin
+-Configurer les factures de fin(Mettre la facture dans le mail du check-out)
 
 -------------------------------------------------------------------------------------------------------------
