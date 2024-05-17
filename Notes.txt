@@ -1,12 +1,7 @@
 -Sur le Formulaire de Hôtel chez l'admin et celui de User chez le super admin, les anciennes valeurs
 pour les selects dynamiques sontpas très faciles à gérer pour ne pas l'obliger à re-sàlectionner;
 
--Peut afficher au client sur l'application les notifications de rappel;
-
--------------------------------------------------------------------------------------------------------------
-
 -Le nombre de clients dans l'Hôtel d'un personnel;
 -Ajouter la route de téléchargement de la facture pour le personnel de réception
 -Configurer les factures de fin(Mettre la facture dans le mail du check-out)
-
 -------------------------------------------------------------------------------------------------------------
